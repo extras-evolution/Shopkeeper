@@ -5,7 +5,7 @@
  * Shopping cart for MODx Evolution
  *  
  * @category 	   snippet
- * @version 	   1.3.4
+ * @version 	   1.3.6RC
  * @license 	   http://www.gnu.org/copyleft/gpl.html GNU Public License (GPL)
  * @internal	   @properties &tplPath=Папка с чанками;textarea;
  * @internal	   @modx_category Shop
