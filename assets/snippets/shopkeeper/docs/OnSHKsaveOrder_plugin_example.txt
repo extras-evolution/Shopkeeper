@@ -1,0 +1,35 @@
+/*
+ * Плагин переводит заказ в статус "Отправлен" (название меняется в яз. файле) и пересчитывает кол-во товара на складе сразу после отправки заказа.
+ *  
+ * Системное событие: OnSHKsaveOrder
+ * 
+ */
+
+
+$e = &$modx->Event;
+
+$output = "";
+
+if ($e->name == 'OnSHKsaveOrder') {
+  
+  $order_id = isset($id) && is_numeric($id) ? $id : 0;
+  $purchases = isset($purchases) && is_array($purchases) ? $purchases : array();
+  if(!$id || !count($purchases)) return;
+  
+  //вытаскиваем имя TV кол-ва на складе из конфигурации модуля
+  $conf_inventory = $modx->db->getValue($modx->db->select("value",$modx->getFullTableName('manager_shopkeeper_config'),"setting = 'conf_inventory'"));
+  
+  //изменем статус на Отправлен
+  $update_status = $modx->db->update(array('status'=>3),$modx->getFullTableName('manager_shopkeeper'),"`id` = '$order_id'");
+  
+  //Обновляем значения TV кол-ва товаров на складе
+  require_once MODX_BASE_PATH."assets/snippets/shopkeeper/classes/class.shopkeeper.php";
+  require_once MODX_BASE_PATH."assets/snippets/shopkeeper/classes/class.SHKmanager.php";
+  
+  $shkm = new SHKmanager($modx);
+  
+  $p_allowed = $shkm->allowedArray('all',$purchases);
+  $shkm->updateInventory($purchases,$p_allowed,$conf_inventory);
+  $modx->clearCache();
+
+}

@@ -1,0 +1,285 @@
+
+What's new in Shopkeeper 1.3.5
+
+Function live() replaced by livequery() (plugin) support for Internet Explorer.
+
+------------------------------------------------------------------
+
+What's new in Shopkeeper 1.3.4
+
+1. Removed the possibility to buy goods with zero count.
+
+2. Fixed bug CSV export orders.
+
+3. Small utility.
+
+------------------------------------------------------------------
+
+What's new in Shopkeeper 1.3.3
+
+1. Removed the possibility of a negative number to order the goods.
+
+2. Fixed an issue that arose in browsers other than Firefox, when a change in the number of goods in the basket, if you select, the window does not appear and the new number has not been applied.
+
+3. ParamEdit plugin updated to version 1.7 and is included in the Shopkeeper (see assets/plugins/paramEdit/readme_rus.txt).
+
+4. Fixed changing the number format using the add. parameters with the option snippet &changePrice = `1`.
+
+5. Now you can customize the snippet Shopkeeper through the properties ("Elements" -> "Manage Elements" -> "Snippets" -> "Shopkeeper" -> "Properties"). These settings will take precedence when using ajax. It is useful for extra security.
+
+------------------------------------------------------------------
+
+What's new in Shopkeeper 1.3
+
+1. Contact information of order now stored in the database as an array (serialized) and render on printing (not when saving).
+
+2. For contact information in the list of orders added to a separate template (in module configuration).
+
+3. In the snippet added parameter &tplPath - path to the folder with the chunks. Default &tplPath=`assets/snippets/shopkeeper/chunks/ru/`
+
+4. On the page where the snippet Shopkeeper is called now available placeholders
+   [+totalItems+] - count of items in cart
+   [+totalPrice+] - total price
+
+5. Updated catalogView snippet to version 1.2.3 (read assets/snippets/catalogView/changes.txt).
+
+6. To the package of added plugin SHKprintOrder (print order data).
+
+7. Selected by adding additional product options now can be displayed separately from [+addit_data+] (with the prefix "shk_"). Example: [+shk_param1+]
+
+8. Fixed small and not very wrong.
+
+------------------------------------------------------------------
+
+What's new in Shopkeeper 1.2
+
+1. In the order management module in detail the order is made to add item to order (on the "Edit" tab).
+
+2. The module control orders made filtering orders for ID, stutus, date and user data (address, e-mail, full name).
+
+3. Updated catalogView snippet to version 1.2.2.
+
+4. Fixed small and not very wrong.
+
+Sponsor Release - Studio "Simple Dream"
+http://www.simpledream.ru/
+
+------------------------------------------------------------------
+
+What's new in Shopkeeper 1.0.1:
+
+1. Fixed minor bugs.
+
+2. Fixed problem with adding items to the catalog (do not specify the required template) in the test site.
+
+------------------------------------------------------------------
+
+What's new in Shopkeeper 1.0
+
+1. Now we have a choice: products-documents (as before), or stored in a separate database table. When storing items in a separate table, you can forget about the restriction on the number of documents MODx. Products can put in any document (category) by selecting the document tree.
+
+2. To display items made snippet catalogView (see install/_upload/assets/snippets/catalogView/readme.txt), which is optimized for a large number of products. It also can be used instead of Ditto.
+
+3. For the products stored in a separate database table used by the plugin SaveToSHK.
+
+4. Language file module is separated from the language file snippet.
+
+5. Added an event for plugins:
+    OnSHKmodRenderTopLinks - output links at the top of the module Shopkeeper.
+    OnSHKmodPagePrint - page output module. Can use to create your page (see example OnSHKmodPagePrint_plugin_example.txt).
+    OnSHKbeforeSendOrder - before sending the order. Can be used to change the fields ($fields).
+    OnSHKsaveOrder - the preservation of order.
+    OnSHKcalcTotalPrice - calculation of the total cost.
+
+6. Now add. parameters of the fields, such as
+    <input type="text" name="test__[*id*]__add" value="test value" />
+    in the cart row can be displayed placeholder - [+test+].
+
+7. Snippet and extender for Ditto SHKwidget replaced by PHx-modifier shk_widget.
+    Example usage: [+param1:shk_widget=`select:param1:first_selected`+]
+
+8. Added parameter &excepDigitGroup - split the number of prices in a cart on the groups. Default is on (`1`).
+
+9. Made PHx-modifier num_format to split the number of prices in a cart on the groups at the displaying of the products. 
+   Example usage: [+price:num_format+]
+
+10. Changed the structure of files and folders. Therefore, when upgrading to remove all the old files Shopkeeper and upload new ones.
+
+11. Made a snippet "getChildParents" to search for child categories of parent.
+
+12. Made a snippet "include" insert
+     - non-cached chunks
+     - snippets from files
+     - placeholder (if installed plugin PHx, since it can cut them)
+
+13. Updated jQuery to version 1.4.4. Made compatible with this version.
+
+14. Fixed a problem with the showing of "helper" and tips. Now, they always appear without a "blink".
+
+15. Changed style of the buttons in the module.
+
+16. The module is made lock to save any changes, if the manager has no permission to "Saving resources" (save_document).
+
+17. Fixed minor bugs.
+
+------------------------------------------------------------------
+
+What's new in Shopkeeper 0.9.6.1
+
+1. Fixed a bug due to which sometimes occurred when ordering SQL-error.
+
+2. Fixed a bug which caused a possible SQL-injection (deliberate challenge to SQL-error).
+
+3. Fixed some problems with PHx.
+
+5. Other minor fixes.
+
+6. Updated German language files.
+
+------------------------------------------------------------------
+
+What's new in Shopkeeper 0.9.6:
+
+1. Added event to create plugins:
+
+OnSHKFrontendInit - initialization snippet Shopkeeper in the frontend;
+OnSHKChangeStatus - change order status;
+OnSHKOrderDescRender - output details about the order in module;
+OnSHKMailApprovedForPayment - sending a letter with the status "accepted for payment." The plugin can add additional letter information ([+plugin+]).
+OnSHKcartLoad - loading shoping cart (display information in chunk &cartTpl - [+plugin+]).
+OnSHKstatusSendMail - sending a letter to change status.
+
+In the folder shopkeeper/docs/ are two examples of plug-ins.
+
+2. Fixed a bug in the archive of orders that occurred when removing the goods, which was in order.
+Now save all the data (including the value of TV) and then removing products in the archive they remain.
+
+3. Made to add to shopping cart data, without creating a TV.
+Example:
+<input type="hidden" name="test__[*id*]__add" value="test" />
+To cart add parameter "test".
+
+4. Made multiplication in "real time". Now multiply the price is the same as the amount (depending on the additional options) immediately before adding the item to your cart.
+
+5. The module is made refactoring code. Key features delivered in class SHKmanager.
+
+6. In the configuration of the module added to the "Cancel an order through, day(s)." Orders in the status of "accepted for payment" into the "Cancelled" across the number of days specified in this field.
+
+7. Made installer. Changed folder structure: Chunks  are now in the folder assets/snippets/shopkeeper/chunks/, the folder install/ removed from the snippets/shopkeeper/.
+
+8. In the JS-code, made to create their "callback-functions":
+setCartActionsCallback (reloading cart), fillCartCallback (add items to cart), emptyCartCallback (cleaning cart).
+Simply create a function with such names and they will be called when the relevant actions.
+
+9. In the module is made information system. At the bottom of the page will show information such as to send a letter to the buyer.
+
+10. Made it possible for a single product set different prices. To do this, create two or more forms (<form>) and in the field of name="shk-id" after the ID to write the name of TV with the price. Example:
+<input type="hidden" name="shk-id" value="[+id+]__price2" />
+
+11. You can now send messages by changing the status to "Cancelled". If a module configuration field for the name chunk is empty, the letter otpralyatsya will not.
+
+12. The module can specify the tracking order number.
+
+13. If you change the order status window appears, confirm it.
+
+14. In the templates (chunks) supported PHx.
+
+15. Insatalling demo-site.
+
+16. Adding and removing products from shopping cart on JavaSript:
+jQuery.fillCart(85) - add to cart product with ID=85;
+jQuery.deleteItem(0) - remove from shopping cart first product.
+
+17. Fixed minor bugs and not very.
+
+
+------------------------------------------------------------------
+
+What's new in Shopkeeper 0.9.5:
+
+1. Fixed bug in SKwidget (extender Ditto and a snippet) with faulty parameter &first_selected. Error introduced in 0.9.4.
+
+2. The module is made export orders in CSV-file.
+
+3. Now the values of the TV-parameters falling in the basket, working @-bindings (@EVAL, @INHERIT, etc.).
+
+4. Fixed bug with &orderDataTpl (http://modxcms.com/forums/index.php/topic, 31961.msg284609.html # msg284609).
+
+5. Fixed a bug with the statistics purchases (introduced in 0.9.4). Now it is recognized only for registered users.
+
+6. Fixed. Now the JavaScript-function work if the site is located in the folder of domain (not the root). 
+
+
+------------------------------------------------------------------
+
+
+What's new in Shopkeeper 0.9.4:
+
+1. Ability to edit the composition of incoming order. You can remove a single product, if it is not available, or the like.
+
+2. In the configuration setup appears to "Send email to the buyer". Letters when you change the order status. Letters will be sent during the installation status "accepted for payment" and "Sent". Templates for letters are in the folder shopkeeper/module/templates/. In the configuration of the module, you can specify other files of templates or the names of the chunk.
+
+3. Number of products in stock now occurs after the manager will transfer the order to the status of "Sent". Removed options snippet &inventory and &clearCacheAfter. If a module configuration field "Accounting for stock status (name of TV)" is empty, the amount of stock is not counted.
+
+4. In the snippet SHKwidget type has been added widget "radioimage" (&format=`radioimage`). This widget is used for visual presentation of a list of available colors or materials for the goods. Pictures of colors, materials, etc. loaded with TV-image. When editing a product, you can choose from the list.
+
+5. The module information registered user who made the order, opens a small window without the transition to a separate page.
+
+6. Removed option &gotoid. Now the basket will be cleared after submitting the order, regardless of whether specified in the call option eForm &gotoid (Will move to another page).
+
+7. In this module - graph ID. In the template chunk_shopOrderReport.tpl added pleysholder [+orderID+] - Number (ID) order.
+
+8. Site templates can use an absolute path (or relative as before).
+
+9. Fixed a serious bug because an attacker could temporarily change the price of the goods and put it in the shopping cart. Added option &priceTV.
+
+10. Parameter &clStuffCont renamed &stuffCont. Now it can specify CSS-selector element, inside which there is information about a product (eg &stuffCont=`div.product`).
+
+11. Supported by multiplying the price extra parameter. If the value of parameter specify the price with the symbol "*" (asterisk without the quotes), then the price of goods multiplied by the price of parameter. Example of additional parameter: 100 g.==*1||150 g.==*1.5||200 g.==*2
+
+12. Fixed some minor errors and omissions. 
+
+13. Updated documentation.
+
+Updating
+In 0.9.4, much has changed, so to upgrade from previous versions need to reinstall the module and replace all the files and codes. To reinstall the module, click on "Configuration" -> "Delete all records". Then replace the files and click "Install module". From 0.9.x chunks update is not necessary but desirable.
+Pleasant and easy upgrade, and automatic conversion of tables in the database until this unfortunately is not.
+
+
+------------------------------------------------------------------
+
+What's new in Shopkeeper 0.9.3
+
+1. Fixed bug with incorrect operation of the parameter &lang.
+   Now the values have to write as well as the name of the language file (some renamed)
+   eg &lang = `english` (default - manager language).
+
+2. Fixed bug with clearing user statistics as editing its data in the admin area.
+   Added a new table in database - web_user_additdata.
+
+3. Added parameter &clearCacheAfter=`1` to clear the cache after order submit.
+   Useful if you use &inventory.
+
+4. In chunk cartRowTpl can use any TV like placeholder.
+   For example to display images in your shopping cart to add the following code:
+   <img src="[+image+]" width="50" alt="[+name+]" />
+
+5. In the name of the goods, you can use double and single quotation marks.
+
+6. Have been made the new JS-functions that can be used at any point in your code:
+   jQuery.emptyCart () - empty the shopping cart;
+   jQuery.refreshCart () - update shopping cart.
+
+7. Made Chunk for the parameters of goods in a shopping cart ([+addit_data+]):
+   &additDataTpl=`additDataTpl`.
+
+8. Made a partial refactoring PHP-code.
+
+9. The module status color is now selected in visual mode.
+
+10. Made for Chunk [+orderData+] (&repotr eForm)
+    &orderDataTpl
+
+11. in Chunk &cartRowTpl added placeholder [+price_total+] - the price of goods + parameters.
+
+12. Updated Russian and English documentation.

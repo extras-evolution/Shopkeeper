@@ -1,0 +1,39 @@
+//<?php
+
+/*
+ *
+ * Shopkeeper plugin example
+ * 
+ * System event: OnSHKFrontendInit
+ * 
+ */
+
+defined('IN_MANAGER_MODE') or die();
+
+
+$e = &$modx->Event;
+
+$output = "";
+
+if ($e->name == 'OnSHKFrontendInit') {
+  
+  if(isset($_SESSION['purchases'])){
+    
+    $purchases = unserialize($_SESSION['purchases']);
+    
+    foreach($purchases as $key => $value){
+      
+      $output .= "ID: $value[0], count: $value[1], price: $value[2]<br />";
+      
+    }
+    
+  }
+  
+  $output .= '';
+  
+  $e->output($output);
+
+}
+
+
+//?>

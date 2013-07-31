@@ -1,0 +1,420 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>Shopkeeper 0.9.5</title>
+  <style type="text/css">
+  body {background-color:#ddd;}
+  body, td {padding:15px; font: 14px Tahoma, Geneva, sans-serif;}
+  #content {padding:15px; background-color:#fff; border-radius: 10px; -o-border-radius:10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; -khtml-border-radius: 10px;}
+  table {background-color: #EFEFEF;}
+  table td, table th {border:1px solid #BFBFBF;}
+  th {background-color:#DFDFDF;}
+  li {margin:10px 0;}
+  h1, h2, h3 {color:#5F5F5F;}
+  </style>
+  
+  </head>
+  <body>
+
+<div id="content">
+
+
+<p>
+  <b><a href="http://modx-shopkeeper.ru/" target="_blank">http://modx-shopkeeper.ru/</a></b>
+</p>
+<hr>
+
+<p>
+ Translated by <b>kp52</b>.
+</p>
+
+<h1>Snippet Shopkeeper <span style="color:red;">0.9.5</span> for MODx</h1>
+
+<p>
+ MODx Internet Store
+</p>
+
+<h2>Description</h2>
+
+<p>
+Snippet displays two types of shopping basket (extended or simple).
+Message with order details can be emailed and sent to the Shopkeeper module (recommended).
+Additional parameters can be attached to goods for the user to select. 
+The eForm snippet is required for creation of the order form.
+</p>
+
+<h2>Installation SHK 1.x</h2>
+
+<ol>
+  <li>Upload the extracted folder shopkeeper to assets/snippets</li>
+  <li>Copy Move the extracted folder <b>install/</b> to the root of your site.</li>
+  <li>Copy the files contained within <b>_upload/assets/</b> to the relevant folders (images, Templates, plugins, within assets folder, place catalog view within snippets</li>
+  <li>Start the installation Shopkeeper, typing in the address bar of your browser:
+  <b>http://[site's domain]/install/</b>. you might have to type <b>install/index.php</b> to make it install
+  </li>
+  <li>You can select the components of the Shopkeeper, as well as install the demo site.
+  Complete the installation.</li>
+  <li>Sign into the control panel website (http://[site's domain]/manager/). If
+  immediately opens the configuration of the site, click on "Save."</li>
+  <li>Create a section of the catalog product pages. It can be domumenty MODx
+  or catalog goods Shopkeeper. To button appears in the directory, enter
+  in the "configuration" and fill in the "Category directory by default" (ID
+  domumenta).</li>
+  <li>Delete the folder <b>install/</b>. Done. </li>
+</ol>
+
+
+<h2>Widgets for product parameters</h2>
+
+<p>
+ To create widgets (drop-down lists, radio buttons, checkboxes), the snippet SHKwidget (on the product description page) and a Ditto extender (in the product listing) are used. See eng_doc_SHKwidget.html и eng_doc_ditto_extender.html for details.
+</p>
+
+<h2>Updating</h2>
+
+<p>
+ Replace all the files and source code (including chunks). Uninstall and reinstall the module Shopkeeper.
+</p>
+
+
+<hr>
+
+<h2>Snippet parameters</h2>
+
+<table border="1" cellpadding="5">
+<tr>
+  <th>Параметр</th>
+  <th>Description and values</th>
+  <th>Default value</th>
+  <th>Note</th>
+</tr>
+<tr>
+  <td><b>&amp;lang</b></td>
+  <td>language</td>
+  <td>manager language</td>
+  <td>currently available languages:<br> `russian`, `english`, `german`, `francais`</td>
+</tr>
+<tr>
+  <td><b>&amp;style</b></td>
+  <td>basket style</td>
+  <td>`default`<br> (assets/snippets/shopkeeper/style/default/)</td>
+  <td><b>&amp;style=`0`</b> - if you do not want to use a separate stylesheet for the basket</td>
+</tr>
+<tr>
+  <td><b>&amp;cartType</b></td>
+  <td>
+    Type of basket<br>
+    <b>`full`</b> - extended,<br>
+    <b>`small`</b> - simple,<br>
+    <b>`empty`</b> - clear the basket without displaying anything
+  </td>
+  <td>`full`</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;currency</b></td>
+  <td>currency</td>
+  <td>`руб.` (for roubles)</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;priceTV</b></td>
+  <td>name of TV, which is used for the price.</td>
+  <td>`price`</td>
+  <td>If your TV for the price has no name "price", <b>required</b> specify the name in this parameter.</td>
+</tr>
+<tr>
+  <td><b>&amp;orderFormPage</b></td>
+  <td>ID of page containing order form</td>
+  <td>`1`</td>
+  <td>Mandatory parameter</td>
+</tr>
+<tr>
+  <td><b>&amp;noJQuery=`1`</b></td>
+  <td>if Jquery library is already in use on your site</td>
+  <td>`0`</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;noConflict=`1`</b></td>
+  <td>if another JavaScript library (not Jquery) is in use on the site</td>
+  <td>`0`</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;noCounter</b></td>
+  <td>hide (`1`) or show (`0`) the goods counter when adding to the basket</td>
+  <td>`0`</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;linkAllow=`0`</b></td>
+  <td>Displays the name of goods in the shopping cart, e-mail and module without links.</td>
+  <td>`1`</td>
+  <td></td>
+</tr>
+<tr>
+  <td><b>&amp;stuffCont</b></td>
+  <td>CSS-selector of the container element for product information.</td>
+  <td>`div.shk-item`</td>
+  <td>Chunk example: chunk_shopStuff.tpl</td>
+</tr>
+
+<tr>
+  <td><b>&amp;debug=`1`</b></td>
+  <td>launch debugger for JavaScript functions (display information)</td>
+  <td>`0`</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;cartTpl</b></td>
+  <td>basket template chunk</td>
+  <td>`@FILE:assets/snippets/shopkeeper/ install/examples/ru/chunk_shopCart.tpl`</td>
+  <td>The chunk contains three templates, for empty and for populated extended and simple baskets.<br />If the chunks are stored in files, you can specify the path with the command "@FILE:". If the chunks are created in the manager, then specify only the name of chunk (eg &amp;cartTpl=`shopCart`)</td>
+</tr>
+<tr>
+  <td><b>&amp;cartRowTpl</b></td>
+  <td>template chunk for line of product information in extended basket</td>
+  <td>-</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;cartHelperTpl</b></td>
+  <td>"helper" template chunk - block element displayed to confirm actions</td>
+  <td>-</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;additDataTpl</b></td>
+  <td>chunk of additional parameters for items in your cart (&#91;+addit_data+&#93;)</td>
+  <td>-</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;orderDataTpl</b></td>
+  <td>chunk list of items in the report of the order (&#91;+orderData+&#93;)</td>
+  <td>-</td>
+  <td>used in a letter to the report of the order (eForm &report) and in the module.</td>
+</tr>
+<tr>
+  <td><b>&amp;flyToCart</b></td>
+  <td>action on adding product to basket:<br>
+	  <b>`helper`</b> - counter showing quantity of goods appears and jumps into the basket,<br>
+	  <b>`image`</b> - image of the product jumps into the basket (not currently implemented),<br>
+    <b>`nofly`</b> - nothing jumps into the basket;
+  </td>
+  <td>`helper`</td>
+  <td>If &amp;flyToCart=`image` tag &lt;img&gt; should have a CSS-class <b>&quot;shk-image&quot;</b></td>
+</tr>
+<tr>
+  <td><b>&amp;noLoader=`1`</b></td>
+  <td>not show preloader</td>
+  <td>`0`</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;changePrice=`1`</b></td>
+  <td>when changing price parameters, product price changes, but amount of change is not displayed</td>
+  <td>`0`</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;counterField=`1`</b></td>
+  <td>add pointer for more/less to all &lt;input name=&quot;shk-count&quot;&gt; (goods quantity) fields</td>
+  <td>`0`</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;noJavaScript=`1`</b></td>
+  <td>Work without JavaScript.</td>
+  <td>`0`</td>
+  <td>Note that in the chunk "shopCart" "Calculate" button located inside the tag "noscript". If you use mode &noJavaScript=`1`, it is recommended tag "noscript" delete.</td>
+</tr>
+</table>
+
+
+
+<h2>Sample calls</h2>
+
+<p>
+ <b>[!Shopkeeper? &amp;priceTV=`price`&amp;orderFormPage=`10`!]</b>
+</p>
+
+<p>
+ <b>[!Shopkeeper? &amp;cartType=`small`&amp;priceTV=`price`&amp;orderFormPage=`10`&amp;changePrice=`1`&amp;counterField=`1`&amp;flyToCart=`nofly`!]</b>
+</p>
+
+
+
+<h2>Templates and placeholders</h2>
+
+<table border="1" cellpadding="5">
+<tr>
+  <th>Snippet parameters</th>
+  <th>Description</th>
+  <th>Placeholders in template</th>
+  <th>Notes</th>
+</tr>
+<tr>
+  <td><b>&amp;cartTpl (&amp;cartType=`full`)</b></td>
+  <td>Extended basket template</td>
+  <td>
+  <b>[+inner+]</b> - Line of product information (cartRowTpl)<br>
+  <b>[+price_total+]</b> - Total sum<br>
+  <b>[+this_page_url+]</b> - URL of current page<br>
+  <b>[+order_page_url+]</b> - URL of order form page<br>
+  <b>[+currency+]</b> - currency
+  </td>
+  <td rowspan="2">
+    Example: <b>chunk_shopCart.tpl</b>
+    <br>(contains three basket templates)<br><br>
+    &lt;!--tpl_separator--&gt; - is separator between templates 
+  </td>
+</tr>
+<tr>
+  <td><b>&amp;cartTpl (&amp;cartType=`small`)</b></td>
+  <td>Simple basket template</td>
+  <td>
+  <b>[+price_total+]</b> - Total sum<br>
+  <b>[+total_items+]</b> - Number of items selected<br>
+  <b>[+plural+]</b> - Make "item" plural, depending on number of items chosen<br>
+  <b>[+this_page_url+]</b> - URL of current page<br>
+  <b>[+order_page_url+]</b> - URL of order form page<br>
+  <b>[+currency+]</b> - currency
+  </td>
+</tr>
+<tr>
+  <td><b>&cartRowTpl</b></td>
+  <td>Template for product information line in extended basket</td>
+  <td>
+  <b>[+id+]</b> - product (document) ID<br>
+  <b>[+name+]</b> - product name<br>
+  <b>[+link+]</b> - link to this product's webpage<br>
+  <b>[+addit_data+]</b> - additional product information<br>
+  <b>[+price+]</b> - price<br>
+  <b>[+currency+]</b> - currency<br>
+  <b>[+count+]</b> - quantity<br>
+  <b>[+this_page_url+]</b> - URL of current page <br>
+  <b>[+index+]</b> - item's position in the basket (starts from zero)
+  </td>
+  <td>Example: <b>chunk_shopCartRow.tpl</b></td>
+</tr>
+<tr>
+  <td><b>&amp;additDataTpl</b></td>
+  <td>chunk of additional parameters for items in your cart (&#91;+addit_data+&#93;)</td>
+  <td>
+    <b>&#91;+param+&#93;</b> - name and price parameter. Price indicated in parentheses. If a price = 0, then write only the name of the parameter (without the parentheses).<br>
+    <b>&#91;+name+&#93;</b> - name parameter.<br>
+    <b>&#91;+price+&#93;</b> - price parameter.
+  </td>
+  <td>Example: <b>chunk_additDataTpl.tpl</b></td>
+</tr>
+<tr>
+  <td><b>&amp;orderDataTpl</b></td>
+  <td>chunk list of items in the report of the order (&#91;+orderData+&#93;)</td>
+  <td>
+    <b>Все плейсхолдеры чанка &cartRowTpl</b><br><br>
+    <b>&#91;+loop+&#93;</b>, <b>&#91;+end_loop+&#93;</b> - beginning and end of the line of data products (cycle).
+  </td>
+  <td>Example: <b>chunk_orderDataTpl.tpl</b></td>
+</tr>
+<tr>
+  <td><b>&report</b> (eForm)</td>
+  <td>template for text of  message describing order details </td>
+  <td>
+  <b>[+orderData+]</b> - order details (list of purchases) 
+  </td>
+  <td>Examples: <b>chunk_shopOrderReport.tpl</b>, <b>chunk_shopOrderReportWebUser.tpl</b></td>
+</tr>
+</table>
+
+
+
+<h2>Order form</h2>
+
+<p>
+ The order form is produced using the <b>eForm</b> snippet. The following parameters must be specified in the snippet call:
+</p>
+
+<p>
+ <b>&amp;gotoid</b> - ID of the page to go to after the order is submitted (required for clearing the basket);<br>
+ <b>&amp;eFormOnBeforeMailSent=`populateOrderData`</b> - function for filling in details of the selected goods
+</p>
+<p>
+ In order for orders to be sent off to the Shopkeeper module, the parameter <b>&amp;eFormOnMailSent=`sendOrderToManager`</b> must be included in the eForm snippet call.
+</p>
+
+<h3>Sample eForm call:</h3>
+
+<p>
+ [!eForm? &amp;formid=`shopOrderForm`&amp;tpl=`shopOrderForm`&amp;report=`shopOrderReport`&amp;vericode=`1`&amp;ccsender=`1`&amp;gotoid=`11`&amp;subject=`New order`&amp;eFormOnBeforeMailSent=`populateOrderData`&amp;eFormOnMailSent=`sendOrderToManager`!]
+
+</p>
+
+<h2>Connecting the system of payment</h2>
+
+<p>To connect the system of payment (receipts and statements, etc.) can make an additional snippet, which may use session variables that are created after you submit your order:</p>
+
+<p>
+ <b>$_SESSION['shk_order_id']</b> - ID Order in a database;<br>
+ <b>$_SESSION['shk_payment_method']</b> - chosen method of payment (list with name="payment");<br>
+ <b>$_SESSION['shk_order_price']</b> - Total price;<br>
+ <b>$_SESSION['shk_currency']</b> - currency;<br>
+ <b>$_SESSION['shk_order_user_id']</b> - ID Users (if not registered = 0);
+ <b>$_SESSION['shk_order_user_email']</b> - e-mail address of the payer (if not registered). 
+</p>
+
+<h2>Important points</h2>
+
+<ul>
+  <li>
+    In the layout (your templates), all id attributes that exist in the sample chunks should also be present in the corresponding elements. For example, <b>id="shopCart"</b> must be assigned to the basket's "container" element. It is also necessary to preserve the CSS classes with names beginning "shk-" in the examples. They are required so that the JavaScript functions can find the relevant elements. These classes can be used additively, for example &lt;div class="shop-stuff shk-item"&gt; - for things to work, what matters here is only the class "shk-item" (or whatever is specified in the parameter &clStuffCont). The "name" attribute in text fields must also be preserved. The field with <b>name="shk-count"</b> may be made visible (type="hidden" -> type="text").
+  </li>
+  <li>The Shopkeeper snippet must be called before eForm on the order form page.</li>
+  <li>
+    The order form chunk must include the hidden field
+     <b>&lt;input type="hidden" name="reportTpl" value="shopOrderReport" /&gt;</b>
+  where <b>shopOrderReport</b> is the name of the template chunk for the report (eForm snippet's &report parameter).
+  </li>
+  <li>
+    The snippet may be called more than once on a page, but the basket will be displayed only in place of the first call. The second and subsequent calls are ignored. If you place a basket on product catalogue pages in the right-hand column of a template, with the snippet call inserted in the page content on the order form page, the basket will only be displayed in the centre column (and the snippet does not have to be removed from the right-hand column).
+  </li>
+  <li>
+    It is recommended that you use friendly URLs (semantic URLs). It is recommended to use <b>&lt;base href="[(site_url)]" /&gt;</b> in site templates (in the &lt;head&gt; section) and relative paths.
+  </li>
+  <li>
+    All chunks must be created, with the exception of <b>&amp;cartRowTpl</b> and  <b>&amp;cartHelperTpl.</b>
+  </li>
+  <li>
+    If the chunks are stored in files (used the command @FILE:), check the encoding of these files. It must be the same as your site.
+  </li>
+</ul>
+
+<p>
+ All examples are included in the <b>shopkeeper/install/</b> folder.
+</p>
+
+<br>
+<p>
+ It is recommended that you use the PHx plugin (<a href="http://modxcms.com/extras/package/?package=342" target="_blank">http://modxcms.com/extras/package/?package=342</a>) to position the basket in different positions on pages, or make different templates for the pages. 
+</p><p>
+ The Ditto snippet is normally used to display the products.
+
+</p><p>
+ Use additional TV parameters (e.g. <b>[*price*]</b>) to show prices.
+</p>
+
+
+<h3>Warnings and disclaimers</h3>
+
+<p>
+ There is an element of risk associated with the fact that the snippet performs database (read and write) operations. The author has attempted to protect against the most widespread methods of breaking the system, but anything can happen...
+You make use of this code at your own risk. The author accepts no responsibility for the consequences. 
+</p>
+
+
+</div>
+
+  </body>
+</html>

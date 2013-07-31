@@ -1,0 +1,295 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <title>Shopkeeper 0.9</title>
+  <style type="text/css">
+  body {padding:20px; font: 14px Tahoma, Geneva, sans-serif;}
+  table {background-color: #EFEFEF;}
+  table td, table th {border:1px solid #BFBFBF;}
+  th {background-color:#DFDFDF;}
+  li {margin:10px 0;}
+  </style>
+  
+  </head>
+  <body>
+
+
+<p>
+  <b><a href="http://modx-shopkeeper.ru/" target="_blank">http://modx-shopkeeper.ru/</a></b>
+</p>
+<hr>
+
+<p>
+ Übersetzt von <b>sharkbait / @kunane</b>
+</p>
+
+<h1>MODx Shopkeeper <span style="color:red">0.9</span> Snippet</h1>
+
+<p>
+ MODx Warenkorb und Bestellverwaltungs-Modul
+</p>
+
+<h2>Beschreibung</h2>
+
+<p>
+Das Snippet bietet zwei verschiedene Warenkorb Typen zur Auswahl (einfach or erweitert).
+Die Daten für ausgewählten Artikel werden in einem Cookie gespeichert.<br />
+Eine Nachricht mit den Bestellinformationen kann per E-Mail gesendet, sowie an das Shopkeeper Modul
+geschickt werden (empfohlen).<br />
+Es besteht die Möglichkeit die Artikel mit Parametern zu erweitern. Der Käufer kann diese dann während des 
+Bestellvorganges auswählen (Größen, Farben etc.).<br />
+Das eForm Snippet wird zur Erstellung des Bestellformulares benötigt.
+</p>
+
+<h2>Installation</h2>
+
+<ol>
+  <li>Kopiere die Snippet-Dateien in den Ordner assets/snippets/shopkeeper/</li>
+  <li>gehe im Manager zu<br>
+  Elemente -> Elemente-Verwaltung -> Snippets (MODx 1.x) oder<br>
+  Resourcen -> Resourcen-Verwaltung -> Snippets (MODx 0.9.x)</li>
+  <li>Klicke auf "Neues Snippet"</li>
+  <li>Snippet-Name: Shopkeeper,<br>
+  Snippet-Beschreibung: Warenkorb</li>
+  <li>
+  Öffne die Datei Shopkeeper_snippet.php im "install" Ordner, kopiere den Inhalt in das Snippet-Code Feld und
+  gehe anschließend auf "Speichern".
+  </li>
+  <li>Erstelle Chunks für den Warenkorb, Darstellung der Produktinformationen, Bestellformular usw. Beispiele sind in dem Ordner "Install". (Chunknamen ohne das vorangestellte "chunk_" der Dateien)</li>
+  <li>Installiere das <a href="de_doc_module-02.html">Shopkeeper Modul (de_doc_module-02.html).</a></li>
+</ol>
+
+
+<h2>Widgets für die Artikel Parameter</h2>
+
+<p>
+Um Widgets zu erstellen (Drop-Down Listen, Radio Buttons, Checkboxen), wird das Snippet "SHKwidget" (für die Verwendung auf der Artikelseite selber), sowie ein Ditto Extender (bei Artikeln die mit Ditto aufgelistet werden).
+Weiteres dazu unter <a href="de_doc_SHKwidget-04.html">de_doc_SHKwidget-04.html</a> und <a href="de_doc_ditto_extender-03.html">de_doc_ditto_extender-03.html</a>
+</p>
+
+<h2>Update</h2>
+
+<p>
+Ersetze alle Dateien und den Code aus (einschließlich der Chunks)
+</p>
+
+
+<hr>
+
+<h2>Snippet Parameter</h2>
+
+<table border="1" cellpadding="5">
+<tr>
+  <th>Parameter</th>
+  <th>Beschreibung und Werte</th>
+  <th>Standardwerte</th>
+  <th>Anmerkung</th>
+</tr>
+<tr>
+  <td><b>&amp;lang</b></td>
+  <td>Sprache</td>
+  <td>`ru`</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;style</b></td>
+  <td>Warenkorb Stylesheet</td>
+  <td>`default`<br> (assets/snippets/shopkeeper/style/default/)</td>
+  <td><b>&amp;style=`0`</b> - wenn kein separates Stylesheet für den Warenkorb verwendet werden soll</td>
+</tr>
+<tr>
+  <td><b>&amp;cartType</b></td>
+  <td>
+    Art des Warenkorbes<br>
+    <b>`full`</b> - erweitert,<br>
+    <b>`small`</b> - einfach,<br>
+    <b>`empty`</b> - leert den Warenkorb ohne irgend etwas anzuzeigen
+  </td>
+  <td>`full`</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;currency</b></td>
+  <td>Währung</td>
+  <td>`руб.` (für Rubel)</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;orderFormPage</b></td>
+  <td>ID der Seite, die das Bestellformular enthält</td>
+  <td>`1`</td>
+  <td>Pflichtangabe</td>
+</tr>
+<tr>
+  <td><b>&amp;gotoid</b></td>
+  <td>ID der Seite, die nach Absenden des Formulares aufgerufen wird</td>
+  <td>`1`</td>
+  <td>Pflichtangabe. Notwendig damit der Warenkorb nach Absenden des Formulares wieder geleert wird.</td>
+</tr>
+<tr>
+  <td><b>&amp;noJQuery=`1`</b></td>
+  <td>wenn jQuery schon auf der Seite verwendet wird</td>
+  <td>`0`</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;noConflict=`1`</b></td>
+  <td>wenn eine andere Javascript Bibliothek (nicht jQuery) auf der Seite verwendet wird</td>
+  <td>`0`</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;noCounter</b></td>
+  <td>zeige (`0`) oder blende den Artikelzähler aus (`1`), wenn Artikel zum Warenkorb hinzugefügt werden.</td>
+  <td>`0`</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;clStuffCont</b></td>
+  <td>CSS Klasse des Produkt Informations-Kontainers</td>
+  <td>`shk-stuff`</td>
+  <td>Beispiel Chunk: chunk_shopStuff.txt</td>
+</tr>
+<tr>
+  <td><b>&amp;debug=`1`</b></td>
+  <td>Started den Debugger für Javascript Funktionen (Informationsdarstellung)</td>
+  <td>`0`</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;cartTpl</b></td>
+  <td>Warenkorb Template Chunk</td>
+  <td>`shopCart`</td>
+  <td>Der Chunk enthält drei Templates: Ein Template für den leeren Warenkorb und jeweils eines für den einfachen, sowie den erweiterten Warenkorb.</td>
+</tr>
+<tr>
+  <td><b>&amp;cartRowTpl</b></td>
+  <td>Template Chunk für eine Produktzeile im erweiterten Warenkorb</td>
+  <td>-</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;cartHelperTpl</b></td>
+  <td>"Helfer" Template Chunk - Block Element zur Bestätigung von Aktionen</td>
+  <td>-</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;flyToCart</b></td>
+  <td>die Art und Weise wie der Artikel zum Warenkorb hinzugefügt wird:<br>
+	  <b>`helper`</b> - ein Zähler erscheint der die Menge der Artikel anzeigt und sich anschließend in den Warenkorb bewegt,<br>
+	  <b>`image`</b> - ein Bild des Artikels bewegt sich in den Warenkorb (momentan noch nicht integriert - eventuell doch :) ),<br>
+    <b>`nofly`</b> - nichts bewegt sich in den Warenkorb;
+  </td>
+  <td>`helper`</td>
+  <td>wenn &amp;flyToCart=`image` verwendet wird, sollte das &lt;img&gt; tag die CSS-Klasse <b>&quot;shk-image&quot;</b> haben</td>
+</tr>
+<tr>
+  <td><b>&amp;noLoader=`1`</b></td>
+  <td>den "Preloader" nicht anzeigen</td>
+  <td>`0`</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;changePrice=`1`</b></td>
+  <td>wenn der Preis Parameter geändert wird, ändert sich der Artikelpreis, der Wert der Änderung wird nicht angezeigt. (?)</td>
+  <td>`0`</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;counterField=`1`</b></td>
+  <td>fügt einen Zeiger für mehr/weniger zu allen &lt;input name=&quot;shk-count&quot;&gt; (Artikelmenge) Feldern hinzu</td>
+  <td>`0`</td>
+  <td>&nbsp;</td>
+</tr>
+</table>
+
+
+
+<h2>Beispiel Snippet Aufrufe</h2>
+
+<p>
+ <b>[!Shopkeeper? &amp;orderFormPage=`10` &amp;gotoid=`11`!]</b>
+</p>
+
+<p>
+ <b>[!Shopkeeper? &amp;cartType=`small` &amp;orderFormPage=`10` &amp;gotoid=`11` &amp;changePrice=`1` &amp;counterField=`1` &amp;flyToCart=`nofly`!]</b>
+</p>
+
+
+<h2>Bestellformular</h2>
+
+<p>Das Bestellformular wird mit dem <b>eForm</b> Snippet aufgebaut. Folgende Parameter <b>müssen</b> in dem Snippet Aufruf angegeben werden:
+</p>
+
+<p>
+ <b>&amp;gotoid</b> - ID des Dokumentes welches nach Senden des Bestellformulares aufgerufen werden soll (notwendig zum leeren des Warenkorbes);<br>
+ <b>&amp;eFormOnBeforeMailSent=`populateOrderData`</b> - Funktion um die Details der ausgewählten Artikel einzufügen
+</p>
+<p>
+Um Bestellungen zum Shopkeeper Modul zu schicken, muss der Parameter <b>&amp;eFormOnMailSent=`sendOrderToManager`</b> ebenfalls im eForm Aufruf enthalten sein.
+</p>
+
+<h3>Beispiel eForm Aufruf:</h3>
+
+<p>
+ [!eForm? &amp;formid=`shopOrderForm` &amp;tpl=`shopOrderForm` &amp;report=`shopOrderReport` &amp;vericode=`1` &amp;ccsender=`1` &amp;gotoid=`11` &amp;subject=`Bestellung` &amp;eFormOnBeforeMailSent=`populateOrderData` &amp;eFormOnMailSent=`sendOrderToManager`!]
+
+</p>
+
+
+<h2>Wichtige Punkte:</h2>
+
+<ul>
+<li>
+Alle ID Attribute die im Layout (Template / Beispiel Chunks) vorkommen, sollten ebenfalls bei den entsprechenden Elementen vorkommen. Zum Beispiel: <b>id="shopCart"</b> sollte ebenfalls dem Warenkorb "Kontainer"-Element zugewiesen sein.
+Ausserdem ist es notwendig, dass CSS Klassen, die mit "shk-" beginnen in den Beispielen erhalten bleiben. Sie sind notwendig, damit die Javascript Funktionen die entsprechenden Elemente finden kann. Diese Klassen können mehrfach benutzt werden, z.B. &lt;div class="shop-stuff shk-item"&gt; - damit es funktioniert. Was nur wirklich wichtig ist, ist die Klasse "shk-item" (oder was auch immer im Parameter &clStuffCont angegeben ist).
+Das "name" Attribut der Text-Felder muss ebenfalls beibehalten werden. Das Feld mit <b>name="shk-count"</b> darf sichtbar sein (type="hidden" -> type="text").
+</li>
+<li>Das Shopkeeper Snippet <b>muss</b> vor dem eForm Aufruf auf der Seite platziert sein.</li>
+<li>
+  Das Bestellformular muss die "hidden fields" enthalten
+   <b>&lt;input type="hidden" name="reportTpl" value="shopOrderReport" /&gt;</b>
+wobei <b>shopOrderReport</b> der Name des Template Chunks für den Report ist (eForm Snippet's &report Parameter).
+</li>
+<li>
+  Das Snippet darf mehr als einmal auf einer Seite aufgerufen werden, allerdings wird der Warenkorb jeweils nur an Stelle des ersten Aufrufs angezeigt. Der zweite und darauf folgende Aufrufe wird ignoriert. Wenn ein Warenkorb zum Beispiel auf einer Katalogsseite in der rechten Spalte des Templates platziert wird, und ein weiterer Snippet Aufruf im Seiteninhalts-Feld der Bestellformular Seite, wird der Warenkorb nur in dem Seiteninhalts-Feld angezeigt (der Snippet Aufruf muss nicht aus der rechten Spalte entfernt werden).
+</li>
+<li>
+  Es wird empfohlen, daß sprechende URLs (SERPs/FURLs) verwendet werden. Außerdem sollte <b>&lt;base href="[(site_url)]"&gt;&lt;/base&gt;</b> im Template vorhanden sein (im Header Bereich), sowie relative Pfade.
+</li>
+<li>
+  Alle Chunks müssen erstellt werden, mit Ausnahme von <b>&amp;cartRowTpl</b> und <b>&amp;cartHelperTpl.</b>
+</li>
+</ul>
+
+<p>
+ Alle Beispiele befinden sich im <b>shopkeeper/install/</b> Ordner
+</p>
+
+<br>
+<p>
+ Um den Warenkorb an verschiedenen Stellen des Templates anzuzeigen, kann man entweder das PHx Plugin verwenden, oder verschiedene Templates anzulegen
+</p><p>
+ Ditto wird normalerweise für die Darstellung der Artikel verwendet.
+
+</p><p>
+ Benutz zusätzliche TV Parameter (z.B. <b>[*price*]</b>) um Preise anzuzeigen.
+
+</p>
+
+<h3>Warnung und Haftungsausschluss</h3>
+
+<p>
+ Es besteht ein geringes Risiko dadurch, daß das Snippet Datenbank Funktionen ausführt (schreiben und lesen). Der Author hat versucht die weitverbreitesten Methoden des "Einbrechens" (in das System) auszuschließen, aber theoretisch ist alles möglich...
+Benutzung des Codes auf eigenes Risiko. Der Author übernimmt keinerlei Haftung für mögliche Folgen. 
+</p>
+
+
+
+
+
+
+  </body>
+</html>

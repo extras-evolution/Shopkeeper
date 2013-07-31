@@ -1,0 +1,46 @@
+//<?php
+
+/*
+ *
+ * Shopkeeper plugin example
+ * 
+ * System event: OnSHKmodRenderTopLinks, OnSHKmodPagePrint
+ * 
+ */
+
+defined('IN_MANAGER_MODE') or die();
+
+
+$e = &$modx->Event;
+
+$output = "";
+
+if ($e->name == 'OnSHKmodRenderTopLinks') {
+  
+  $mod_page = "index.php?a=112&id=".$_GET['id'];
+  $output .= '<li><a href="'.$mod_page.'&amp;action=plugin&amp;pname=example">Пример плагина</a></li>';
+
+}
+
+if ($e->name == 'OnSHKmodPagePrint') {
+  
+  if(isset($_GET['pname']) && $_GET['pname']=='example'){
+  
+    $mod_page = "index.php?a=112&id=".$_GET['id'];
+    $html = '
+      Тестовый плагин для модуля.
+      <br /><br />
+      <ul class="actionButtons">
+        <li><a href="'.$mod_page.'"><img src="../assets/snippets/shopkeeper/style/default/img/cancel.gif" alt="">&nbsp; Назад</a></li>
+      </ul>
+    ';
+    
+    echo $html;
+  
+  }
+
+}
+
+$e->output($output);
+
+//?>

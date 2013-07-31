@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <title>Shopkeeper 0.9</title>
+  <style type="text/css">
+  body {padding:20px; font: 14px Tahoma, Geneva, sans-serif;}
+  table {background-color: #EFEFEF;}
+  table td, table th {border:1px solid #BFBFBF;}
+  th {background-color:#DFDFDF;}
+  li {margin:10px 0;}
+  </style>
+  
+  </head>
+  <body>
+
+
+<p>
+  <b><a href="http://modx-shopkeeper.ru/" target="_blank">http://modx-shopkeeper.ru/</a></b>
+</p>
+<hr>
+
+<p>
+ übersetzt von <b>sharkbait / @kunane</b>
+</p>
+
+<h1>MODx Shopkeeper Modul</h1>
+
+<p>
+ Bestellverwaltung im MODx Backend / Manager
+</p>
+
+
+<h2>Was kann man damit machen?:</h2>
+
+<ul>
+  <li>Bearbeiten und Löschen von Bestellungen;</li>
+  <li>die Bestellungen dem aktuellen Stand des Vorgangs entsprechend (farblich) markieren (neu, in Bearbeitung, versendet, abgeschlossen, Problem);</li>
+  <li>Kommentare hinzufügen;</li>
+  <li>sortieren.</li>
+</ul>
+
+<h2>Installation</h2>
+
+<ol>
+  <li>Wenn das Shopkeeper Snippet noch nicht installiert ist, kopiere die Dateien in den Ordner assets/snippets/shopkeeper/</b></li>
+  <li>gehe im Manager zu<b>"Module"</b> -> <b>"Modul-Verwaltung"</b></li>
+  <li>klick auf <b>"Modul erstellen"</b></li>
+  <li>Modulname: <b>Shopkeeper</b>,<br>
+   Beschreibung: <b>Bestellverwaltung</b>,<br>
+   öffne die Datei <b>Shopkeeper_module.php</b> im "install" Ordner und kopiere den Inhalt in das <b>Modul-Code</b> Feld. Klick auf <b>"Speichern"</b>.
+  </li>
+  <li>Gehe zu <b>"Module"</b> -> <b>"Modul-Verwaltung"</b> und klicke auf das Icon links von "Shopkeeper". Klicke auf <b>Modul Starten</b> um das Modul zu starten, anschließend auf "installieren" (Das Modul wird bei mir erst in der Menüleiste unter "Module" angezeigt, wenn ich mich einmal aus- und wieder eingeloggt habe).</li>
+  <li>Wenn das Shopkeeper Snippet schon installiert und eingerichtet ist (bevor das Modul installiert wurde), kann der <b>"install"</b> Ordner gelöscht werden.</li>
+</ol>
+
+<h2>Konfiguration</h2>
+
+<ul>
+  <li>Bestellungen pro Seite - Anzahl der Bestellungen auf jeder Seite.</li>
+  <li>Template welches für die Zusammenfassung (der Bestellung) verwendet wird - die Information die in der Bestellungstabelle angezeigt wird. <br>
+  dieses Template wird dazu verwendet, Informationen in die Modul-Datenbank zu schreiben, wenn eine Bestellung eingeht.<br>
+  Es können nur Platzhalter verwendet werden, die auch im eForm Snippet Bestellformular (&report Parameter) verwendet werden. 
+  Standard: [+name+], [+address+], [+email+], [+phone+], [+delivery+], [+payment+]
+  </li>
+  <li>Währung - diese wird in der Bestellungstabelle, als auch in der Detailansicht der Bestellung angezeigt.</li>
+  <li>Farbwerte für den Bestellstatus können in irgendeinem CSS-Format angegeben werden. Zum Beispiel, Rot kann angegeben werden als: red, #FF0000, rgb(255, 0, 0).<br>
+  Die Bestellstatus Bezeichnung kann in der Sprachdatei geändert werden, z.B. <b>shopkeeper/lang/german.php</b></li>
+  <li>Der "Alle Einträge löschen" Button löscht alle Tabellen des Modules von der Datenbank (Deinstallation).</li>
+</ul>
+
+<h2>Wichtige Hinweise</h2>
+
+<p>
+ Damit die Bestellungen zu dem Modul gesendet werden können, muss der eForm Aufruf folgende Parameter enthalten:<br>
+ <b>&amp;eFormOnBeforeMailSent=`populateOrderData`&amp;eFormOnMailSent=`sendOrderToManager`</b>.
+</p>
+
+<p>
+ Das Bestellformular Template Chunk sollte ein "hidden field" enthalten, der den Rückmeldungs Chunk (reportTpl) benennt:
+<b>&lt;input type="hidden" name="reportTpl" value="shopOrderReport" /&gt;</b>
+</p>
+
+<h2>Beispiel eForm Aufruf</h2>
+
+[!eForm? &amp;formid=`shopOrderForm` &amp;tpl=`shopOrderForm` &amp;report=`shopOrderReport` &amp;vericode=`1` &amp;gotoid=`11` &amp;subject=`Bestellung` &amp;eFormOnBeforeMailSent=`populateOrderData` &amp;eFormOnMailSent=`sendOrderToManager`!]
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,598 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>Shopkeeper 1.3</title>
+  <style type="text/css">
+  body {background-color:#006BAC; padding:10px 15px 15px 15px; margin:0;}
+  body, td {font: 14px Arial, sans-serif;}
+  #content {padding:15px; min-height:500px; background-color:#fff; border-radius: 15px; -o-border-radius:15px; -moz-border-radius: 15px; -webkit-border-radius: 15px; -khtml-border-radius: 15px;}
+  table {background-color: #EFEFEF;}
+  table td, table th {border:1px solid #BFBFBF;}
+  th {background-color:#DFDFDF;}
+  li {margin:10px 0;}
+  h1, h2, h3 {color:#5F5F5F;}
+  pre {width:95%; overflow:auto; margin:10px 0; padding:5px 10px; border:1px solid #ddd; background-color:#eee;}
+  </style>
+
+  </head>
+  <body>
+
+<div style="padding:0 0 10px 0;">
+  <a href="http://modx-shopkeeper.ru/" target="_blank">
+    <img src="logo.png" alt="Shopkeeper" border="0" height="50" width="215" />
+  </a>
+</div>
+
+
+<div id="content">
+
+
+<h1>Сниппет Shopkeeper 1.3 для MODx</h1>
+
+
+<h2>Описание</h2>
+
+<p>
+Сниппет выводит корзину заказов двух типов (расширенный и простой). Письмо с заказом можно отправлять на почту и в модуль Shopkeeper (рекомендуется). Товарам можно задавать дополнительные параметры, которые пользователь сможет выбрать. Для создания формы заказа нужно использовать сниппет <b>eForm</b>, для вывода списка товаров - <b>CatalogView</b> или <b>Ditto</b>.
+</p>
+
+
+<h2>Виджеты для параметров товаров</h2>
+
+<p>
+ Для создания виджетов (выпадающий список, радиокнопка, чекбокс) используется модификатор PHx - <b>shk_widget</b>. См. rus_doc_shk_widget.html.
+
+</p>
+
+
+<hr>
+
+<h2>Параметры сниппета</h2>
+
+<table border="1" cellpadding="5">
+<tr>
+  <th>Параметр</th>
+  <th>Описание и значения</th>
+  <th>Значение по умолчанию</th>
+  <th>Примечание</th>
+</tr>
+<tr>
+  <td><b>&amp;lang</b></td>
+  <td>язык</td>
+  <td>Язык системы управления</td>
+  <td>В настоящее время доступны языки:<br /> `russian`, `english`, `german`, `francais`</td>
+</tr>
+<tr>
+  <td><b>&amp;style</b></td>
+  <td>стиль корзины</td>
+  <td>`default`<br /> (assets/snippets/shopkeeper/style/default/)</td>
+  <td><b>&amp;style=`0`</b> - если не нужен отдельный стилевой файл для корзины</td>
+</tr>
+<tr>
+  <td><b>&amp;cartType</b></td>
+  <td>
+    тип корзины<br />
+    <b>`full`</b> - расширенный,<br />
+    <b>`small`</b> - простой,<br />
+    <b>`empty`</b> - только очистка корзины без вывода на странице
+  </td>
+  <td>`full`</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;currency</b></td>
+  <td>валюта</td>
+  <td>`руб.`</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;priceTV</b></td>
+  <td>имя TV-параметра, который используется для цены.</td>
+  <td>`price`</td>
+  <td>Если ваш TV для цены имеет название не "price", <b>обязательно</b> укажите это имя в данном параметре.</td>
+</tr>
+<tr>
+  <td><b>&amp;orderFormPage</b></td>
+  <td>ID страницы с формой заказа</td>
+  <td>`1`</td>
+  <td>обязательный параметр</td>
+</tr>
+<tr>
+  <td><b>&amp;noJQuery=`1`</b></td>
+  <td>если на сайте уже используется библиотека JQuery</td>
+  <td>`0`</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;noConflict=`1`</b></td>
+  <td>если на сайте используется другая JS-библиотека (не JQuery), например Mootools, Prototype.</td>
+  <td>`0`</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;noCounter</b></td>
+  <td>скрывать (значение `1`) или нет (значение `0`) счетчик товаров при добавлении в корзину</td>
+  <td>`0`</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;linkAllow=`0`</b></td>
+  <td>Выводить названия товаров в корзине без ссылок.</td>
+  <td>`1`</td>
+  <td>Если этот параметр указан (=`0`) на странице оформления заказа, письмо с составом заказа и список товаров в модуле будут без ссылок.</td>
+</tr>
+<tr>
+  <td><b>&amp;stuffCont</b></td>
+  <td>CSS-селектор элемента, внутри которого находится информация о товаре.</td>
+  <td>`div.shk-item`</td>
+  <td>В предыдущих версиях этот параметр назывался clStuffCont.<br /> Пример чанка: chunk_shopStuff.tpl</td>
+</tr>
+<tr>
+  <td><b>&amp;debug=`1`</b></td>
+  <td>запустить отладку JavaScript-функций (вывод информации)</td>
+  <td>`0`</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;tplPath</b></td>
+  <td>путь до папки с чанками</td>
+  <td>`assets/snippets/shopkeeper/chunks/ru/`</td>
+  <td></td>
+</tr>
+<tr>
+  <td><b>&amp;cartTpl</b></td>
+  <td>чанк с шаблоном корзины</td>
+  <td>`@FILE:chunk_shopCart.tpl`</td>
+  <td>Чанк содержит сразу 3 шаблона - для пустой, заполненной расширенной и простой корзины.<br /> Если чанки хранятся в файлах, можно указать путь с командой &quot;@FILE:&quot;. Если чанки созданы в системе управления, то указывается только имя чанка (например &amp;cartTpl=`shopCart`)</td>
+</tr>
+<tr>
+  <td><b>&amp;cartRowTpl</b></td>
+  <td>чанк шаблона строки с информацией товара в расширенной корзине</td>
+  <td>`@FILE:chunk_shopCartRow.tpl`</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;cartHelperTpl</b></td>
+  <td>чанк шаблона "хелпера" - блока, который появляется для подтверждения действий</td>
+  <td>-</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;additDataTpl</b></td>
+  <td>чанк для доп. параметров товаров в корзине (&#91;+addit_data+&#93;)</td>
+  <td>-</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;orderDataTpl</b></td>
+  <td>чанк списка товаров в отчете о заказе (&#91;+orderData+&#93;)</td>
+  <td>-</td>
+  <td>Используется в письме с отчетом о заказе (eForm &report) и в модуле.</td>
+</tr>
+<tr>
+  <td><b>&amp;flyToCart</b></td>
+  <td>действие при добавлении товара в корзину.<br />
+     <b>`helper`</b> - появляется блок со счетчиком кол-ва товаров и летит в корзину,<br />
+     <b>`image`</b> - в корзину летит картинка товара<br />
+     <b>`nofly`</b> - в корзину ничего не летит;
+  </td>
+  <td>`helper`</td>
+  <td>При &amp;flyToCart=`image` тег &lt;img&gt; должен иметь CSS-класс <b>&quot;shk-image&quot;</b></td>
+</tr>
+<tr>
+  <td><b>&amp;noLoader=`1`</b></td>
+  <td>не паказывать прелоадер (анимационная картинка)</td>
+  <td>`0`</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;excepDigitGroup=`1`</b></td>
+  <td>разделять числа цен в корзине на разряды</td>
+  <td>`1`</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;changePrice=`1`</b></td>
+  <td>при изменении параметров с ценой - изменяется цена товара, а индекс с плюсом не появляется</td>
+  <td>`0`</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;counterField=`1`</b></td>
+  <td>добавить ко всем полям &lt;input name=&quot;shk-count&quot;&gt; (кол-во товара) стрелки больше/меньше</td>
+  <td>`0`</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;noJavaScript=`1`</b></td>
+  <td>Работа без JavaScript.</td>
+  <td>`0`</td>
+  <td>Обратите внимание, что в чанке "shopCart" кнопка "Пересчитать" находится внутри тега "noscript". Если используется режим <b>&amp;noJavaScript=`1`</b>, рекомендуется тег "noscript" удалить.</td>
+</tr>
+<tr>
+  <td><b>&amp;hideOn</b></td>
+  <td>Отключить корзину на странице</td>
+  <td>`0`</td>
+  <td>Обычно используется в вызове сниппета краткого вида корзины. Указывается ID страницы с подробным видом корзины (оформление заказа). На этой странице краткий вид корзины будет отключен.</td>
+</tr>
+</table>
+
+
+
+<h2>Примеры вызова</h2>
+
+<p>
+ <i style="background-color:#eee;"><b>&#91;!Shopkeeper? &amp;priceTV=`price` &amp;orderFormPage=`10`!&#93;</b></i>
+</p>
+
+<p>
+ <i style="background-color:#eee;"><b>&#91;!Shopkeeper? &amp;cartType=`small` &amp;priceTV=`price` &amp;orderFormPage=`10` &amp;changePrice=`1` &amp;counterField=`1` &amp;flyToCart=`nofly`!&#93;</b></i>
+</p>
+
+
+<h2>Шаблоны (чанки) и плейсхолдеры</h2>
+
+<table border="1" cellpadding="5">
+<tr>
+  <th>Параметр сниппета</th>
+  <th>Описание</th>
+  <th>Плейсхолдеры в шаблоне</th>
+  <th>Примечание</th>
+</tr>
+<tr>
+  <td><b>&amp;cartTpl (&amp;cartType=`full`)</b></td>
+  <td>шаблон расширенной корзины</td>
+  <td>
+  <b>&#91;+inner+&#93;</b> - строка с информацией о товаре (cartRowTpl);<br />
+  <b>&#91;+price_total+&#93;</b> - Общая сумма;<br />
+  <b>&#91;+this_page_url+&#93;</b> - URL текущей страницы;<br />
+  <b>&#91;+empty_url+&#93;</b> - URL для очистки корзины;<br />
+  <b>&#91;+order_page_url+&#93;</b> - URL страницы оформления заказа;<br />
+  <b>&#91;+currency+&#93;</b> - валюта;
+  </td>
+  <td rowspan="2">
+    Пример: <b>chunk_shopCart.tpl</b>
+    <br />(содержит 3 шаблона корзины)<br /><br />
+    &lt;!--tpl_separator--&gt; - разделитель шаблонов (удалять нельзя)
+  </td>
+</tr>
+<tr>
+  <td><b>&amp;cartTpl (&amp;cartType=`small`)</b></td>
+  <td>шаблон упрощенной корзины</td>
+  <td>
+  <b>&#91;+price_total+&#93;</b> - Общая сумма;<br />
+  <b>&#91;+total_items+&#93;</b> - Число выбранных товаров;<br />
+  <b>&#91;+plural+&#93;</b> - слово "товар" во множественном числе в зависимости от числа выбранных товаров;<br />
+  <b>&#91;+this_page_url+&#93;</b> - URL текущей страницы;<br />
+  <b>&#91;+empty_url+&#93;</b> - URL для очистки корзины;<br />
+  <b>&#91;+order_page_url+&#93;</b> - URL страницы оформления заказа;<br />
+  <b>&#91;+currency+&#93;</b> - валюта
+  </td>
+</tr>
+<tr>
+  <td><b>&amp;cartRowTpl</b></td>
+  <td>шаблон строки с информацией товара в расширенной корзине</td>
+  <td>
+  <b>&#91;+id+&#93;</b> - ID товара (документа);<br />
+  <b>&#91;+name+&#93;</b> - название товара;<br />
+  <b>&#91;+link+&#93;</b> - ссылка на страницу товара;<br />
+  <b>&#91;+addit_data+&#93;</b> - строка с информацией о доп. параметрах товара;<br />
+  <b>&#91;+price+&#93;</b> - цена;<br />
+  <b>&#91;+price_total+&#93;</b> - цена товара + доп. параметры;<br />
+  <b>&#91;+price_count+&#93;</b> - цена товара * кол-во;<br />
+  <b>&#91;+currency+&#93;</b> - валюта;<br />
+  <b>&#91;+count+&#93;</b> - количество;<br />
+  <b>&#91;+this_page_url+&#93;</b> - URL текущей страницы;<br />
+  <b>&#91;+index+&#93;</b> - номер товара в корзине (от нуля);<br />
+  <b>&#91;+любой TV+&#93;</b> - любой TV-параметр, например &#91;+image+&#93;;<br />
+  <b>&#91;+shk_любой TV+&#93;</b> - любой доп. параметр, выбранный при добавлении товара в корзину (из [+addit_data+]), например &#91;+shk_param1+&#93;.
+  </td>
+  <td>Пример: <b>chunk_shopCartRow.tpl</b> и <b>chunk_shopCartRow2.tpl</b></td>
+</tr>
+<tr>
+  <td><b>&amp;additDataTpl</b></td>
+  <td>шаблон для доп. параметров товаров в корзине (&#91;+addit_data+&#93;)</td>
+  <td>
+    <b>&#91;+param+&#93;</b> - имя и цена параметра. Цена указывается в скобках. Если цена = 0, то пишется только название параметра (без скобок);<br />
+    <b>&#91;+name+&#93;</b> - имя параметра;<br />
+    <b>&#91;+price+&#93;</b> - цена параметра;
+  </td>
+  <td>Пример: <b>chunk_additDataTpl.tpl</b></td>
+</tr>
+<tr>
+  <td><b>&amp;orderDataTpl</b></td>
+  <td>шаблон списка товаров в отчете о заказе (&#91;+orderData+&#93;)</td>
+  <td>
+    <b>Все плейсхолдеры чанка &cartRowTpl</b><br /><br />
+    <b>&#91;+loop+&#93;</b>, <b>&#91;+end_loop+&#93;</b> - начало и конец строки данных товаров (цикл).
+  </td>
+  <td>Пример: <b>chunk_orderDataTpl.tpl</b></td>
+</tr>
+<tr>
+  <td><b>&amp;report</b> (eForm)</td>
+  <td>шаблон текста письма с составом заказа</td>
+  <td>
+  <b>&#91;+orderData+&#93;</b> - состав заказа (список покупок);<br />
+  <b>&#091;+orderID+&#093;</b> - номер заказа;
+  </td>
+  <td>Пример: <b>chunk_shopOrderReport.tpl</b> и <b>chunk_shopOrderReportWebUser.tpl</b></td>
+</tr>
+<tr>
+  <td>Страница, на которой вызывается сниппет Shopkeeper</td>
+  <td></td>
+  <td>
+  <b>&#91;+totalItems+&#93;</b> - кол-во товара в корзине;<br />
+  <b>&#091;+totalPrice+&#093;</b> - общая цена товара в корзине;
+  </td>
+  <td></td>
+</tr>
+</table>
+
+
+
+<h2>Необходимые CSS-классы, Id и имена полей</h2>
+
+<p>Для полноценной работы Shopkeeper необходимы следующие CSS-классы, Id и имена полей:</p>
+
+<table border="1" cellpadding="5">
+<tr>
+  <th>Шаблон</th>
+  <th>CSS-классы</th>
+  <th>id HTML-элементов</th>
+  <th>Имена полей и кнопок</th>
+  <th>Примечание</th>
+</tr>
+<tr>
+  <td>Шаблон вывода информации товара</td>
+  <td>
+    <b>shk-item</b> - класс &quot;обертывающего&quot; элемента блока с информацией о товаре;<br />
+    <b>shk-image</b> - картинка товара (если используется &flyToCart=`image`);<br />
+    <b>shk-price</b> -класс элемента с ценой товара.<br />
+  </td>
+  <td>&mdash;</td>
+  <td>
+    <b>shk-id</b> - имя скрытого поля с id товара;<br />
+    <b>shk-count</b> - имя скрытого поля с кол-вом товара.
+  </td>
+  <td>Пример <b>chunk_shopStuff.tpl</b></td>
+</tr>
+<tr>
+  <td>Шаблон корзины</td>
+  <td>
+    &mdash;
+  </td>
+  <td>
+    <b>shopCart</b> - id &quot;обертывающего&quot; элемента блока корзины;<br />
+    <b>butEmptyCart</b> - id кнопки-ссылки очистки корзины;<br />
+    <b>butOrder</b> - id ссылки на страницу оформление товара.
+  </td>
+  <td>
+    <b>shk_recount</b> - кнопка "Пересчитать".<br />
+    
+  </td>
+  <td>Пример <b>chunk_shopCart.tpl</b></td>
+</tr>
+<tr>
+  <td>Шаблон строки информации о товаре в корзине</td>
+  <td>
+    <b>shk-del</b> - кнопка-ссылка удаления товара.<br />
+    
+  </td>
+  <td>
+    &mdash;
+  </td>
+  <td>
+    <b>count[]</b> - name полей с кол-вом товара.<br />
+  </td>
+  <td>Пример <b>chunk_shopCartRow.tpl</b></td>
+</tr>
+<tr>
+  <td>Шаблон формы заказа</td>
+  <td>
+    &mdash;
+  </td>
+  <td>
+    &mdash;
+  </td>
+  <td>
+    <b>email</b> - поле "E-mail";<br />
+    <b>phone</b> - поле "Телефон"
+  </td>
+  <td>Пример <b>chunk_shopOrderForm.tpl</b> и <b>chunk_shopOrderFormWebUser.tpl</b></td>
+</tr>
+</table>
+
+<p>CSS-классы (и id) используются в JS-функциях. Их можно использовать как дополнительные. Пример:<br />
+<i style="background-color:#eee;">&lt;div class="shop-stuff <b>shk-item</b>"&gt;</i>
+</p>
+
+
+<h2>Оформление заказа</h2>
+
+<p>
+ Форма заказа делается при помощи сниппета <b>eForm</b>. При вызове этого сниппета обзательно указать параметры:
+</p>
+
+<p>
+ <b>&amp;eFormOnBeforeMailSent=`populateOrderData`</b> - функция для заполнения данных о выбранных товарах.
+</p>
+<p>
+ Для того чтобы заказы отправлялись в модуль Shopkeeper, в вызов сниппета eForm добавить параметр <b>&amp;eFormOnMailSent=`sendOrderToManager`</b>.
+</p>
+
+<h3>Пример вызова eForm:</h3>
+
+<p>
+  <i style="background-color:#eee;">&#91;!eForm? &amp;formid=`shopOrderForm`&amp;tpl=`shopOrderForm`&amp;report=`shopOrderReport`&amp;vericode=`1`&amp;ccsender=`1`&amp;gotoid=`11`&amp;subject=`Новый заказ`&amp;eFormOnBeforeMailSent=`populateOrderData`&amp;eFormOnMailSent=`sendOrderToManager`!&#93;</i>
+
+</p>
+
+
+
+
+<h2>Подключение системы оплаты</h2>
+
+<p>Для подключения системы оплаты (выписки квитанций и т.п.) можно сделать дополнительный сниппет, который может использовать переменные сессии, создаваемые после отправки заказа:</p>
+
+<p>
+ <b>$_SESSION['shk_order_id']</b> - ID заказа в БД;<br />
+ <b>$_SESSION['shk_payment_method']</b> - выбранный способ оплаты (список с <b>name="payment"</b> в форме);<br />
+ <b>$_SESSION['shk_order_price']</b> - общая цена;<br />
+ <b>$_SESSION['shk_currency']</b> - валюта;<br />
+ <b>$_SESSION['shk_order_user_id']</b> - ID пользователя (если не зарегистрирован = 0);<br />
+ <b>$_SESSION['shk_order_user_email']</b> - адрес электронной почты плательщика (если не зарегистрирован).
+</p>
+
+
+<br />
+<h2>События для создания плагинов</h2>
+
+<ul>
+  <li><b>OnSHKFrontendInit</b> - инициализация сниппета Shopkeeper во внешней части.</li>
+  <li><b>OnSHKChangeStatus</b> - изменение статуса заказа.</li>
+  <li><b>OnSHKOrderDescRender</b> - вывод подробной информации о заказе в модуле.</li>
+  <li><b>OnSHKMailApprovedForPayment</b> - отправление письма при статусе "Принят к оплате". Плагин может добавлять в письмо доп. информацию ([+plugin+]).</li>
+  <li><b>OnSHKcartLoad</b> - загрузка корзины (вывод информации в чанке &cartTpl - [+plugin+]).</li>
+  <li><b>OnSHKstatusSendMail</b> - отправка письма о смене статуса.</li>
+  <li><b>OnSHKmodRenderTopLinks</b> - вывод ссылок вверху в модуле Shopkeeper.</li>
+  <li><b>OnSHKmodPagePrint</b> - вывод страницы модуля. Можно использовать для создания своей страницы (см. пример OnSHKmodPagePrint_plugin_example.txt).</li>
+  <li><b>OnSHKbeforeSendOrder</b> - перед отправкой заказа. Можно использовать для изменения полей ($fields).</li>
+  <li><b>OnSHKsaveOrder</b> - сохранение заказа.</li>
+  <li><b>OnSHKcalcTotalPrice</b> - расчет общей стоимости.</li>
+</ul>
+
+<p>В папке shopkeeper/docs/ есть примеры плагинов.</p>
+
+
+<br />
+<h2>"Сallback-функции" на JavaScript</h2>
+
+<p>
+ <b>setCartActionsCallback</b> - перезагрузка корзины,<br />
+ <b>fillCartCallback</b> - добавление товара в корзину,<br />
+ <b>emptyCartCallback</b> - очищение корзины.
+</p>
+<p>
+ Просто создайте функции с такими именами и они будут вызываться при соответствующих действиях.
+</p>
+
+<br />
+<h2>Две и более цены для одного товара</h2>
+
+<p>Для этого нужно создать две или более формы (&lt;form&gt;) и в поле name="shk-id" после ID написать имя TV с ценой.</p>
+<p>Пример:</p>
+<p><i style="background-color:#eee;">&lt;input type="hidden" name="shk-id" value="[+id+]__price2" /&gt;</i></p>
+<p>При submit формы в корзину добавится цена из TV-параметра с именем "price2".</p>
+
+<br />
+<h2>Добавление в корзину данных, не создавая TV-параметры</h2>
+<p>Пример:</p>
+<p><i style="background-color:#eee;">&lt;input type="text" name="test__[*id*]__add" value="дополнительные данные" /&gt;</i></p>
+<p>В корзину добавится параметр, который можно выводить в месте вставки плейсхолдера [+test+] (выведется "дополнительные данные").</p>
+
+
+<br />
+<h2>Товары в каталоге Shopkeeper</h2>
+
+<p>
+ Можно сохранять товары в отдельльную таблицу БД (не документы). При хранении товаров в отдельной таблице можно забыть про ограничение на число документов MODx. При этом остается возможность использовать стандартные TV-параметры для товаров и плагины. Для создания и редактирования товаров используется стандартный интерфейс (можно настраивать с помощью плагина ManagerManager). Для вывода товаров на сайте используется сниппет <b>catalogView</b> (см. snippets/catalogView/readme.txt).
+</p>
+<p>
+ Товары можно "вложить" в любой документ (категорию), выбрав в дереве документов. Т.е. категории каталога (структура) создается как и раньше документами MODx, но сами товары будут храниться в отдельной таблице БД.
+</p>
+<p>
+Если товар из каталога Shopkeeeper, в чанк товара (сниппет catalogView) нужно вставить скрытое поле:
+<br /><br />
+<i style="background-color:#eee;">&lt;input type="hidden" name="shk-catalog" value="1" /&gt;</i>
+</p>
+<p>
+Чтобы в модуле Shopkeeper (в админке) появилась ссылка "Каталог", нужно в конфигурации указать ID категории каталога (документ MODx) по умолчанию.<br />Также необходимо настроить конфигурацию плагина <b>SaveToSHK</b> &mdash; указать ID шаблона товаров и ID TV-параметра цены.
+</p>
+
+
+<br />
+<h2>Важно!</h2>
+
+<ul>
+<li>На странице формирования заказа сниппет Shopkeeper должен вызываться раньше eForm.</li>
+<li>
+  В чанке формы заказа обязательно добавить скрытое поле<br />
+  <b>&lt;input type=&quot;hidden&quot; name=&quot;reportTpl&quot; value=&quot;shopOrderReport&quot; /&gt;</b><br />
+  где shopOrderReport - это название чанка с шаблоном отчета (параметр &report сниппета eForm).
+</li>
+<li>
+  Сниппет можно вызывать на странице несколько раз, но корзина выводится только в месте первого вызова.
+  Второй и последующие вызовы игнорируются. Если у Вас корзина на страницах каталога товаров находится в правой
+  колонке шаблона, а на странице оформления заказа вызов сниппета вставлен в контент страницы, то на этой странице
+  корзина будет выведена только в ценральной колонке (в правой вызов сниппета можно не убирать).
+</li>
+<li>
+  Рекомендуется использовать ЧПУ (семантические URL). В шаблонах сайта рекомендуется
+  использовать <b>&lt;base href="&#091;(site_url)&#093;" /&gt;</b> (внутри &lt;head&gt;) и относительные пути.
+</li>
+<li>
+  Если чанки хранятся в файлах (используется команда @FILE:), проверьте кодировку этих файлов. Она должна быть такая же как у вашего сайта.
+</li>
+
+<li>
+  Рекомендуется установить плагин <b>PHx</b> (<a href="http://modxcms.com/extras/package/?package=342" target="_blank">http://modxcms.com/extras/package/?package=342</a>).<br />
+  В чанке <b>chunk_shopOrderFormWebUser.tpl</b> для примера он используется для заполнения скрытых полей данными авторизованного пользователя.
+</li>
+<li>
+  Для вывода корзины (сниппета) в разных местах рекомендуется создавать разные шаблоны для страниц или использовать плагин PHx.
+</li>
+<li>
+  Если используется <b>умножение</b> цены товара на цену доп.параметра, в шаблоне информации о товаре (chunk_shopStuff.tpl и chunk_shopToCart.tpl) поле с ID товара (&lt;input type="hidden" name="shk-id" value="&#091;*id*&#093;" /&gt;) должно быть выше допюпараметров по HTML-коду.
+</li>
+<li>
+  Рекомендуется имена TV-параметров и чанков писать на латинице.
+</li>
+<li>
+  Рекомендованная кодировка - <b>UTF-8</b>.
+</li>
+<li>
+  Для работы необходим <b>PHP</b> версии не позднее <b>5.0</b>. На PHP 5.3 пока не тестировалось.
+</li>
+</ul>
+
+<p>
+ Все примеры прилагаются (папка <b>shopkeeper/chunks/</b>).
+</p>
+
+
+<br />
+<h2>Примеры чанков в папке install/examples/</h2>
+
+<ul>
+  <li><b>chunk_shopCart.tpl</b> - чанк корзины. Может быть использован как значение параметра <b>&cartTpl</b> при вызове Shopkeeper. Чанк содержит сразу 3 шаблона - для пустой, заполненной расширенной и простой корзины.</li>
+  <li><b>chunk_shopCartRow.tpl</b> - чанк шаблона строки с информацией товара в расширенной корзине.</li>
+  <li><b>chunk_shopCartRow2.tpl</b> - -//- пример с картинкой (TV - image) и условием PHx.</li>
+  <li><b>chunk_shopStuff.tpl</b> - чанк краткой информации о товаре. Может быть использован как значение параметра <b>&tpl</b> при вызове <b>Ditto</b>.</li>
+  <li><b>chunk_shopStuff_2.tpl</b> - -//- пример с двумя ценами для одного товара (продажа и прокат).</li>
+  <li><b>chunk_shopToCart.tpl</b> - может быть использован в шаблоне страницы подробного описания товара или можно вставлять вызов чанка <b>&#123;&#123;shopToCart&#125;&#125;</b> в визуальный редактор.</li>
+  <li><b>chunk_shopCartHelper.tpl</b> - чанк шаблона "хелпера" - блока, который появляется для подтверждения действий.</li>
+  <li><b>chunk_additDataTpl.tpl</b> - шаблон для доп. параметров товаров в корзине.</li>
+  <li><b>chunk_shopOrderForm.tpl</b> - чанк форма оформление заказа. Может быть использован как значение параметра <b>&tpl</b> при вызове <b>eForm</b>.</li>
+  <li><b>chunk_shopOrderFormWebUser.tpl</b> - чанк форма оформление заказа для зарегистрированных пользователей.</li>
+  <li><b>chunk_shopOrderReport.tpl</b> - чанк письма с информацией о заказе. Может быть использован как значение параметра <b>&report</b> при вызове <b>eForm</b>.</li>
+  <li><b>chunk_shopOrderReportWebUser.tpl</b> - чанк письма с информацией о заказе для зарегистрированных пользователей.</li>
+  <li><b>chunk_FormSignup.tpl</b> - пример чанка с шаблоном формы регистрации для сниппета <b>WebSignup</b>.</li>
+  <li><b>chunk_weblogin.tpl</b> - пример чанка с шаблоном формы авторизации сниппета <b>WebLogin</b>.</li>
+  <li><b>chunk_orderDataTpl.tpl</b> - шаблон списка товаров в отчете о заказе (&#91;+orderData+&#93;)</li>
+</ul>
+
+<br />
+<h3>Предупреждение</h3>
+
+<p>
+ Т.к. сниппет производит действия с базой данных (запись, чтение), это может быть опасно.
+Автор попытался защититься от наиболее распространенных методов взлома системы, но всё может быть...
+Вы используете этот код на свой страх и риск. Автор не несет ответственности за последствия.
+</p>
+
+
+</div>
+
+  </body>
+</html>

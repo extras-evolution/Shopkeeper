@@ -1,0 +1,32 @@
+//<?php
+
+/*
+ *
+ * Shopkeeper plugin example
+ * 
+ * System event: OnSHKChangeStatus
+ * 
+ */
+
+defined('IN_MANAGER_MODE') or die();
+
+
+$e = &$modx->Event;
+
+$output = "";
+
+if ($e->name == 'OnSHKChangeStatus') {
+  
+  $order_id = isset($order_id) ? $order_id : '';
+  $status = isset($status) ? $status : '';
+  
+  $output .= "OnSHKChangeStatus submited<br />";
+  $output .= "ID заказа: $order_id, Статус: $status";
+
+  
+  $e->output($output);
+
+}
+
+
+//?>

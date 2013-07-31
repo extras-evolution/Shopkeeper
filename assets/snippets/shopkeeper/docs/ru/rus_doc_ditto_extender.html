@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>Shopkeeper 0.9.6</title>
+  <style type="text/css">
+  body {background-color:#006BAC; padding:10px 15px 15px 15px; margin:0;}
+  body, td {font: 14px Arial, sans-serif;}
+  #content {padding:15px; min-height:500px; background-color:#fff; border-radius: 15px; -o-border-radius:15px; -moz-border-radius: 15px; -webkit-border-radius: 15px; -khtml-border-radius: 15px;}
+  table {background-color: #EFEFEF;}
+  table td, table th {border:1px solid #BFBFBF;}
+  th {background-color:#DFDFDF;}
+  li {margin:10px 0;}
+  h1, h2, h3 {color:#5F5F5F;}
+  </style>
+
+  </head>
+  <body>
+
+<div style="padding:0 0 10px 0;">
+  <a href="http://modx-shopkeeper.ru/" target="_blank">
+    <img src="logo.png" alt="Shopkeeper" border="0" height="50" width="215" />
+  </a>
+</div>
+
+
+<div id="content">
+
+
+<h1>Экстендер SHKwidget для Ditto</h1>
+
+<h2>Описание</h2>
+
+<p>
+ Работает как сниппет SHKwidget, но сделан специально для работы в связке с <b>Ditto</b>. При выводе списка
+товаров с доп.параметрами при помощи Ditto, очень рекомендуется использовать вместо сниппета SHKwidget
+этот экстендер. Значительно быстрее и без дополнительных запросов к БД. За идею спасибо <b>SSDTyphon</b>!
+На странице товара (без Ditto) - использовать сниппет.
+</p>
+
+<h2>Установка</h2>
+
+Загрузить файл <b>SHKwidget.extender.inc.php</b> в папку <b>assets/snippets/ditto/extenders/</b>.
+
+<h2>Параметры (указываются при вызове Ditto)</h2>
+
+<p><b>&wtTVname</b> - имя TV-параметр(ов)а, которы(е)й нужно обработать. Можно указать несколько через запятую;</p>
+<p><b>&wtFormat</b> - формат(ы) TV-параметр(ов)а на выходе. Возможные значения: `select`(по умолчанию),`radio`,`checkbox`;</p>
+<p><b>&wtFirstSelected</b> - первый элемент (например у radio-кнопок) выбран (`1`). По умолчанию `0`;</p>
+<p><b>&wtWraptag</b> - обернуть тегом. Например &wtWraptag=`div`. По умолчанию `0` (не оборачивать);</p>
+<p><b>&wtFunction</b> - JS-функция, вызываемая при нажатии на элемент. По умолчанию `jQuery.additOpt(this)`;</p>
+
+<h2>Пример использования</h2>
+
+<p>
+ <b>[!Ditto? &amp;tpl=`shopStuff`&amp;extenders=`SHKwidget`&amp;wtTVname=`param1,param2`&amp;wtFormat=`select,checkbox`!]</b>
+</p>
+
+<p>
+ Плейсхолдеры TV-параметров <b>[+param1+]</b> и <b>[+param2+]</b> будут преобразованы в выпадающий список (select)
+и чекбокс (checkbox). Если в параметре <b>&wtFormat</b> указать только `select`, оба параметра выведутся
+в виде вып.списков.
+</p>
+
+<br><br>
+
+Также см. <a href="rus_doc_SHKwidget.html">rus_doc_SHKwidget.html</a>. 
+
+</div>
+
+  </body>
+</html>

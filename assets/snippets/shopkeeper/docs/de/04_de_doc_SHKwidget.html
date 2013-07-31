@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <title>Shopkeeper 0.9</title>
+  <style type="text/css">
+  body {padding:20px; font: 14px Tahoma, Geneva, sans-serif;}
+  table {background-color: #EFEFEF;}
+  table td, table th {border:1px solid #BFBFBF;}
+  th {background-color:#DFDFDF;}
+  li {margin:10px 0;}
+  </style>
+  
+  </head>
+  <body>
+
+<p>
+  <b><a href="http://modx-shopkeeper.ru/" target="_blank">http://modx-shopkeeper.ru/</a></b>
+</p>
+<hr>
+
+<p>
+ Übersetzt von <b>sharkbait / @kunane</b>
+</p>
+
+<h1>MODx Shopkeeper Widget Snippet</h1>
+
+
+<h2>Beschreibung</h2>
+
+<p>
+Ein Snippet mit dem man Widget Parameter (Drop-Down Listen, Radio Buttons, Checkboxen) für die Artikel im Webshop erstellen kann. Wird zusammen mit dem Shopkeeper Snippet verwendet.<br>
+Nur auf der Produktseite selber verwenden.  Artikel die mit <b>Ditto</b> dargestellt werden, benutzen <b>den Ditto SHKwidget Extender</b> (de_doc_ditto_extender-03.html).
+</p>
+
+<h2>Installation</h2>
+
+<ol>
+
+  <li>gehe im Manager zu <br>
+	<b>Elemente</b> -> <b>Elemente-Verwaltung</b> -> <b>Snippets</b> (MODx 1.x) oder<br>
+	<b>Resourcen</b> -> <b>Resourcen-Verwaltung</b> -> <b>Snippets</b> (MODx 0.9.x)</li>
+  <li>Klick auf <b>"Neues Snippet".</b></li>
+  <li>Snippet-Name: <b>SHKwidget</b>,<br>
+   Snippet-Beschreibung: <b>Shopkeeper-Widgets</b>,<br> 
+   öffne die Datei <b>SHKwidget_snippet.php</b> im "install" Ordner, kopiere den Inhalt in das <b>"Snippet Code"</b> Feld. Klicke auf <b>"Speichern"</b>. 
+  </li>
+  <li>Erstelle eine Template Variable des Typs <b>"Textarea"</b> oder <b>"Text"</b> für den Parameter, und nenne ihn z.B.<b>"param1"</b>.</li>
+  <li>Wenn Produkte hinzugefügt oder aktualisiert werden, werden die Parameter folgendermaßen eingegeben:<br>
+   <b>Parameter1==Wert1||Parameter2==Wert2||...</b><br>
+   <br>
+   Beispiel (erster Wert leer):<br>
+   <b>==||Geschenpapier==3.50||Geschentasche==5.00</b><br>
+   <br>
+   für eine Checkbox: <b>Lieferung==15</b><br>
+   <br>
+   Parameter mit dem Wert 0 können eingegeben werden. Das ist für Parameter nützlich (z.B. Farben), die den Preis nicht beeinflussen. Z.B.: <b>blau==0||grün==0||rot==0</b>
+   </li>
+</ol>
+
+<h2>Snippet Parameter</h2>
+
+<p><b>&docid</b> - ID des Dokumentes für welches die Parameter TV gedacht ist;</p>
+<p><b>&format</b> - Die Art des Elementes. Mögliche Werte: select, radio, checkbox (Standard: `select`);</p>
+<p><b>&tvname</b> - Name der Parameter TV;</p>
+<p><b>&first_selected</b> - Wähle den ersten Wert des Elementes aus (`1`) oder nicht (`0`) (Standard: `0`);
+<p><b>&wraptag</b> - In ein HTML-Tag einbinden. Kann jedes HTML-Tag sein, wie z.B. `div`. Wert `0` (Standard) bedeutet nicht eingebunden.<br>
+                   Kann für Radio-Buttons und checkboxen verwendet werden;</p>
+<p><b>&function</b> - JavaScript Funktion die bei Auswahl aufgerufen werden kann
+		   Standard - <b>`jQuery.additOpt(this)`</b>.</p>
+
+
+<h2>Beispiel Aufruf</h2>
+
+[[SHKwidget? &amp;docid=`[*id*]`&amp;format=`select`&amp;tvname=`param1`]]
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,23 @@
+
+[!Ditto? &parents=`[*id*]`&tpl=`shopStuff`!]
+[!Ditto? &tpl=`shopStuff`&extenders=`SHKwidget`&wtTVname=`param1,param2`&wtFormat=`select,checkbox`!]
+
+
+[+phx:if=`[*id*]`:ne=`10`:then=`[!Shopkeeper? &cartType=`small`&orderFormPage=`10`!]`+]
+
+
+[+phx:if=`[[UltimateParent? &topLevel=`1`]]`:ne=`[*id*]`:then=`{{shopToCart}}`+]
+
+
+[!Shopkeeper? &orderFormPage=`10`!]
+[!eForm? &formid=`shopOrderForm`&protectSubmit=`orderData,name,delivery,payment,email,phone`&tpl=`shopOrderForm`&report=`shopOrderReport`&vericode=`1`&ccsender=`1`&gotoid=`11`&subject=`Order report`&eFormOnBeforeMailSent=`populateOrderData`&eFormOnMailSent=`sendOrderToManager`!]
+
+
+<!-- Если используется регистрация (Зарегистрированные - группа веб-пользователей) -->
+<!-- Страница - не кэшируемая! -->
+[!Shopkeeper? &orderFormPage=`10`!]
+[+phx:mo=`Зарегистрированные`:then=`
+[!eForm? &protectSubmit=`orderData,name,email,phone`&formid=`shopOrderForm`&tpl=`shopOrderFormWebUser`&report=`shopOrderReportWebUser`&subject=`Новый заказ`&eFormOnBeforeMailSent=`populateOrderData`&eFormOnMailSent=`sendOrderToManager`!]
+`:else=`
+[!eForm? &protectSubmit=`orderData,name,email,phone`&formid=`shopOrderForm`&tpl=`shopOrderForm`&report=`shopOrderReport`&subject=`Новый заказ`&eFormOnBeforeMailSent=`populateOrderData`&eFormOnMailSent=`sendOrderToManager`!]
+`+]

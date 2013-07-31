@@ -1,0 +1,393 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>Paykeeper для Shopkeeper</title>
+  <style type="text/css">
+  body {background-color:#ddd;}
+  body, td {padding:15px; font: 14px Tahoma, Geneva, sans-serif;}
+  #content {padding:15px; background-color:#fff; border-radius: 10px; -o-border-radius:10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; -khtml-border-radius: 10px;}
+  table {background-color: #EFEFEF;}
+  table td, table th {border:1px solid #BFBFBF;}
+  th {background-color:#DFDFDF;}
+  li {margin:10px 0;}
+  h1, h2, h3 {color:#5F5F5F;}
+  </style>
+  
+  </head>
+  <body>
+
+<div id="content">
+
+<p>
+  <b><a href="http://modx-shopkeeper.ru/" target="_blank">http://modx-shopkeeper.ru/</a></b>
+</p>
+<hr>
+
+
+<h1>Paykeeper 1.5</h1>
+
+<h2>Описание</h2>
+
+<p>
+  Сниппет для онлайн-оплаты в интернет-магазине MODx + Shopkeeper (>=0.9.4).
+  Интегрирована система <b><a href="http://webmoney.ru/rus/index.shtml" target="_blank">Webmoney</a></b> (без посредников) и <b><a href="http://www.robokassa.ru/Index.aspx" target="_blank">Robokassa</a></b>. Перечень валют, принимаемых в Robokassa можно посмотреть на <a href="http://www.robokassa.ru/Currencies.aspx" target="_blank">этой странице</a>.
+  После совершения оплаты заказ в модуле Shopkeeper переводится в статус &quot;Оплата получена&quot;.<br />
+  Можно производить оплату сразу после отправки заказа или после подтверждения заказа менеджером. Сниппет интегрируется со сниппетом личного кабинета покупателя - <b>SHKUserProfile</b>.
+</p>
+
+<h2>Установка</h2>
+
+<ol>
+ <li>
+
+Скопировать файлы сниппета в папку <b>assets/snippets/paykeeper/</b>.
+ 
+ </li>
+ <li>
+
+В системе управления перейти "Элементы" -> "Управление элементами" -> "Сниппеты". Нажать ссылку "Новый сниппет".
+ 
+ </li>
+ <li>
+
+Название сниппета: <b>Paykeeper</b>,<br>
+Описание: <b>Онлайн-оплата покупок</b>,<br>
+Открыть файл <b>paykeeper/install/Paykeeper_snippet.txt</b>, скопировать содержимое и вставить в поле <b>"Код сниппета"</b>. Нажать кнопку <b>"Сохранить"</b>.
+
+</li>
+</ol>
+
+
+<br>
+<h2>Оплата сразу после отправки заказа</h2>
+
+<ol>
+ 
+ <li>
+
+В системе управления открыть для редактирования страницу, которая открывается после оформления заказа (&gotoid в eForm). Вставить в поле "Содержимое ресурса" вызов сниппета:<br>
+
+<br>
+<i style="background-color:#eee;">&#091;!Paykeeper!&#093;</i>.
+
+<br><br>Сохранить.
+
+<br>Также вызов можно вставить в шаблон страницы.
+ 
+ </li>
+  <li>
+
+Проверьте чтобы на странице оформления заказа в вызове сниппета <b>eForm</b> был указан параметр <b>&gotoid</b>.
+<br>
+Пример:
+
+<br><br>
+
+<i style="background-color:#eee;">&#091;!eForm? <b>&amp;gotoid=`15`</b> &amp;formid=`shopOrderForm` &amp;tpl=`shopOrderForm` &amp;report=`shopOrderReport` &amp;subject=`Новый заказ` &amp;eFormOnBeforeMailSent=`populateOrderData` &amp;eFormOnMailSent=`sendOrderToManager`!&#093;</i>
+
+<br><br>
+
+где <b>15</b> - это ID страницы, которая будет открываться после отправки заказа. <br>
+
+<br>
+В шаблоне формы должен быть выпадающий список (select) для выбора метода оплаты. Пример:
+
+<br><br>
+
+<pre style="background-color:#eee;">
+&lt;select name="payment" &gt;
+  &lt;option value="При получении"&gt;При получении&lt;/option&gt;
+  &lt;option value="<b>webmoney</b>"&gt;WebMoney&lt;/option&gt;
+  &lt;option value="<b>robokassa</b>"&gt;Другие электронные деньги&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+
+<br>
+
+Теперь после отправки заказа на следующей странице будет появляться кнопка "Оплатить сейчас".
+  </li>
+  <li>
+Настройте платежные системы.
+
+ </li>
+ 
+</ol>
+
+
+
+
+<br>
+<h2></h2>
+
+
+
+<br>
+<h2>Настройка ROBOKASSы</h2>
+
+<ul>
+  <li>В личном кабинете в поле "Result URL" введите URL, по которой доступен файл result.php - <b>http://</b>[ваш домен]<b>/assets/snippets/paykeeper/result.php</b></li>
+  <li>Метод отсылки данных по Result URL - <b>POST</b>.</li>
+  <li>Success URL - страница, которая будет открываться после успешного прохождения платежа.<br>
+  Метод отсылки данных по Success URL - POST</li>
+  <li>Fail URL - страница, которая будет открываться после незавершенного платежа.<br>
+  Метод отсылки данных по Fail URL - POST
+  </li>
+  <li>Введите Пароль #1 и Пароль #2.
+  <br><img style="border:1px solid #888;" src="robokassa.gif" alt="robokassa" height="241" width="716">
+  </li>
+  <li>Откройте файл <b>paykeeper/robokassa/config.php</b> и введите свои данные (логин, пароль #1, пароль #2.).</li>
+</ul>
+
+
+
+
+<br><br>
+<h2>Настройка WEBMONEY</h2>
+
+<ul>
+  <li>У вас должен быть <b><a href="http://wiki.webmoney.ru/wiki/show/Attestat_prodavtsa" target="_blank">Аттестат продавца</a></b>. Откройте сайт <a href="http://merchant.webmoney.ru/" target="_blank">http://merchant.webmoney.ru/</a> и авторизуйтесь (ссылка "Войти").</li>
+  <li>Перейдите "Настройки" -> "Web Merchant Interface" -> "R-кошелек" -> "Настроить".</li>
+  <li>Настройки анологичные Robokassa.
+  <br><img style="border:1px solid #888;" src="webmoney.gif" alt="webmoney" height="236" width="806">
+  </li>
+  <li>Откройте файл <b>paykeeper/webmoney/config.php</b> и введите номер <b>R-кошелька</b> ($purse['rub']) и Secret Key. Другие валюты пока не поддерживаются (подробнее ниже).</li>
+</ul>
+
+
+
+
+<br><br><br>
+<h2>Шаблоны (чанки) и плейсхолдеры</h2>
+
+<table border="1" cellpadding="5">
+<tr>
+
+  <th>Параметр сниппета</th>
+  <th>Описание</th>
+  <th>Плейсхолдеры в шаблоне</th>
+  <th>Примечание</th>
+</tr>
+<tr>
+  <td><b>&WMstartPayTpl</b></td>
+
+  <td>Шаблон первой страницы при оплате Webmoney.</td>
+  <td rowspan="2">
+    <b>[+action+]</b> - action для формы;<br> 
+    <b>[+email+]</b> - адрес электронной почты пользователя;<br>
+    <b>[+payment_button+]</b> - название кнопки;<br>
+    <b>[+disabled+]</b> - блокировка кнопки, если пользователь незарегистрирован и e-mail не указан (disabled="disabled").
+  </td>
+  <td>
+    
+    Пример: <b>paykeeper/tpl/WMstartPayTpl.tpl</b>
+    
+  </td>
+</tr>
+<tr>
+  <td><b>&RKstartPayTpl</b></td>
+
+  <td>Шаблон первой страницы при оплате через Robokassa.</td>
+  <td>
+    
+    Пример: <b>paykeeper/tpl/RKstartPayTpl.tpl</b>
+    
+  </td>
+</tr>
+<tr>
+  <td><b>&WMpayTpl</b></td>
+
+  <td>Шаблон страницы второго шага оплаты Webmoney (перед переходом на страницу системы оплаты).</td>
+  <td>
+    <b>[+action+]</b> - action для формы;<br>
+    <b>[+email_string+]</b> - строка с предупреждением, если указан некорректный e-mail;<br>
+    <b>[+pay_summ+]</b> - сумма платежа;<br>
+    <b>[+pay_purse_type+]</b> - тип WM-кошелька для оплаты;<br>
+    <b>[+h_inputs+]</b> - скрытые текстовые, необходимые для системы оптаты.
+  </td>
+  <td>
+    
+    Пример: <b>paykeeper/tpl/WMkpayTpl.tpl</b>
+    
+  </td>
+</tr>
+<tr>
+  <td><b>&RKpayTpl</b></td>
+
+  <td>Шаблон страницы второго шага оплаты Robokassa (перед переходом на страницу системы оплаты).</td>
+  <td>
+    <b>[+action+]</b> - см. выше.<br>
+    <b>[+email_string+]</b> - см. выше.<br>
+    <b>[+pay_summ+]</b> - см. выше.<br>
+    <b>[+pay_currency+]</b> - валюта (руб.)<br>
+    <b>[+h_inputs+]</b> - см. выше.
+    
+  </td>
+  <td>
+    
+    Пример: <b>paykeeper/tpl/RKpayTpl.tpl</b>
+    
+  </td>
+</tr>
+</table>
+
+
+<br>
+<h2>Особенности и дополнительные возможности</h2>
+
+
+<ul>
+  <li>Если сниппет вызывается без параметров, значения суммы оплаты, ID заказа и т.д. берется из сессий, которые создаются сниппетом Shopkeeper после сохранения заказа.</li>
+  
+  <li>Сниппет можно вызывать из других сниппетов через функцию <a href="http://wiki.modxcms.com/index.php/API:runSnippet" target="_blank">$modx->runSnippet()</a>.</li>
+  <li>В данной версии (1.x) для WebMoney поддерживается оплата только <b>WMR</b> (рубли). Планируется интеграция с модулем захвата курса валют с сайта центробанка и автоматический пересчет цены в другие валюты.</li>
+  <li>Сниппет тесторовался только с кодировкой сайта <b>UTF-8</b>, т.к. она является рекомендуемой для MODx. C другой кодировкой корректная работа не гарантируется.</li>
+  <li>Гарантируется корректная работа только с <b>Shopkeeper</b> версии <b>0.9.4</b> и выше.</li>
+</ul>
+
+
+
+<br>
+<h2>Параметры сниппета</h2>
+
+<table border="1" cellpadding="5">
+<tr>
+  <th>Параметр</th>
+  <th>Описание и значения</th>
+  <th>Значение по умолчанию</th>
+
+  <th>Примечание</th>
+</tr>
+<tr>
+  <td><b>&amp;lang</b></td>
+  <td>язык</td>
+  <td>Язык системы управления</td>
+  <td>В настоящее время доступны языки:<br> `russian` (папка paykeeper/lang/)</td>
+</tr>
+<tr>
+  <td><b>&amp;paymentDesc</b></td>
+  <td>Описание платежа</td>
+  <td>`Оплата покупки в интернет-магазине`</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;paymentButton</b></td>
+  <td>Название кнопки на первой странице</td>
+  <td>`Оплатить сейчас`</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;resultURL</b></td>
+  <td>URL страницы "Result URL"</td>
+  <td>`http://[ваш сайт]/assets/snippets/paykeeper/result.php`</td>
+  <td>Не обязательный параметр. Можно применять для Webmoney.</td>
+</tr>
+<tr>
+  <td><b>&amp;payment_method</b></td>
+  <td>Метод оплаты<br> <b>`webmoney`</b>, <b>`robokassa`</b> </td>
+  <td>$_SESSION['shk_payment_method']</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;payment_orderid</b></td>
+  <td>ID заказа</td>
+  <td>$_SESSION['shk_order_id']</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;payment_userid</b></td>
+  <td>ID пользователя</td>
+  <td>$_SESSION['shk_order_user_id']</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;payment_useremail</b></td>
+  <td>E-mail пользователя</td>
+  <td>$_SESSION['shk_order_user_email']</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;payment_value</b></td>
+  <td>Сумма оплаты</td>
+  <td>$_SESSION['shk_order_price']</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&amp;payment_currency</b></td>
+  <td>Валюта оплаты</td>
+  <td>$_SESSION['shk_currency']</td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <td><b>&payment_reserve</b></td>
+  <td>Зарезервировать товар для оплаты<br><b>`true`</b>, <b>`false`</b></td>
+  <td>`false`</td>
+  <td>Оплата производится после того как статус заказа переводится в "Принят к оплате". Новый параметр в версии 1.5.</td>
+</tr>
+<tr>
+  <td><b>&amp;WMstartPayTpl</b></td>
+  <td>Имя чанка с шаблоном первой страницы при оплате Webmoney</td>
+  <td>`@FILE:assets/snippets/paykeeper/tpl/WMstartPayTpl.tpl`</td>
+  <td rowspan="4">Если чанки хранятся в файлах, можно указать путь с командой "<b>@FILE:</b>". Если чанки созданы в системе управления, то указывается только имя чанка (например <b>&WMstartPayTpl=`WMstartPay`</b>)</td>
+</tr>
+<tr>
+  <td><b>&amp;WMpayTpl</b></td>
+  <td>Имя чанка с шаблоном страницы второго шага оплаты Webmoney (перед переходом на страницу системы оплаты)</td>
+  <td>`@FILE:assets/snippets/paykeeper/tpl/WMkpayTpl.tpl`</td>
+</tr>
+<tr>
+  <td><b>&amp;RKstartPayTpl</b></td>
+  <td>Имя чанка с шаблоном первой страницы при оплате через Robokassa</td>
+  <td>`@FILE:assets/snippets/paykeeper/tpl/RKstartPayTpl.tpl`</td>
+</tr>
+<tr>
+  <td><b>&amp;RKpayTpl</b></td>
+  <td>Имя чанка с шаблоном страницы второго шага оплаты Robokassa (перед переходом на страницу системы оплаты)</td>
+  <td>`@FILE:assets/snippets/paykeeper/tpl/RKpayTpl.tpl`</td>
+</tr>
+<tr>
+  <td><b>&amp;payTest</b></td>
+  <td>Тестовый режим оплаты. Возможные значения: `true`, `false`.</td>
+  <td>`false`</td>
+  <td>&nbsp;</td>
+</tr>
+
+</table>
+
+
+
+<br>
+<h2>Примеры вызова сниппета</h2>
+
+<h3>Оплата после отправки заказа</h3>
+
+<i style="background-color:#eee;">
+&#091;!Paykeeper!&#093;
+</i>
+
+<br><br>
+<h3>Резервирование (оплата после подтверждения менеджером)</h3>
+
+<i style="background-color:#eee;">
+&#091;!Paykeeper? &amp;payment_reserve=`true`!&#093;
+</i>
+
+<br><br>
+<h3>Оплата отдельного заказа</h3>
+
+<i style="background-color:#eee;">
+&#091;!Paykeeper? &amp;payment_method=`webmoney` &amp;payment_orderid=`2` &amp;payment_value=`100` &amp;payment_currency=`WMR`!&#093;
+</i>
+
+<br><br>
+
+
+
+
+
+<br><br><br>
+
+</div>
+
+  </body>
+</html>

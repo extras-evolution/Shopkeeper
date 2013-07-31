@@ -1,0 +1,28 @@
+//<?php
+
+/*
+ *
+ * Shopkeeper plugin example
+ * 
+ * System event: OnSHKgetProductPrice
+ * 
+ */
+
+$e = &$modx->Event;
+$output = "";
+
+if ($e->name == 'OnSHKgetProductPrice') {
+  
+  if(isset($price)){
+    
+    $discount = 5; //discount 5%
+    $output = round($price * (1-$discount/100), 2);
+    
+  }
+  
+  $e->output($output);
+
+}
+
+
+//?>

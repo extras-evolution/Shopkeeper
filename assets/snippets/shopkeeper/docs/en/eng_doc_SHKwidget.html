@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>Shopkeeper 0.9.4</title>
+  <style type="text/css">
+  body {background-color:#ddd;}
+  body, td {padding:15px; font: 14px Tahoma, Geneva, sans-serif;}
+  #content {padding:15px; background-color:#fff; border-radius: 10px; -o-border-radius:10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; -khtml-border-radius: 10px;}
+  table {background-color: #EFEFEF;}
+  table td, table th {border:1px solid #BFBFBF;}
+  th {background-color:#DFDFDF;}
+  li {margin:10px 0;}
+  h1, h2, h3 {color:#5F5F5F;}
+  </style>
+  
+  </head>
+  <body>
+
+<div id="content">
+
+
+<p>
+  <b><a href="http://modx-shopkeeper.ru/" target="_blank">http://modx-shopkeeper.ru/</a></b>
+</p>
+<hr>
+
+<p>
+ Translated by <b>kp52</b>.
+</p>
+
+<h1>SHKwidget snippet for MODx</h1>
+
+<h2>Description</h2>
+
+<p>
+Snippet to create widget parameters (drop-down lists, radio buttons, checkboxes) for goods in the internet store. Use in conjunction with Shopkeeper snippet.<br>
+Use only on the product page. When displaying lists of products with <b>Ditto</b>, use the <b>SHKwidget extender</b> (eng_doc_ditto_extender.html).
+</p>
+
+<h2>Installation</h2>
+
+<ol>
+
+  <li>In the Manager, go to <br>
+	<b>Elements</b> -> <b>Manage Elements</b> -> <b>Snippets</b> (MODx 1.x) or<br>
+	<b>Resources</b> -> <b>Manage Resources</b> -> <b>Snippets</b> (MODx 0.9.x)</li>
+  <li>Click on <b>"New Snippet".</b></li>
+  <li>Snippet name: <b>SHKwidget</b>,<br>
+   Description: <b>Widgets for Shopkeeper</b>,<br>
+   Open the file <b>SHKwidget_snippet.php</b> in the "install" folder, copy the contents and paste into the <b>"Snippet Code"</b> field. Click <b>"Save"</b>. 
+  </li>
+  <li>Create a template variable for the parameter with the type <b>"Textarea"</b> or <b>"Text"</b>, e.g. <b>"param1"</b>.</li>
+  <li>When adding and updating products, parameters are entered in the following format:<br>
+   <b>Parameter1==Value1||Parameter2==Value2||...</b><br>
+   <br>
+   Example (first value empty):<br>
+   <b>==||Gift wrap==3.50||Gift bag==5.00</b><br>
+   <br>
+   For a checkbox: <b>Delivery==15</b><br>
+   <br>
+   Parameters with a value of zero can be entered. This is useful for parameters (such as colour) that do not influence the price. For example: <b>blue==0||green==0||red==0</b>
+   </li>
+</ol>
+
+<h2>Snippet parameters</h2>
+
+<p><b>&docid</b> - id of the document that the parameter TV is intended for (default ID of the current page);</p>
+<p><b>&format</b> - type of element to be created. Possible values: select, radio, checkbox, radioimage (default: `select`);</p>
+<p><b>&tvname</b> - name of the parameter TV;</p>
+<p><b>&first_selected</b> - select first value of the element (`1`) or not (`0`) (default: `0`);
+<p><b>&wraptag</b> - wrap in an HTML tag. May be any HTML tag, such as `div`. Value of `0` (default) means no wrapping.<br>
+                   Can be used for radio buttons and checkboxes;</p>
+<p><b>&function</b> - JavaScript function to be invoked on selection.
+		   Default - <b>`jQuery.additOpt(this)`</b>.</p>
+
+
+<h2>Sample call</h2>
+
+<i style="background-color:#eee;">[[SHKwidget? &amp;format=`select`&amp;tvname=`param1`]]</i>
+
+
+
+<br><br>
+<h2>Create a list of available colors, materials, etc. (&amp;format=`radioimage`)</h2>
+
+<p>
+ Type (format) Widget <b>radioimage</b> is used for visual presentation of a list of available colors or materials for the goods. Pictures of colors, materials, etc. loaded with TV-image, while editing products, you can choose from the list.
+</p>
+
+<ol>
+	<li>Create a section in the document tree, such as "Materials". ID of this section (in parentheses) will need later.</li>
+	<li>In this section, create for each material (or color, etc.) a separate page. For all materials you need to enter their name (title). <br>
+  If this section is not TV with the type of input "Image", create it (note the ID, which is listed in parentheses after the title). Upload a picture for each material.
+  </li>
+	<li>Create a new TV-setting. "Elements" -> "Manage Elements" -> "Template Variables" -> "New Template Variable".<br>
+  <ul>
+  	<li><b>Template Variable Name</b>: such as "material" (unquoted).</li>
+  	<li><b>Caption</b>: such as "Fabric".</li>
+  	<li><b>Input Type</b>: Listbox (Multi-Select)</li>
+  	<li>
+      In the field <b>Input Option Values</b> Enter a query:<br>
+  <i style="background-color:#eee;">@SELECT cnt.pagetitle, tvc.id FROM modx_site_content cnt, modx_site_tmplvar_contentvalues tvc WHERE cnt.id = tvc.contentid AND tvc.tmplvarid = 4 AND cnt.parent = 48</i><br>
+  where <b>4</b> - TV-pictures ID, <b>48</b> - ID section with pages of material.
+    </li>
+    <li>
+    <b>Widget</b>: Delimited List<br>
+      &nbsp;&nbsp;<b>Delimiter</b> - "," (comma without quotes).
+    </li>
+  </ul>
+  </li>
+	<li>In the block "Template Access" select the template of goods (to TV was available when editing products).</li>
+	<li>Click "Save." Now, for each product you can choose the material (or color, etc.) from the list. To select multiple items use the CTRL or SHIFT.</li>
+</ol>
+
+<p>Example snippet call SHKwidget template Product:<br><br>
+
+<i style="background-color:#eee;">&lt;div class="materials"&gt;<b>[[SHKwidget? &amp;format=`radioimage`&amp;tvname=`material`&amp;first_selected=`1`]]</b>&lt;/div&gt;</i>
+
+</p>
+
+
+
+</div>
+
+
+  </body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <title>Shopkeeper 0.9</title>
+  <style type="text/css">
+  body {padding:20px; font: 14px Tahoma, Geneva, sans-serif;}
+  table {background-color: #EFEFEF;}
+  table td, table th {border:1px solid #BFBFBF;}
+  th {background-color:#DFDFDF;}
+  li {margin:10px 0;}
+  </style>
+  
+  </head>
+  <body>
+
+
+<p>
+  <b><a href="http://modx-shopkeeper.ru/" target="_blank">http://modx-shopkeeper.ru/</a></b>
+</p>
+<hr>
+
+<p>
+ Übersetzt von <b>sharkbait / @kunane</b>
+</p>
+
+<h1>SHKwidget Ditto Extender</h1>
+
+<h2>Beschreibung</h2>
+
+<p>
+Funktioniert im Prinzip genauso wie das SHKwidget Snippet, allerdings speziell für Ditto ausgelegt. Es wird empfohlen diesen Extender zu benutzen anstatt des SHKwidget Snippets wenn mit <b>Ditto</b> gearbeitet wird (und die Artikel zusätzliche Produkt-Parameter besitzen). Es ist erheblich schneller und braucht keine zusätzlichen Datenbankabfragen. Dank an <b>SSDTyphon</b> für die Idee!<br />
+Auf der Produktseite selber (kein Ditto), kann man dann das Snippet verwenden.
+</p>
+
+<h2>Installation</h2>
+
+Platziere die Datei SHKwidget.extender.inc.php in dem Ordner <b>assets/snippets/ditto/extenders/</b>
+
+<h2>Parameter (die im Ditto Aufruf verwendet werden)</h2>
+
+<p><b>&wtTVname</b> - Name der Parameter TV(s), die verarbeitet werden sollen. Kann eine durch Komma getrennte Liste sein;</p>
+<p><b>&wtFormat</b> - für die Darstellung der Parameter TV(s). Werte: `select`(default),`radio`,`checkbox`;</p>
+<p><b>&wtFirstSelected</b> - das erste Element auswählen (z.B. radio button) (`1`) Standard: `0`;</p>
+<p><b>&wtWraptag</b> - in ein HTML-Tag einbinden, z.B. &wtWraptag=`div` Standard: `0` (nicht einbinden);</p>
+<p><b>&wtFunction</b> - JS-Funktion die aufgerufen wird, wenn das Element geklickt wird. Standard `jQuery.additOpt(this)`;</p>
+
+<h2>Anwendungsbeispiele</h2>
+
+<p>
+ <b>[!Ditto? &amp;tpl=`shopStuff` &amp;extenders=`SHKwidget` &amp;wtTVname=`param1,param2` &amp;wtFormat=`select,checkbox`!]</b>
+</p>
+
+<p>
+ Parameter TV Platzhalter <b>[+param1+]</b> und <b>[+param2+]</b> werden in eine Dropdown-Liste umgewandelt (select) sowie eine Checkbox (checkbox). Wenn nur `select` als &wtFormat Parameter angegeben wird, werden beide Parameter als Dropdown-Liste ausgegeben.
+</p>
+
+  </body>
+</html>

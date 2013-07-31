@@ -1,0 +1,14 @@
+//<?php
+/**
+ * compare
+ *  
+ * Сравнение товаров
+ *  
+ * @category 	   snippet
+ * @version 	   1.0
+ * @license 	   
+ * @internal	   @properties 
+ * @internal	   @modx_category Shop
+ */
+
+return require MODX_BASE_PATH.'assets/snippets/compare/compare.inc.php';

@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>Shopkeeper 0.9.4</title>
+  <style type="text/css">
+  body {background-color:#ddd;}
+  body, td {padding:15px; font: 14px Tahoma, Geneva, sans-serif;}
+  #content {padding:15px; background-color:#fff; border-radius: 10px; -o-border-radius:10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; -khtml-border-radius: 10px;}
+  table {background-color: #EFEFEF;}
+  table td, table th {border:1px solid #BFBFBF;}
+  th {background-color:#DFDFDF;}
+  li {margin:10px 0;}
+  h1, h2, h3 {color:#5F5F5F;}
+  </style>
+
+  
+  </head>
+  <body>
+
+<div id="content">
+
+
+<p>
+  <b><a href="http://modx-shopkeeper.ru/" target="_blank">http://modx-shopkeeper.ru/</a></b>
+</p>
+<hr>
+
+<p>
+ Translated by <b>kp52</b>.
+</p>
+
+<h1>Shopkeeper module for MODx</h1>
+
+<p>
+ Order management for the internet store
+</p>
+
+
+<h2>Функции</h2>
+
+<ul>
+  <li>Edit and delete orders that have been received;</li>
+  <li>Attach status label to an order (new, in progress, shipped, complete, snags);</li>
+  <li>Comments can be attached to each order;</li>
+  <li>Sorting of orders.</li>
+</ul>
+
+<h2>Installation</h2>
+
+<ol>
+  <li>If the Shopkeeper snippet has not yet been installed, copy the snippet files to the folder <b>assets/snippets/shopkeeper/</b>.</li>
+  <li>In the Manager, go to <b>"Modules"</b> -> <b>"Manage Modules"</b></li>
+  <li>Click on <b>"New Module"</b></li>
+  <li>Module name: <b>Shopkeeper</b>,<br>
+   Description: <b>Order management</b>,<br>
+   Open the file <b>Shopkeeper_module.php</b> in the "install" folder, copy the contents and paste into the <b>Module Code</b> field. Click on <b>"Save"</b>.
+  </li>
+  <li>Go to <b>"Modules"</b> -> <b>"Manage Modules"</b> and click on the icon next to Shopkeeper. Click on <b>Install</b> to install the module.</li>
+  <li>If the Shopkeeper snippet has already been fully installed and set up (before you installed the module), the <b>"install"</b> folder can be deleted.</li>
+</ol>
+
+<h2>Configuration</h2>
+
+<ul>
+  <li>Orders per page - number of orders on each page.</li>
+  <li>Template for summary information - format of the information shown in the order table. <br>
+  this template is used to write information to the module's database when an order is placed.<br>
+  Only placeholders specified in the eForm snippet's order message (&report parameter) may be used. 
+  Default: [+name+], [+address+], [+email+], [+phone+], [+delivery+], [+payment+]
+  </li>
+  <li>Currency - this is reflected in the order table and in the detailed information about the order.</li>
+  <li>Colours for status labels may be entered in any CSS format. For example, red can be specified as: red, #FF0000, rgb(255, 0, 0).<br>
+  Status labels can be changed in the language file, e.g. <b>shopkeeper/lang/english.php</b></li>
+  <li>The "Delete all orders" button removes the module's tables from the database (uninstallation).</li>
+</ul>
+
+<h2>Important points</h2>
+
+<p>
+ For the orders to be sent to the module, the eForm snippet call must include the following parameters:<br>
+ <b>&amp;eFormOnBeforeMailSent=`populateOrderData`&amp;eFormOnMailSent=`sendOrderToManager`</b>.
+</p>
+
+<p>
+ The order form template chunk  should include a hidden field naming the report message chunk (reportTpl):
+<b>&lt;input type="hidden" name="reportTpl" value="shopOrderReport" /&gt;</b>
+</p>
+
+<h2>Sample eForm call</h2>
+
+[!eForm? &amp;formid=`shopOrderForm`&amp;tpl=`shopOrderForm`&amp;report=`shopOrderReport`&amp;vericode=`1`&amp;gotoid=`11`&amp;subject=`Заказ в интернет-магазине`&amp;eFormOnBeforeMailSent=`populateOrderData`&amp;eFormOnMailSent=`sendOrderToManager`!]
+
+
+
+</div>
+
+  </body>
+</html>

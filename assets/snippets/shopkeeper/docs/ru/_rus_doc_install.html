@@ -1,0 +1,168 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>Shopkeeper 1.3</title>
+  <style type="text/css">
+  body {background-color:#006BAC; padding:10px 15px 15px 15px; margin:0;}
+  body, td {font: 14px Arial, sans-serif;}
+  #content {padding:15px; min-height:500px; background-color:#fff; border-radius: 15px; -o-border-radius:15px; -moz-border-radius: 15px; -webkit-border-radius: 15px; -khtml-border-radius: 15px;}
+  table {background-color: #EFEFEF;}
+  table td, table th {border:1px solid #BFBFBF;}
+  th {background-color:#DFDFDF;}
+  li {margin:10px 0;}
+  h1, h2, h3 {color:#5F5F5F;}
+  pre {width:95%; overflow:auto; margin:10px 0; padding:5px 10px; border:1px solid #ddd; background-color:#eee;}
+  </style>
+
+  </head>
+  <body>
+
+<div style="padding:0 0 10px 0;">
+  <a href="http://modx-shopkeeper.ru/" target="_blank">
+    <img src="logo.png" alt="Shopkeeper" border="0" height="50" width="215" />
+  </a>
+</div>
+
+
+<div id="content">
+
+<h1>Shopkeeper 1.3 для MODx Evolution</h1>
+
+<p>
+  Есть <strong>3 способа</strong> установки. Выберите наиболее подходящий вам.<br />
+  Рекомендуемая кодировка — <strong>UTF-8</strong>.
+</p>
+
+<p>&nbsp;</p>
+
+<a name="method1"></a>
+<h2>Автоматическая установка Shopkeeper на уже установленный MODx (рекомендуется)</h2>
+<ol>
+<li>Загрузите папку <strong>shopkeeper/</strong> в каталог <strong>assets/snippets/</strong> на сервере.</li>
+<li>Переместите из архива Shopkeeper папку <strong>install/</strong> в корень вашего сайта.</li>
+<li>Дополните содержимое папки <strong>assets/</strong> файлами из папки <strong>_upload/assets/.</strong> Там находится PHx-модификатор "shk_widget", файлы сниппета "catalogView" и файлы демо-сайта (шаблон и картинки).</li>
+<li>Запустите установку Shopkeeper, набрав в адресной строке браузера: <strong>http://[домен сайта]/install/</strong>.</li>
+<li>Вы можете выбрать компоненты Shopkeeper, а также установить демо-сайт. Завершите установку.</li>
+<li>
+    Войдите в панель управления сайта (<em>http://[домен сайта]/manager/</em>). Если сразу откроется конфигурация сайта, нажмите "Сохранить".
+  </li>
+<li>Создайте в разделе каталога страницы товаров. Это могут быть 
+домументы MODx или товары каталога Shopkeeper. Для того чтобы появилась 
+кнопка каталога, войтите в "Конфигурацию" и заполните поле "Категория 
+каталога по умолчанию" (ID домумента).</li>
+<li>Удалите папку <strong>install/</strong>. Готово.</li>
+</ol>
+<p>Рекомендуется установить <a href="http://modx.com/extras/package/phx" target="_blank">плагин PHx</a>.</p>
+<p>Также рекомендуется <a href="[[~[[*id]]]]#server">настроить сервер</a> чтобы сайт работал только по одному домену (с других редирект).</p>
+
+<p>&nbsp;</p>
+
+<a name="method2"></a>
+<h2>Установка MODx вместе с Shopkeeper</h2>
+<ol>
+<li>Скачайте и загрузите на сервер файлы свежей версии <strong><a href="http://modx.com/evolution/download/" target="_blank">CMS MODx Evolution</a></strong> (1.x.x).</li>
+<li>Скачайте свежую версию <strong><a href="download/" target="_blank">Shopkeeper</a></strong> и загрузите папку <strong>shopkeeper/</strong> в каталог <strong>assets/snippets/</strong> на сервере.</li>
+<li>Дополните содержимое папки <strong>assets/</strong> файлами из папки <strong>_upload/assets/.</strong> Там находится PHx-модификатор "shk_widget", файлы сниппета "catalogView" и файлы демо-сайта (шаблон и картинки).</li>
+<li>Переместите из архива Shopkeeper папку <strong>install/assets/</strong> в папку <strong>install/</strong> в корне вашего сайта (там уже есть такая папка, в неё будут добавлены необходимые файлы).</li>
+<li>
+    Запустите установку MODx (<em>http://[домен сайта]/install/</em>). На втором шаге в списке компонентов вы увидите:<br />
+    Параметры (TV) - <strong>Price</strong><br />
+    Модули - <strong>Shopkeeper</strong><br />
+    Cниппеты - <strong>Shopkeeper</strong>, <strong>catalogView</strong>, <strong>include</strong>.<br />
+    Завершите установку.
+  </li>
+<li>Рекомендуется установить <a href="http://modx.com/extras/package/phx" target="_blank">плагин PHx</a>.</li>
+<li>Войдите в панель управления сайта (<em>http://[домен сайта]/manager/</em>). Если сразу откроется конфигурация сайта, нажмите "Сохранить".</li>
+<li>
+    Создайте в разделе каталога страницы товаров. Это могут быть домументы MODx или товары каталога Shopkeeper. Для того чтобы появилась кнопка каталога, войтите в "Конфигурацию" и заполните поле "Категория каталога по умолчанию" (ID домумента).
+    <br />
+    Готово.
+  </li>
+</ol>
+<p>Рекомендуется <a href="[[~[[*id]]]]#server">настроить сервер</a> чтобы сайт работал только по одному домену (с других редирект).</p>
+
+<p>&nbsp;</p>
+
+<a name="method3"></a>
+<h2>Ручная установка Shopkeeper на уже установленный MODx</h2>
+<ol>
+<li>Загрузите папку <strong>shopkeeper/</strong> в каталог <strong>assets/snippets/</strong> на сервере.</li>
+<li>Дополните содержимое папки <strong>assets/</strong> файлами из папки <strong>_upload/assets/.</strong> Там находится PHx-модификатор "shk_widget", файлы сниппета "catalogView" и файлы демо-сайта (шаблон и картинки).</li>
+<li>
+    
+<ul>
+<li>В системе управления перейдите "<strong>Элементы</strong>" -&gt; "<strong>Управление элементами</strong>" -&gt; "<strong>Сниппеты</strong>".</li>
+<li>Нажмите ссылку "Новый сниппет".</li>
+<li>Название сниппета: <strong>Shopkeeper</strong>,<br />
+         Описание: <strong>Корзина заказов</strong>,<br />
+         Открыть файл <strong>install/assets/snippets/Shopkeeper_snippet.tpl</strong>, скопировать содержимое и вставить в поле <strong>"Код сниппета"</strong>.
+         <br />
+         При этом в начале и в конце кода должно быть <strong>&lt;?php</strong> и <strong>?&gt;</strong>.
+         Нажать кнопку "Сохранить".</li>
+</ul>
+</li>
+<li>
+    Таким же образом установите сниппеты <strong>catalogView</strong> и <strong>include</strong>.
+  </li>
+<li>
+    
+<ul>
+<li>В системе управления перейти <strong>"Модули"</strong> -&gt; <strong>"Управление модулями"</strong></li>
+<li>Нажмите ссылку <strong>"Новый модуль"</strong>.</li>
+<li>
+        Название модуля: <strong>Управление заказами</strong>,<br />
+        Описание: <strong>Shopkeeper</strong>,<br />
+        Открыть файл <strong>install/assets/modules/Shopkeeper_module.tpl</strong>, скопировать содержимое и вставить в поле <strong>"Код модуля"</strong>. Нажать кнопку "Сохранить".
+      </li>
+<li>Обновить окно браузера. Перейти <strong>"Модули"</strong> -&gt; <strong>"Shopkeeper"</strong>, нажать кнопку <strong>"Установить модуль"</strong>.</li>
+</ul>
+</li>
+<li>Обновите содержимое папки <strong>assets/</strong> вашего сайта, скопировав в неё файлы из папки <strong>install/_upload/assets/</strong> из архива Shopkeeper. Там находится PHx-модификатор "shk_widget", файлы сниппета "catalogView" и файлы демо-сайта (шаблон и картинки).</li>
+<li>Установите плагин <a href="http://modx.com/extras/package/phx">PHx</a></li>
+<li>Если планируется создавать товары в каталоге Shopkeeper (не документы MODx), установите плагин <b>SaveToSHK</b> (install/assets/plugins/savetoshk.tpl).</li>
+<li>Создайте чанки (или в вызове сниппета Shopkeeper укажите путь до файла шаблона) для корзины, вывода информации о товаре (при вызове Ditto), формы заказа (eForm) и т.п. Все примеры есть в папке <strong>assets/snippets/shopkeeper/chunks/ru/</strong>.</li>
+<li>Создайте TV для цены (например "price", тип ввода - Text). </li>
+<li>Создайте в разделе каталога страницы товаров. Это могут быть домументы MODx или товары каталога Shopkeeper. Для того чтобы появилась кнопка каталога, войтите в "Конфигурацию" и заполните поле "Категория каталога по умолчанию" (ID домумента).</li>
+<li>В шаблоне каталога вставьте вызовы сниппетов <strong>Shopkeeper</strong> и <strong>Ditto</strong>. Пример для шаблона Ditto (&amp;tpl) - <strong>assets/snippets/shopkeeper/chunks/ru/chunk_shopStuff.tpl</strong></li>
+</ol>
+
+<p>&nbsp;</p>
+
+<a name="update"></a>
+<h2>Обновление</h2>
+<p>Для обновления с более ранних версий нужно удалить все 
+файлы (кроме ваших чанков, если используются из файлов) и закачать 
+новые. Далее просто войти в модуль (в админке), при этом произойдет 
+обновление.</p>
+
+<p>&nbsp;</p>
+
+<a name="server"></a>
+<h2>Настройка сервера</h2>
+<p>Рекомендуется настроить сервер (виртуальный) чтобы сайт работал только по одному домену (с других перенаправленные на основной).</p>
+<p>Например сайт доступен по двум адресам - <strong>example.com</strong> (домен второго уровня) и <strong>www.example.com</strong> (домен третьего уровня). Когда посетитель заходит по какому-то из этих адресов, некоторые страницы могут быть не закэшированы. Происходит кэширование меню сайта и в нем ссылки с www и без перемешиваются. Т.е. получается как будто человек <strong>переходит с одного сайта на другой</strong>. Или этот переход происходит при отправке заказа. При этом товары, выбранные на одном сайте, не доступны на "другом".</p>
+<p><b>Для сервера Apache:</b></p>
+<p>Для этого в <strong>.htaccess</strong> достаточно убрать решетки (#) со строк</p>
+<pre>#RewriteCond %{HTTP_HOST} .
+#RewriteCond %{HTTP_HOST} !^www\.example\.com [NC]
+#RewriteRule (.*) http://www.example.com/$1 [R=301,L]</pre>
+<p>и указать ваш домен вместо example.com. Тогда, если человек зашел по адресу example.com, его перекинет на адрес www.example.com.</p>
+
+<p>Если вам не нравится домен 3-го уровня (с www), можно сделать редирект на второй уровень:</p>
+<pre>RewriteCond %{HTTP_HOST} .
+RewriteCond %{HTTP_HOST} !^example\.com [NC]
+RewriteRule (.*) http://example.com/$1 [R=301,L]</pre>
+
+На <a href="http://demo-evo.modx-shopkeeper.ru/">демо-сайте</a> используются такие правила:
+<pre>RewriteCond %{HTTP_HOST} .
+RewriteCond %{HTTP_HOST} !^demo-evo\.modx-shopkeeper\.ru [NC]
+RewriteRule (.*) http://demo-evo.modx-shopkeeper.ru/$1 [R=301,L]</pre>
+
+
+
+
+</div>
+
+  </body>
+</html>

@@ -1,0 +1,92 @@
+
+body {margin: 0px; padding: 0; background-color: #0068A9; font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #000;}
+
+h1, h2, h3 {margin:0 0 5px 0; font-weight: normal; color: #3B8ABB;}
+h1 {margin: 0 0 12px 0; text-transform: uppercase; font-size: 24px;}
+h2 {font-size: 20px;}
+h3 {font-size: 18px;}
+
+a {color: #3B8ABB;}
+a:hover {text-decoration: none;}
+a img {border: none;}
+object {outline:none;}
+hr {border:0; border-bottom:1px solid #888; background-color:transparent;}
+fieldset {margin:0; padding:0; border:0;}
+
+img.left {float: left; margin: 7px 30px 0 0;}
+img.right {float: right; margin: 7px 0 0 30px;}
+.clear {clear:both;}
+.none {line-height:0;}
+.relative {position:relative;}
+.img-marg {float:left; margin:0 10px 5px 0;}
+.float-l {float:left;}
+.float-r {float:right;}
+
+.list1 li {float: left; line-height: normal;}
+.list1 li img {margin: 0 30px 30px 0;}
+.list1 li.alt img {margin-right: 0;}
+
+/* Header */
+
+#header {width: 940px; height: 68px; margin: 0 auto; background: url(images/img01.gif) no-repeat left top #222;}
+
+/* Menu */
+#menu {float: left; width: 800px; height: 68px;}
+#menu ul {margin: 0; padding: 15px 0px 0px 5px; list-style: none; line-height: normal;}
+#menu li {display: block; float: left;}
+#menu a {display: block; float: left; height: 32px;	padding: 10px 20px 0px 20px; letter-spacing: -1px; text-decoration: none; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 18px; font-weight: normal; color: #FFFFFF;}
+#menu a:hover, #menu li.active a {text-decoration: none; color: #888;}
+
+/* Page */
+#page {width: 900px; min-height:400px; margin: 0px auto; padding: 20px 20px 0px 20px; background: #eee;}
+
+/** LOGO */
+#logo {width: 920px; margin: 0 auto; padding: 10px 20px;}
+#logo h1, #logo p {margin: 0px; line-height: normal; text-transform: lowercase; font-weight: normal; color: #FFFFFF;}
+#logo p {padding: 13px 0px 0px 5px; text-transform: lowercase; font-family: Georgia, "Times New Roman", Times, serif; font-size: 13px; color: #FFFFFF;}
+#logo h1 { letter-spacing: -1px; font-size: 30px;}
+#logo a {text-decoration: none; color: #FFFFFF;}
+
+#banner {padding-bottom: 20px;}
+
+/* Content */
+#content {float: left; width: 620px; overflow: hidden; color:#000;}
+
+/* Sidebar */
+#sidebar {float: left; width: 240px; padding:0 0 0 30px; overflow: hidden; font-family: Arial, Helvetica, sans-serif; font-size: 12px;}
+
+.rightmenu {background-color: #383838; margin:0 0 30px 0;}
+.rightmenu a {text-align: left; text-decoration: none; font-weight: bold; color: #666666;}
+.rightmenu ul {width:100%; margin:0; padding:0; list-style-type: none;}
+.rightmenu li {margin: 0; padding: 7px 20px; border-bottom: 1px solid #222222;}
+.rightmenu li a {font-weight: normal; color:#fff;}
+.rightmenu li a:hover, .rightmenu li.active a {color: #888;}
+.rightmenu h2 {margin: 0; padding: 6px 20px; background: #161616; text-transform: capitalize; font-size: 18px; font-weight: normal; color: #3B8ABB;}
+
+.listmenu {}
+.listmenu ul {margin:0; padding:0; list-style-type:none;}
+.listmenu li {margin:7px 0; font-weight: bold;}
+
+/* Footer */
+#footer {width: 940px; height: 68px; margin: 0 auto 30px auto; padding: 0; background: url(images/img02.gif) no-repeat left top #222; color:#919191;}
+#footer p {margin: 0; padding: 28px 0px 0px 30px; text-align: center; line-height: normal; font-size: 10px;}
+#footer span {color:#ddd;}
+
+
+/* data table */
+.data-table {width:100%; margin:10px 0; border-collapse: collapse; border:1px solid #888;}
+.data-table th, .data-table td {padding:5px 10px; border:1px solid #888;}
+.data-table th, .data-table thead td {color:#888; background-color:#ddd;}
+.data-table td {font-style:italic;}
+
+.textfield {border:1px solid #888;}
+.errors {color:red;}
+input.required, input.invalid {border:1px solid red;}
+.code {display:none; width:90%; overflow: hidden; padding:5px; margin-bottom:15px; border:1px dashed #ddd; background-color: #fff; color:#555; font-family:"Courier New", Courier, monospace;}
+
+
+#loading {background: url(spinner.gif) no-repeat center center #fff; border:1px solid #888; width:50px; height:50px; position:absolute; top:50%; left:50%; z-index:100; margin:-25px 0 0 -25px; display:none;}
+#popup {background-color:#fff; border:1px solid #888; padding:10px; display:none; position:absolute; top:50%; left:50%; z-index:100;}
+#overlay {background-color:#000; position:absolute; top:0; left:0; z-index:50; display:none; overflow:hidden;}
+
+

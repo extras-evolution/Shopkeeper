@@ -1,0 +1,45 @@
+
+.relative {width:100%; position:relative;}
+
+/* shop stuff */
+.shop-stuff {width:45%; height:265px; float:left; margin:0 20px 15px 0; border:1px solid #888;}
+.shop-stuff-b {padding:10px;}
+.shop-stuff .shk-image {float:left; margin:0 10px 5px 0;}
+.shop-stuff .shs-descr {height:180px; margin-bottom:5px; border-bottom:1px dashed #888;}
+.shop-stuff .shs-price {height:40px;}
+.shop-stuff .shs-price .shk-but {float: right; vertical-align: middle;}
+.shop-stuff small {font-size:12px;}
+.shop-stuff fieldset {padding:0; margin:0; border:0;}
+
+.shs-tocart {margin:5px 0; padding:5px 0; border-top:1px dashed #888;}
+.shs-tocart div {margin:5px 0;}
+
+.shk-price {font-weight:bold; font-size:1.3em;}
+.shk-but {background: url(img/grad.gif) bottom repeat-x #dfdfdf; border:1px outset #888; margin:5px 5px 0 0; padding:2px;}
+.shk-but:active {background: #A3A3A3; outline:none;}
+.price-add {color:red; padding-left:3px; line-height:0;}
+
+/* cart block */
+.shop-cart {background-color:#fff; border:1px solid #888; padding:10px; margin:10px 0;}
+.shop-cart-head {padding:5px 0 15px 0; text-align: center;}
+.shop-cart-body {padding:15px 0; text-align: center;}
+.shop-cart table {border-collapse:collapse; margin:5px 0;}
+.shop-cart td {padding:3px; border-bottom:1px solid #ddd; border-top:1px solid #ddd;}
+.shop-cart table small {font-size:11px; color:#595959;}
+#butEmptyCart {text-decoration: none; color:#000; border-bottom:1px dashed #000;} 
+#cartEmpty {height:50px; line-height:50px;}
+#totalCart {margin:5px 0;}
+.cart-order {margin:5px 0; text-align: center;}
+
+/* helper box */
+#stuffHelper {position: absolute; z-index:100; width:150px; padding:5px; background-color:#f5f5f5; border:1px solid #888; display:none;}
+#stuffHelper div {/*padding:5px 0; */text-align: center;}
+
+/* progressbar */
+#shkLoading {width:30px; height:30px; position: absolute; z-index:100; background:url(img/ajax-loader.gif) center center no-repeat #fff; border:1px solid #888; display: none;}
+
+/* materials */
+.materials {padding:5px 0;}
+.materials img {width:70px;}
+.materials input {cursor: pointer;}
+
