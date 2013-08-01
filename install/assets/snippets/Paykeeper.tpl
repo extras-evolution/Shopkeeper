@@ -7,6 +7,7 @@
  * @version     1.5
  * @internal    @properties
  * @internal    @modx_category Shop
+ * @internal   	@installset base, sample 
  */
 
 
