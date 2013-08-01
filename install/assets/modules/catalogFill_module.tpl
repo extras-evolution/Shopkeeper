@@ -7,7 +7,7 @@
  * @version 	   1.3.8
  * @license 	   
  * @internal	   @properties	 
- * @internal	   @guid 	
+ * @internal	   @guid g45t534	
  * @internal	   @shareparams
  * @internal	   @dependencies
  * @internal	   @modx_category Shop

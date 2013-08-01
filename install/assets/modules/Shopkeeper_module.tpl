@@ -7,7 +7,7 @@
  * @version 	   1.3.6RC
  * @license 	   http://www.gnu.org/copyleft/gpl.html GNU Public License (GPL)
  * @internal	   @properties	 
- * @internal	   @guid 	
+ * @internal	   @guid fdererf452456refrewfg
  * @internal	   @shareparams
  * @internal	   @dependencies
  * @internal	   @modx_category Shop
