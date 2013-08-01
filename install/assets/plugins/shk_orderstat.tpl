@@ -12,6 +12,8 @@
  * @internal    @properties
  * @internal    @events OnSHKmodRenderTopLinks,OnSHKmodPagePrint
  * @internal    @modx_category Shop
+ * @internal    @modx_category Shop
+ * @internal    @installset base, sample 
  */
 
 defined('IN_MANAGER_MODE') or die();

@@ -12,6 +12,8 @@
  * @internal    @properties &template=Template id;string;13 &tv_price=Price TV ID;string;1
  * @internal    @events OnBeforeDocFormSave,OnDocFormPrerender
  * @internal    @disabled 1
+ * @internal    @modx_category Shop
+ * @internal    @installset base, sample 
  */
 
 require_once MODX_BASE_PATH."assets/snippets/shopkeeper/module/shk_save_plugin.inc.php";

@@ -12,6 +12,7 @@
  * @internal    @properties &print_text=Текст кнопки;string;Печать &tpl_path=Папка с шаблонами;string;assets/plugins/SHKprintOrder/chunks/ &print_tpl=Шаблон (чанк);string;@FILE:printOrder.tpl
  * @internal    @events OnSHKOrderDescRender
  * @internal    @modx_category Shop
+ * @internal    @installset base, sample 
  */
 
 defined('IN_MANAGER_MODE') or die();

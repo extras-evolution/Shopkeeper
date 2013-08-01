@@ -12,6 +12,8 @@
  * @internal    @properties &tv_names=TV names;string;Имена TV &inp_width=Input Width;string;200 &loadJquery=Load JQuery;list;true,false;false
  * @internal    @events OnDocFormRender
  * @internal    @disabled 1
+ * @internal    @modx_category Shop
+ * @internal    @installset base, sample  
  */
 
 require_once MODX_BASE_PATH."assets/plugins/paramEditFull/paramEditFull.php";

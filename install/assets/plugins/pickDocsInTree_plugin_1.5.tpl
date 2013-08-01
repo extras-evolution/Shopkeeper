@@ -10,6 +10,8 @@
  * @internal    @properties &tv_name=TV name(s);string;docs
  * @internal    @events OnDocFormRender,OnDocFormSave
  * @internal    @disabled 1
+ * @internal    @modx_category Shop
+ * @internal    @installset base, sample 
  */
 
 
