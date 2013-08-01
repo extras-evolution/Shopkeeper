@@ -11,6 +11,7 @@
  * @internal	   @shareparams
  * @internal	   @dependencies
  * @internal	   @modx_category Shop
+ * @internal       @installset base, sample
  */
 
 /***********************************
