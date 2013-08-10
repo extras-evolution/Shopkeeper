@@ -418,6 +418,7 @@ INSERT INTO `{PREFIX}site_tmplvar_contentvalues` (`id`, `tmplvarid`, `contentid`
 --
 -- Дамп данных таблицы `{PREFIX}site_tmplvar_templates`
 --
+TRUNCATE TABLE `{PREFIX}site_tmplvar_templates`;
 
 INSERT INTO `{PREFIX}site_tmplvar_templates` (`tmplvarid`, `templateid`, `rank`) VALUES
 (14, 13, 0),
