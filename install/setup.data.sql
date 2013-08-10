@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS `{PREFIX}catalog` (
 --
 -- Дамп данных таблицы `{PREFIX}catalog`
 --
+TRUNCATE TABLE `{PREFIX}catalog`;
 
 INSERT INTO `{PREFIX}catalog` (`id`, `pagetitle`, `alias`, `published`, `parent`, `isfolder`, `introtext`, `content`, `template`, `menuindex`, `createdon`, `hidemenu`) VALUES
 (1, 'Флэш - накопитель', 'flesh_-_nakopitel', 1, 86, 0, 'На эту флэшку поместится очень много вирусов и вы сможете всегда носить с собой своих любимых питомцев!', '<p>Шурф по определению концентрирует многофазный бур, однозначно свидетельствуя о неустойчивости процесса в целом. Принимая во внимание искусственность границ элементарной почвы и произвольность ее положения в пространстве почвенного покрова, плодородие непрерывно. Ёмкость катионного обмена приводит к появлению ортштейн, что дает возможность использования данной методики как универсальной. Бур, как бы это ни казалось парадоксальным, вымывает в лёсс только в отсутствие тепло- и массообмена с окружающей средой. Сопротивление кумулятивно.</p>', 13, 0, 0, 0),
@@ -50,6 +51,7 @@ CREATE TABLE IF NOT EXISTS `{PREFIX}catalog_tmplvar_contentvalues` (
 --
 -- Дамп данных таблицы `{PREFIX}catalog_tmplvar_contentvalues`
 --
+TRUNCATE TABLE `{PREFIX}catalog_tmplvar_contentvalues`;
 
 INSERT INTO `{PREFIX}catalog_tmplvar_contentvalues` (`id`, `tmplvarid`, `contentid`, `value`) VALUES
 (1, 1, 1, '300'),
@@ -79,7 +81,7 @@ INSERT INTO `{PREFIX}catalog_tmplvar_contentvalues` (`id`, `tmplvarid`, `content
 -- Дамп данных таблицы `{PREFIX}categories`
 --
 
-INSERT INTO `{PREFIX}categories` (`id`, `category`) VALUES
+REPLACE INTO `{PREFIX}categories` (`id`, `category`) VALUES
 (13, 'shop'),
 (14, 'shop_eng')
 
@@ -88,6 +90,8 @@ INSERT INTO `{PREFIX}categories` (`id`, `category`) VALUES
 --
 -- Структура таблицы `{PREFIX}manager_shopkeeper`
 --
+TRUNCATE TABLE `{PREFIX}manager_shopkeeper`;
+
 
 CREATE TABLE IF NOT EXISTS `{PREFIX}manager_shopkeeper` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -125,6 +129,7 @@ CREATE TABLE IF NOT EXISTS `{PREFIX}manager_shopkeeper_config` (
 --
 -- Дамп данных таблицы `{PREFIX}manager_shopkeeper_config`
 --
+TRUNCATE TABLE `{PREFIX}manager_shopkeeper_config`;
 
 INSERT INTO `{PREFIX}manager_shopkeeper_config` (`id`, `setting`, `value`) VALUES
 (1, 'conf_template', 'Ф.И.О.: [+name+]<br />\r\nадрес: [+address+]<br />\r\nадрес эл. почты: [+email+]<br />\r\nтелефон: [+phone+]<br />\r\nспособ доставки [+delivery+]<br />\r\nспособ оплаты: [+payment+]'),
