@@ -452,7 +452,7 @@ INSERT INTO `{PREFIX}site_tmplvar_templates` (`tmplvarid`, `templateid`, `rank`)
 -- Дамп данных таблицы `{PREFIX}system_eventnames`
 --
 
-INSERT INTO `{PREFIX}system_eventnames` (`id`, `name`, `service`, `groupname`) VALUES
+REPLACE INTO `{PREFIX}system_eventnames` (`id`, `name`, `service`, `groupname`) VALUES
 (1102, 'OnSHKcalcTotalPrice', 6, 'Shopkeeper'),
 (1101, 'OnSHKsaveOrder', 6, 'Shopkeeper'),
 (1100, 'OnSHKbeforeSendOrder', 6, 'Shopkeeper'),
