@@ -83,7 +83,7 @@ INSERT INTO `{PREFIX}catalog_tmplvar_contentvalues` (`id`, `tmplvarid`, `content
 
 REPLACE INTO `{PREFIX}categories` (`id`, `category`) VALUES
 (13, 'shop'),
-(14, 'shop_eng')
+(14, 'shop_eng');
 
 -- --------------------------------------------------------
 
