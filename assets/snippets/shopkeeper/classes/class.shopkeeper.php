@@ -923,7 +923,7 @@ class Shopkeeper {
         }
         
         unset($fields['orderData'],$fields['submit'],$fields['formid'],$fields['vericode']);
-        $fields['postdate'] = date («Y-m-d H:i:s»);
+        $fields['postdate'] = date('Y-m-d H:i:s');
         $short_txt = is_array($fields) ? $this->modx->db->escape(serialize($fields)) : '';
 
         if(!empty($_SESSION['purchases'])){
