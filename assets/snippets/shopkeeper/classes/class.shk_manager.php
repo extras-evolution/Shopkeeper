@@ -94,7 +94,7 @@ class SHKmanager extends Shopkeeper {
      */
     function modUpdate(){
 
-        $this->modx->db->delete($mod_user_table, "webuser = '0'");
+        $this->modx->db->delete($this->mod_user_table, "webuser = '0'");
 
         if($this->cur_version=='0.9.6 beta1'){
           $this->modx->db->delete($this->tab_eventnames, "groupname = 'Shopkeeper'");
