@@ -72,25 +72,30 @@ var settings_qs = '&site_url='+site_url+'&cart_type='+shkOpt.cartType+'&cart_tpl
 $.fn.setCounterToField = function(opt){
   st = $.extend({style:'default',wrapdiv:false}, opt);
   var imgpath = site_url+'assets/snippets/shopkeeper/style/'+st.style+'/img/';
-  function checkKey(e){
-    var key_code = e.which ? e.which : e.keyCode;
-    return (key_code>47&&key_code<58)||key_code==8 ? true : false;
-  }
   function changeCount(field,action){
-    var count = parseInt($(field).val());
+    $(field).focus();
+    var count = parseInt($(field).val()) || 0;
     var num = action==1 ? count+1 : count-1;
     if(num>=1)
       $(field).val(num);
   }
   var countButs = '<img class="field-arr-up" src="'+imgpath+'arr_up.gif" width="17" height="9" alt="" />'
                 + '<img class="field-arr-down" src="'+imgpath+'arr_down.gif" width="17" height="9" alt="" />'+"\n";
-  var field = $(this);
+  var field = $(this).prop("autocomplete","off");
   if(st.wrapdiv)
     $(this).wrap('<div></div>');
   $(this)
-  .css({'height':'16px','border':'1px solid #888','vertical-align':'bottom','text-align':'center','padding':'1px 2px','font-size':'13px'})
+  .css({'height':'16px','border':'1px solid #888','vertical-align':'bottom','text-align':'center','padding':'1px 2px','font-size':'13px','outline':0})
   .after(countButs)
-  .keypress(function(e){return checkKey(e);});
+  .keypress(function(e){ return !!((e.which>=48&&e.which<=57)||e.which==8||e.which==0); })
+  .keydown(function(e){
+     switch(e.keyCode) {
+       case 38: changeCount(field,1); break; 
+       case 40: changeCount(field,2); break; 
+       case 13: $("#confirmButton").click();break; 
+       case 27: $("#cancelButton").click();break; 
+     }
+   });
   $(this).next('img').click(function(){
     changeCount(field,1);
   })
@@ -157,7 +162,7 @@ function showHelper(elem,name,noCounter,func){
   }else{
     $('#stuffHelperName').remove();
   }
-  $('#stuffHelper').css({'top':btPos.y+'px','left':btPos.x+'px'}).fadeIn(500);
+  $('#stuffHelper').css({'top':btPos.y+'px','left':btPos.x+'px'}).fadeIn(500,function(){$(this).find("input").select().focus()});
 }
 
 
