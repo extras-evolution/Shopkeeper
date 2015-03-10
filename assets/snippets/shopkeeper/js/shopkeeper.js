@@ -77,7 +77,7 @@ $.fn.setCounterToField = function(opt){
     return (key_code>47&&key_code<58)||key_code==8 ? true : false;
   }
   function changeCount(field,action){
-    var count = parseInt($(field).attr('value'));
+    var count = parseInt($(field).val());
     var num = action==1 ? count+1 : count-1;
     if(num>=1)
       $(field).val(num);
