@@ -70,8 +70,12 @@ function shk_numFormat(n){
 var settings_qs = '&site_url='+site_url+'&cart_type='+shkOpt.cartType+'&cart_tpl='+shkOpt.cartTpl[0]+'&cart_row_tpl='+shkOpt.cartTpl[1]+'&addit_data_tpl='+shkOpt.cartTpl[2]+'&currency='+shkOpt.currency+'&price_tv='+shkOpt.priceTV+'&link_allow='+shkOpt.linkAllow+'&nocounter='+shkOpt.noCounter+'&change_price='+shkOpt.changePrice+'&order_page='+shkOpt.orderFormPage;
 
 $.fn.setCounterToField = function(opt){
-  st = $.extend({style:'default',wrapdiv:false}, opt);
-  var imgpath = site_url+'assets/snippets/shopkeeper/style/'+st.style+'/img/';
+  var _t = $(this);
+  var st = $.extend({style:'default',wrap:null,wrapdiv:false}, opt);
+  st.wrap == null && st.wrapdiv && (st.wrap = "<div/>");
+  st.wrap && (/^\<.*\>$/.test(st.wrap) || (st.wrap = "<"+st.wrap.replace(/(\<|\/?\>)/g,'')+"/>"));
+  !st.wrap && !_t.parent("label").size() && (st.wrap = true);
+  st.wrap === true  && ( st.wrap = "<label/>");
   function changeCount(field,action){
     $(field).focus();
     var count = parseInt($(field).val()) || 0;
@@ -79,13 +83,13 @@ $.fn.setCounterToField = function(opt){
     if(num>=1)
       $(field).val(num);
   }
-  var countButs = '<img class="field-arr-up" src="'+imgpath+'arr_up.gif" width="17" height="9" alt="" />'
-                + '<img class="field-arr-down" src="'+imgpath+'arr_down.gif" width="17" height="9" alt="" />'+"\n";
-  var field = $(this).prop("autocomplete","off");
-  if(st.wrapdiv)
-    $(this).wrap('<div></div>');
-  $(this)
-  .css({'height':'16px','border':'1px solid #888','vertical-align':'bottom','text-align':'center','padding':'1px 2px','font-size':'13px','outline':0})
+ var countButs = '\
+  <span class="field-arr up" />\
+  <span class="field-arr down" />\
+';
+  var field = _t.prop("autocomplete","off");
+  st.wrap && _t.wrap(st.wrap);
+  _t
   .after(countButs)
   .keypress(function(e){ return !!((e.which>=48&&e.which<=57)||e.which==8||e.which==0); })
   .keydown(function(e){
@@ -96,15 +100,13 @@ $.fn.setCounterToField = function(opt){
        case 27: $("#cancelButton").click();break; 
      }
    });
-  $(this).next('img').click(function(){
+  _t.parent().find('.field-arr.up').click(function(){
     changeCount(field,1);
-  })
-  .css({'cursor':'pointer','margin':'0 0 11px 1px','vertical-align':'bottom'})
-  .next('img').click(function(){
+  });
+  _t.parent().find('.field-arr.down').click(function(){
     changeCount(field,2);
-  })
-  .css({'cursor':'pointer','margin':'0 0 1px -17px','vertical-align':'bottom'});
-}
+  });
+};
 
 
 $.fn.shopkeeper = function(){
