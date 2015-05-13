@@ -43,18 +43,21 @@
 .materials img {width:70px;}
 .materials input {cursor: pointer;}
 
-.shs-tocart form label {
+.shs-tocart form label,
+.shs-count label {
  display: inline-block;
  position: relative;
 }
-.shs-tocart form label [name='shk-count'] {
+.shs-tocart form label [name*='count'],
+.shs-count label [name*='count'] {
   display: inline-block;
   float: left;
   margin-right: -22px;
   padding: 0.2em 0.3em;
   width: 100%;
 }
-.shs-tocart form label .field-arr {
+.shs-tocart form label .field-arr,
+.shs-count label .field-arr {
   display: block;
   float: right;
   height: 10px;
@@ -63,9 +66,11 @@
   vertical-align: middle;
   width: 17px;
 }
-.shs-tocart form label .field-arr.up {
+.shs-tocart form label .field-arr.up,
+.shs-count label .field-arr.up {
  background: url("img/arr_up.gif") no-repeat center center;
 }
-.shs-tocart form label .field-arr.down {
+.shs-tocart form label .field-arr.down,
+.shs-count label .field-arr.down {
  background: url("img/arr_down.gif") no-repeat center center;
 }
