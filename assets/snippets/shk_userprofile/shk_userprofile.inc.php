@@ -273,7 +273,7 @@ switch($upconf['action']){
           if($new_orderid!==false) $modx->sendRedirect($upconf['thisPage'].$upconf['qs'].$upconf['id_prefix']."act=purchase&".$upconf['id_prefix']."pid=".$new_orderid,0,"REDIRECT_HEADER");
       }
       
-      $output .= $shk_uprofile->showOrderDesc($_GET[$upconf['id_prefix'].'pid'],$userId);
+      $output .= $shk_uprofile->showOrderDesc((int)$_GET[$upconf['id_prefix'].'pid'],$userId);
     
     //order list
     }else{
