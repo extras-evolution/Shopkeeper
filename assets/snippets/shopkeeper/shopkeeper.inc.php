@@ -158,7 +158,7 @@ if($shkconf['style']){$headHtml .= "
 if($shkconf['noJavaScript']==false){
   
   if(!$shkconf['noJQuery']){
-    $modx->regClientStartupScript(SHOPKEEPER_URL."js/jquery-1.6.3.min.js",array('name'=>'jquery','version'=>'1.6.3','plaintext'=>false));
+    $modx->regClientScript(SHOPKEEPER_URL."js/jquery-1.6.3.min.js",array('name'=>'jquery','version'=>'1.6.3','plaintext'=>false));
   }
   
   $jsSrc ="\n\t<script type=\"text/javascript\">\n\t<!--";
@@ -215,7 +215,7 @@ if($shkconf['noJavaScript']==false){
     <script src=\"".SHOPKEEPER_URL."js/shkdebug.js\" type=\"text/javascript\"></script>";
   }
     
-  $modx->regClientStartupScript($jsSrc);
+  $modx->regClientScript($jsSrc);
 
 }
 
