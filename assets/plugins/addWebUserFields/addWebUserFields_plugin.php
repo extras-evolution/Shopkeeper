@@ -35,7 +35,7 @@ if($e->name == 'OnWUsrFormRender'){
   $hide_fields_arr = strlen($hide_fields)>0 ? explode(',',$hide_fields) : array();
   
   //check table in DB
-  if(mysql_num_rows(mysql_query("show tables from $dbname like '$p_table'"))==0){
+  if($modx->db->getRecordCount($modx->db->query("show tables from $dbname like '$p_table'"))==0){
     $sql[] = "CREATE TABLE `$p_table` (`id` int(11) NOT NULL AUTO_INCREMENT, `webuser` INT(11) NOT NULL, `setting_name` VARCHAR(50) NOT NULL default '', `setting_value` TEXT, PRIMARY KEY (`id`))";
     foreach ($sql as $line){
       $modx->db->query($line);
