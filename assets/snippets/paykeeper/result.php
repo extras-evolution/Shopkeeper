@@ -67,7 +67,7 @@ function savePayment($dbname, $mod_tab_payments, $mod_tab_items, $SHK_mod_table,
   $result2 = $modx->db->update(array('paid'=>'Y'), $mod_tab_items, "payid = '$payment_no' AND content = '$item_id'");
   if($modx->db->getAffectedRows()){
     //change order status
-    if (mysql_num_rows(mysql_query("show tables from $dbname like '$SHK_mod_table'"))>0){
+    if ($modx->db->getRecordCount($modx->db->query("show tables from $dbname like '$SHK_mod_table'"))>0){
       $change_status = $modx->db->update(array("status" => 6), $SHK_mod_table, "id = '$item_id'");
       
       $evtOut = $modx->invokeEvent('OnSHKChangeStatus',array('order_id'=>$item_id,'status'=>6));
