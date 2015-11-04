@@ -195,7 +195,7 @@ class SHKmanager extends Shopkeeper {
         if($this->modx->db->getRecordCount($this->modx->db->query("SHOW TABLES FROM $this->dbname LIKE '$this->mod_table'"))>0){
             $config_query = $this->modx->db->select("*", $this->mod_config_table, "", "", "");
             while($config = $this->modx->db->getRow($config_query)){
-                $output[$config[1]] = $config[2];
+              $output[$config['setting']] = $config['value'];
             }
             $output['phaseColor'] = explode("~", $output['conf_colors']);
         }
