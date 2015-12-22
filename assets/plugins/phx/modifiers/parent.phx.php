@@ -7,7 +7,7 @@
 */	
 	
 $field = (strlen($options)>0) ? $options : 'pagetitle';
-$parent = $modx->getParent($output,1,$field);
+if (!is_array($parent = $modx->getParent($output,1,$field)))  $parent = $modx->getParent($output,0,$field);
 return $parent[$field];
 
 ?>
