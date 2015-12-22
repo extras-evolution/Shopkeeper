@@ -96,7 +96,7 @@ TRUNCATE TABLE `{PREFIX}manager_shopkeeper`;
 CREATE TABLE IF NOT EXISTS `{PREFIX}manager_shopkeeper` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `short_txt` text NOT NULL,
-  `content` text,
+  `content` longtext,
   `allowed` varchar(255) NOT NULL,
   `addit` text,
   `price` varchar(255) NOT NULL,
