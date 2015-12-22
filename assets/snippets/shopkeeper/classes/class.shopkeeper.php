@@ -146,7 +146,7 @@ class Shopkeeper {
     function getNextAutoIncrement($table_name){
         $next_increment = 0;
         $query = $this->modx->db->query("SHOW TABLE STATUS LIKE '$table_name'");
-        while($row = mysql_fetch_assoc($query)){
+        while($row = $this->modx->db->getRow($query)){
           $next_increment = $row['Auto_increment'];
         }
         return $next_increment;
@@ -915,10 +915,10 @@ class Shopkeeper {
         $ord_phone = isset($fields['phone']) ? $this->modx->db->escape($fields['phone']) : '';
         $ord_pay_method = isset($fields['payment']) ? $this->modx->db->escape($fields['payment']) : 0;
 
-        if (mysql_num_rows(mysql_query("show tables from ".$this->modx->db->config['dbase']." like '".$this->modx->db->config['table_prefix']."manager_shopkeeper'"))==0) return;
+        if ($this->modx->db->getRecordCount($this->modx->db->query("show tables from ".$this->modx->db->config['dbase']." like '".$this->modx->db->config['table_prefix']."manager_shopkeeper'"))==0) return;
         
         $config_query = $this->modx->db->select("*", $this->modx->getFullTableName('manager_shopkeeper_config'), "", "", "");
-        while($config = mysql_fetch_array($config_query)){
+        while($config = $this->modx->db->getRow($config_query)){
           $$config[1] = $config[2];
         }
         

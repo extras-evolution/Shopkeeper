@@ -61,7 +61,7 @@ switch($e->name) {
           $referer = 'http://www.google.ru/search?q='.$se_words;
       }
       
-      if (mysql_num_rows(mysql_query("show tables from {$dbname} like '{$dbprefix}se_order_stat'"))==0){
+      if ($modx->db->getRecordCount($modx->db->query("show tables from {$dbname} like '{$dbprefix}se_order_stat'"))==0){
         $modx->db->query("CREATE TABLE IF NOT EXISTS `{$dbprefix}se_order_stat` (`id` int(11) NOT NULL AUTO_INCREMENT, `link` varchar(255) NOT NULL, `word` varchar(255) NOT NULL, `date` date NOT NULL, `stat` int(11) NOT NULL, `orderid` int(11) NOT NULL, `userid` int(11) NOT NULL, PRIMARY KEY (`id`))");
       }
       

@@ -402,14 +402,14 @@ default:
         //Данные пользователей
         $userData_query = $modx->db->select("DISTINCT wu.id, wu.username", $dbprefix."web_users wu, $shkm->mod_table shk", "wu.id = shk.userid", "", "");
         $users_id_list = "0";
-        while ($userData = mysql_fetch_row($userData_query)){
+        while ($userData = $modx->db->getRow($userData_query)){
           $userName[$userData[0]] = $userData[1];
           $users_id_list .= ",".$userData[0];
         }
         //Число заказов пользователя
         $users_all_purchase = array();
         $user_purchase_query = $modx->db->select("webuser, setting_value", $shkm->mod_user_table, "setting_name = 'count_purchase' AND webuser in($users_id_list)", "", "");
-        while ($user_purchase = mysql_fetch_row($user_purchase_query)){
+        while ($user_purchase = $modx->db->getRow($user_purchase_query)){
           $users_all_purchase[$user_purchase[0]] = strpos($user_purchase[1],'/')!== false ? explode('/',$user_purchase[1]) : array($user_purchase[1],0);
         }
 
