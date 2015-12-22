@@ -64,7 +64,7 @@ unset($key,$value);
 
 //get SHK phases colors
 $upconf['phaseColor'] = array();
-if (mysql_num_rows(mysql_query("show tables from $dbname like '$mod_config_table'"))>0){
+if ($modx->db->getRecordCount($modx->db->query("show tables from $dbname like '$mod_config_table'"))>0){
   $conf_colors = $modx->db->getValue($modx->db->select("value", $mod_config_table, "setting = 'conf_colors'", "", ""));
   $upconf['phaseColor'] = explode("~", $conf_colors);
   $installed = 1;

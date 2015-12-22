@@ -105,7 +105,7 @@
         return (@unserialize($string) !== false);
     }
     
-    while ($data = mysql_fetch_array($data_query)):
+    while ($data = $modx->db->getRow($data_query)):
       $pos = $total-($total-($start+$num));
       $user_id = $data['userid'];
       if($shkm->is_serialized($data["short_txt"])){

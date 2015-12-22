@@ -124,7 +124,7 @@ function getNextAutoIncrement($table_name){
   global $modx;
   $next_increment = 0;
   $query = $modx->db->query("SHOW TABLE STATUS LIKE '$table_name'");
-  while($row = mysql_fetch_assoc($query)){
+  while($row = $modx->db->getRow($query)){
     $next_increment = $row['Auto_increment'];
   }
   return $next_increment;
