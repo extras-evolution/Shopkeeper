@@ -237,6 +237,15 @@ class Shopkeeper {
                     $a_val_res = $this->modx->db->getValue($tv_val_result);
                     $a_val_arr = $a_val_res ? explode('||',$a_val_res) : array();
                 }
+                //добавляем возможность работы с multiTV
+                $a_m_res = json_decode(current($a_val_res), true);
+                if (isset($a_m_res['fieldValue'])) {
+                  $a_val_arr = array();
+                  foreach($a_m_res['fieldValue'] as $v){
+                  $a_val_arr[] = $v['size'].'=='.$v['price']; 
+                  } 
+                }  
+                //
                 list($afi,$afp,$afn) = explode('__',$value);
                 list($a_name,$a_price) = !isset($afn) ? explode('==',$a_val_arr[$afi]) : array($afn,0);
             }
