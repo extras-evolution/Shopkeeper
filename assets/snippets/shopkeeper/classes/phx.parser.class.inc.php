@@ -305,8 +305,8 @@ class PHxParser {
 						// Is a snippet defined?
 						if (!array_key_exists($modifier_cmd[$i], $this->cache["cm"])) {
 							$sql = "SELECT snippet FROM " . $modx->getFullTableName("site_snippets") . " WHERE " . $modx->getFullTableName("site_snippets") . ".name='phx:" . $modifier_cmd[$i] . "';";
-			             	$result = $modx->dbQuery($sql);
-			             	if ($modx->recordCount($result) == 1) {
+			             	$result = $modx->db->query($sql);
+			             	if ($modx->db->getRecordCount($result) == 1) {
 								$row = $modx->fetchRow($result);
 						 		$cm = $this->cache["cm"][$modifier_cmd[$i]] = $row["snippet"];
 						 		$this->Log("  |--- DB -> Custom Modifier");
