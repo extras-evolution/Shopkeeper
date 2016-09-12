@@ -925,6 +925,22 @@ function makeAlias($str){
           )
       );
     }
+    
+    // проверка на дублирование alias
+    if($this->modx->db->getRecordCount($this->modx->db->select("alias", $this->modx->getFullTableName('site_content'),  "alias='" . $str ."'")) != 0) {
+
+        $count = 1;
+        $newAlias = $str;
+
+        while($this->modx->db->getRecordCount($this->modx->db->select("alias", $this->modx->getFullTableName('site_content'),  "alias='" . $newAlias ."'")) != 0) {
+            $newAlias = $str;
+            $newAlias .= '-' . $count;
+            $count++;
+        }
+
+        $str = $newAlias;
+    }
+    
     return $str;
 }
 
