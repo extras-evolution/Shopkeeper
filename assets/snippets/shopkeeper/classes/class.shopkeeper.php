@@ -647,7 +647,7 @@ class Shopkeeper {
               'addit_data' => $additStr,
               'price' => $this->numberFormat($price),
               'price_total' => $this->numberFormat($price + $additPrice),
-              'price_count' => $this->numberFormat($price * $count),
+              'price_count' => $this->numberFormat(($price + $additPrice) * $count),
               'currency' => $this->config['currency'],
               'count' => $count,
               'this_page_url' => $thisPage,
