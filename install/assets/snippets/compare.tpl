@@ -1,17 +1,17 @@
 //<?php
 /**
- * catalogView
+ * compare
  *  
- * Snippet to display the items in the catalog Shopkeeper (1.0)
+ * compare some items/ сравнение товаров
  *  
  * @category 	   snippet
- * @version 	   1.2.5
+ * @version 	   1.2
  * @license 	   http://www.gnu.org/copyleft/gpl.html GNU Public License (GPL)
  * @internal	   @properties 
  * @internal	   @modx_category Shop
- * @internal       @installset base, sample 
+ * @internal   	 @installset base, sample 
  */
 
 $output = '';
-require MODX_BASE_PATH.'assets/snippets/catalogView/catalogView.inc.php';
+require MODX_BASE_PATH."assets/snippets/compare/compare.inc.php";
 return $output;

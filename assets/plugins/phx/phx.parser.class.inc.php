@@ -2,10 +2,13 @@
 /*####
 #
 #	Name: PHx (Placeholders Xtended)
-#	Version: 2.1.4 
+#	Version: 2.2.1
 #	Modified by Nick to include external files
+#	Modified by Anton Kuzmin for using of modx snippets cache
+#	Modified by Temus (temus3@gmail.com)
+#	Modified by Danilo Cuculić (eoler@castus.me)
 #	Author: Armand "bS" Pondman (apondman@zerobarrier.nl)
-#	Date: July 13, 2007
+#	Date: March 22, 2013
 #
 ####*/
 
@@ -15,9 +18,9 @@ class PHxParser {
 	function PHxParser($debug=0,$maxpass=50) {
 		global $modx;
 		$this->name = "PHx";
-		$this->version = "2.1.4";
-		$this->user["mgrid"] = intval($_SESSION['mgrInternalKey']);
-		$this->user["usrid"] = intval($_SESSION['webInternalKey']);
+		$this->version = "2.2.1";
+		$this->user["mgrid"] = intval(isset($_SESSION['mgrInternalKey']) ? $_SESSION['mgrInternalKey'] : 0);
+		$this->user["usrid"] = intval(isset($_SESSION['webInternalKey']) ? $_SESSION['webInternalKey'] : 0);
 		$this->user["id"] = ($this->user["usrid"] > 0 ) ? (-$this->user["usrid"]) : $this->user["mgrid"];
 		$this->cache["cm"] = array();
 		$this->cache["ui"] = array();
@@ -35,6 +38,7 @@ class PHxParser {
 		$this->maxPasses = ($maxpass!='') ? $maxpass : 50;
 		$this->swapSnippetCache = array();
 		$modx->setPlaceholder("phx", "&_PHX_INTERNAL_&");
+		if (function_exists('mb_internal_encoding')) mb_internal_encoding($modx->config['modx_charset']);
 	}
 	
 	// Plugin event hook for MODx
@@ -60,34 +64,13 @@ class PHxParser {
 		// To the parse mobile.. let's go! *insert batman tune here*
 		$template = $this->ParseValues($template);
 		// clean up unused placeholders that have modifiers attached (MODx can't clean them)
-		
-// http://community.modx-cms.ru/blog/fast-solution/2782.html
-		$ar1 = explode('<!--phx-stop-->', $template);
-    
-			if (count($ar1) > 1) {
-			  $ret[0] = $ar1[0];
-			  for ($i=1; $i<count($ar1); $i++) {
-				$ar2 = explode('<!--phx-start-->',$ar1[$i]);
-				if ($ar2[0] == $ar1[$i]) continue;
-				$srch = array('[',']');
-				$repl = array('@$@','$@$');
-				$ar2[0] = str_replace($srch,$repl,$ar2[0]);
-				$ret[$i] = implode('<!--phx-start-->',$ar2);
-			  }
-			  $template = implode('<!--phx-stop-->',$ret);
-			} 
-// http://community.modx-cms.ru/blog/fast-solution/2782.html
-		
-		preg_match_all('~\[(\+|\*|\()([^:\+\[\]]+)([^\[\]]*?)(\1|\))\]~s', $template, $matches);
-    	if ($matches[0]) {
-			$template = str_replace($matches[0], '', $template);
+		preg_match_all('~(?:=`[^`@]*?)(\[\+([^:\+\[\]]+)([^\[\]]*?)\+\])~s', $template, $matches);
+		if ($matches[0]) {
+			$template = str_replace($matches[1], '', $template);
 			$this->Log("Cleaning unsolved tags: \n" . implode("\n",$matches[2]) );
 		}
 		// Restore non-call characters in the template: [, ]
 		$template = str_replace($this->safetags[1],$this->safetags[2],$template);
-// http://community.modx-cms.ru/blog/fast-solution/2782.html
-		$template = str_replace($repl, $srch, $template);
-// http://community.modx-cms.ru/blog/fast-solution/2782.html
 		// Set template post-process hash
 		$et = md5($template);
 		// If template has changed, parse it once more...
@@ -107,17 +90,35 @@ class PHxParser {
 		
 		$this->curPass = $this->curPass + 1;
 		$st = md5($template);
-
+		
 		//$this->LogSource($template);
 		$this->LogPass();
-						
-		// MODx Chunks
-		$this->Log("MODx Chunks -> Merging all chunk tags");
-		$template = $modx->mergeChunkContent($template);
+		
+		// MODX Chunks
+		if ( preg_match_all('~(?<!(?:then|else)=`){{([^:\+{}]+)([^{}]*?)}}~s',$template, $matches))
+		{
+			$this->Log('MODX Chunks -> Merging all chunk tags');
+			$count = count($matches[0]);
+			$var_search = array();
+			$var_replace = array();
+			for($i=0; $i<$count; $i++)
+			{
+				$replace = NULL;
+				$match = $matches[0][$i];
+				$input = $matches[1][$i];
+				$modifiers = $matches[2][$i];
+				$var_search[] = $match;
+				$this->Log('MODX Chunk: ' . $input);
+				$input = $modx->mergeChunkContent('{{'.$input.'}}');
+				$replace = $this->Filter($input,$modifiers);
+				$var_replace[] = $replace;
+			 }
+			$template = str_replace($var_search, $var_replace, $template);
+		}
 		
 		// MODx Snippets
 		//if ( preg_match_all('~\[(\[|!)([^\[]*?)(!|\])\]~s',$template, $matches)) {
-		if ( preg_match_all('~\[(\[)([^\[]*?)(\])\]~s',$template, $matches)) {
+		if ( preg_match_all('~(?<!(?:then|else)=`)\[(\[)([^\[]*?)(\])\]~s',$template, $matches)) {
 				$count = count($matches[0]);
 				$var_search = array();
 				$var_replace = array();
@@ -134,7 +135,6 @@ class PHxParser {
 					// Replace values
 					$var_search[] = $matches[0][$i];
 					$var_replace[] = $replace;
-
 				}
 				$template = str_replace($var_search, $var_replace, $template);
 		}
@@ -180,12 +180,12 @@ class PHxParser {
 								// not set so try again later.
 								$replace = $match;
 								$this->Log("  |--- Skipping - hasn't been set yet.");
-							}                                                          
+							}
 							else {
 								// is set, get value and run filter
 								$input = $this->getPHxVariable($input);
 						  		$replace = $this->Filter($input,$modifiers);
-							}					
+							}
    						break;
 					}
 					$var_replace[] = $replace;
@@ -218,16 +218,18 @@ class PHxParser {
 				if ($modifier_value[$i] != '') $this->Log("  |--- Options = '". $modifier_value[$i] ."'");
 				switch ($modifier_cmd[$i]) {
 					#####  Conditional Modifiers 
-					case "input":	case "if": $output = $modifier_value[$i]; break;
+					case "input": case "if": $output = $modifier_value[$i]; break;
 					case "equals": case "is": case "eq": $condition[] = intval(($output==$modifier_value[$i])); break;
-					case "notequals": case "isnot":	case "isnt": case "ne":$condition[] = intval(($output!=$modifier_value[$i]));break;
-					case "isgreaterthan":	case "isgt": case "eg": $condition[] = intval(($output>=$modifier_value[$i]));break;
+          case "in": case "isin": $condition[] = intval(in_array($output, explode(',', $modifier_value[$i]))); break;
+          case "contains": $condition[] = intval(false !== strpos($output, $modifier_value[$i])); break;
+					case "notequals": case "isnot": case "isnt": case "ne":$condition[] = intval(($output!=$modifier_value[$i]));break;
+					case "isgreaterthan": case "isgt": case "eg": $condition[] = intval(($output>=$modifier_value[$i]));break;
 					case "islowerthan": case "islt": case "el": $condition[] = intval(($output<=$modifier_value[$i]));break;
 					case "greaterthan": case "gt": $condition[] = intval(($output>$modifier_value[$i]));break;
-					case "lowerthan":	case "lt":$condition[] = intval(($output<$modifier_value[$i]));break;
+					case "lowerthan": case "lt":$condition[] = intval(($output<$modifier_value[$i]));break;
 					case "isinrole": case "ir": case "memberof": case "mo": // Is Member Of  (same as inrole but this one can be stringed as a conditional)
 						if ($output == "&_PHX_INTERNAL_&") $output = $this->user["id"];
-						$grps = (strlen($modifier_value) > 0 ) ? explode(",",$modifier_value[$i]) :array();
+						$grps = ($this->strlen($modifier_value[$i]) > 0 ) ? explode(",",$modifier_value[$i]) :array();
 						$condition[] = intval($this->isMemberOfWebGroupByUserId($output,$grps));
 						break;
 					case "or":$condition[] = "||";break;
@@ -243,7 +245,7 @@ class PHxParser {
 						else { $output = NULL; }
 						break;
 					case "else":
-						$conditional = implode(' ',$condition);					
+						$conditional = implode(' ',$condition);
 						$isvalid = intval(eval("return (". $conditional. ");"));
 						if (!$isvalid) { $output = $modifier_value[$i]; }
 						break;
@@ -259,49 +261,52 @@ class PHxParser {
 					##### End of Conditional Modifiers
 					
 					#####  String Modifiers 
-					case "lcase": case "strtolower": $output = strtolower($output); break;					
-					case "ucase": case "strtoupper": $output = strtoupper($output); break;				
-					case "htmlent": case "htmlentities": $output = htmlentities($output,ENT_QUOTES,$modx->config['etomite_charset']); break;	
-					case "html_entity_decode": $output = html_entity_decode($output,ENT_QUOTES,$modx->config['etomite_charset']); break;				
+					case "lcase": case "strtolower": $output = $this->strtolower($output); break;
+					case "ucase": case "strtoupper": $output = $this->strtoupper($output); break;
+					case "ucfirst": $output = $this->ucfirst($output); break;
+					case "lcfirst": $output = $this->lcfirst($output); break;
+					case "ucwords": $output = $this->ucwords($output); break;
+					case "htmlent": case "htmlentities": $output = htmlentities($output,ENT_QUOTES,$modx->config['modx_charset']); break;
+					case "html_entity_decode": $output = html_entity_decode($output,ENT_QUOTES,$modx->config['modx_charset']); break;
+          case "htmlquot": case "htmlspec": $output = htmlspecialchars($output,ENT_COMPAT,$modx->config['modx_charset'],false); break;
+          case "jsonenc": case "jsonencode": $output = json_encode($output); break;
 					case "esc":
 						$output = preg_replace("/&amp;(#[0-9]+|[a-z]+);/i", "&$1;", htmlspecialchars($output));
   						$output = str_replace(array("[","]","`"),array("&#91;","&#93;","&#96;"),$output);
-						break;						
+						break;
 					case "strip": $output = preg_replace("~([\n\r\t\s]+)~"," ",$output); break;
-					case "notags": case "strip_tags": $output = strip_tags($output); break;					
-					case "length": case "len": case "strlen": $output = strlen($output); break;
-					case "reverse": case "strrev": $output = strrev($output); break;
+					case "notags": case "strip_tags": $output = strip_tags($output); break;
+					case "length": case "len": case "strlen": $output = $this->strlen($output); break;
+					case "reverse": case "strrev": $output = $this->strrev($output); break;
 					case "wordwrap": // default: 70
-					  	$wrapat = intval($modifier_value[$i]) ? intval($modifier_value[$i]) : 70;
+						$wrapat = intval($modifier_value[$i]) ? intval($modifier_value[$i]) : 70;
 						$output = preg_replace("~(\b\w+\b)~e","wordwrap('\\1',\$wrapat,' ',1)",$output);
 						break;
 					case "limit": // default: 100
-					  	$limit = intval($modifier_value[$i]) ? intval($modifier_value[$i]) : 100;
-						$output = substr($output,0,$limit);
+						$limit = intval($modifier_value[$i]) ? intval($modifier_value[$i]) : 100;
+						$output = $this->substr($output,0,$limit);
 						break;
-					case "str_shuffle": case "shuffle":	$output = str_shuffle($output); break; 	
-					case "str_word_count": case "word_count":	case "wordcount": $output = str_word_count($output); break; 	
-						
+					case "str_shuffle": case "shuffle": $output = $this->str_shuffle($output); break;
+					case "str_word_count": case "word_count": case "wordcount": $output = $this->str_word_count($output); break;
+					
 					// These are all straight wrappers for PHP functions
-					case "ucfirst":
-					case "lcfirst":
-					case "ucwords":
 					case "addslashes":
+					case "nl2br":
+					case "md5": $output = $modifier_cmd[$i]($output); break;
 					case "ltrim":
 					case "rtrim":
-					case "trim":
-					case "nl2br":					
-					case "md5": $output = $modifier_cmd[$i]($output); break;	
-					
-																			
+ 					case "trim": $output = $modifier_cmd[$i]($output, $modifier_value[$i]); break;
 					#####  Special functions 
 					case "math":
-						$filter = preg_replace("~([a-zA-Z\n\r\t\s])~","",$modifier_value[$i]);
+						// Eoler: disabling allows function calling $filter = preg_replace("~([a-zA-Z\n\r\t\s])~","",$modifier_value[$i]);
+						$filter = str_replace(" \n\r\t","",$modifier_value[$i]);
 						$filter = str_replace("?",$output,$filter);
 						$output = eval("return ".$filter.";");
-						break;					
-					case "ifempty": if (empty($output)) $output = $modifier_value[$i]; break;
+						break;
+          case "isempty": case "ifempty": if (empty($output)) $output = $modifier_value[$i]; break;
+          case "isntempty": case "notempty": if (trim($output) != '') $output = $modifier_value[$i]; break;
 					case "date": $output = strftime($modifier_value[$i],0+$output); break;
+          case "strtotime": $output = strtotime($output); break;
 					case "set":
 						$c = $i+1;
 						if ($count>$c&&$modifier_cmd[$c]=="value") $output = preg_replace("~([^a-zA-Z0-9])~","",$modifier_value[$i]);
@@ -316,48 +321,44 @@ class PHxParser {
 						break;
 					case "inrole": // deprecated
 						if ($output == "&_PHX_INTERNAL_&") $output = $this->user["id"];
-						$grps = (strlen($modifier_value) > 0 ) ? explode(",",$modifier_value[$i]) :array();
+						$grps = ($this->strlen($modifier_value[$i]) > 0 ) ? explode(",",$modifier_value[$i]) :array();
 						$output = intval($this->isMemberOfWebGroupByUserId($output,$grps));
 						break;
 						
-					// If we haven't yet found the modifier, let's look elsewhere	
-					default:
-					
-												// modified by Anton Kuzmin (23.06.2010) //
+					// If we haven't yet found the modifier, let's look elsewhere
+					default: 
+						// Is a snippet defined?
 						$snippetName = 'phx:'.$modifier_cmd[$i];
 						if( isset($modx->snippetCache[$snippetName]) ) {
 							$snippet = $modx->snippetCache[$snippetName];
-						} else { // not in cache so let's check the db
-							$sql= "SELECT snippet FROM " . $modx->getFullTableName("site_snippets") . " WHERE " . $modx->getFullTableName("site_snippets") . ".name='" . $modx->db->escape($snippetName) . "';";
-							$result= $modx->dbQuery($sql);
-							if ($modx->recordCount($result) == 1) {
-								$row= $modx->fetchRow($result);
-								$snippet= $modx->snippetCache[$row['name']]= $row['snippet'];
-								$this->Log("  |--- DB -> Custom Modifier");
-							} else if ($modx->recordCount($result) == 0){ // If snippet not found, look in the modifiers folder
-								$filename = $modx->config['rb_base_dir'] . 'plugins/phx/modifiers/'.$modifier_cmd[$i].'.phx.php';
-								if (@file_exists($filename)) {
-									$file_contents = @file_get_contents($filename);
-									$file_contents = str_replace('<'.'?php', '', $file_contents);
-									$file_contents = str_replace('?'.'>', '', $file_contents);
-									$file_contents = str_replace('<?', '', $file_contents);
-									$snippet = $modx->snippetCache[$snippetName] = $file_contents;
-									$modx->snippetCache[$snippetName.'Props'] = '';
-									$this->Log("  |--- File ($filename) -> Custom Modifier");
+						} else { // not in cache so let's check filesystem / DB
+							$filename = $modx->config['base_path'].'assets/plugins/phx/modifiers/'.$modifier_cmd[$i].'.phx.php';
+							if (@file_exists($filename)) {
+								$file_contents = @file_get_contents($filename);
+								$snippet = $modx->snippetCache[$snippetName] = str_replace(array('<?php','?>', '<?'), '', $file_contents);
+								$modx->snippetCache[$snippetName.'Props'] = '';
+								$this->Log("  |--- File ($filename) -> Custom Modifier");
+							} else {
+								$result = $modx->db->select("snippet", $modx->getFullTableName("site_snippets"), "name='".$modx->db->escape($snippetName)."'");
+								if ($row = $modx->db->getRow($result)) {
+									$snippet = $modx->snippetCache[$row['name']] = $row['snippet'];
+									$this->Log("  |--- DB -> Custom Modifier");
+								} else { // custom modifier snippet not found anywhere, log error
+									$this->Log("  |--- ERROR: missing Custom Modifier ".$modifier_cmd[$i]);
 								}
 							}
 						}
 						$cm = $snippet;
 						// end //
 
-						 ob_start();
-						 $options = $modifier_value[$i];
-		        	     $custom = eval($cm);
-		    		     $msg = ob_get_contents();
-						 $output = $msg.$custom;
-				         ob_end_clean();	
-						 break;
-				} 
+						ob_start();
+						$options = $modifier_value[$i];
+						$custom = eval($cm);
+						$msg = ob_get_contents();
+						$output = $msg.$custom;
+						ob_end_clean();	
+						break;
+				}
 				if (count($condition)) $this->Log("  |--- Condition = '". $condition[count($condition)-1] ."'");
 				$this->Log("  |--- Output = '". $output ."'");
 			}
@@ -367,11 +368,12 @@ class PHxParser {
 	
 	// Event logging (debug)
 	function createEventLog() {
-		if($this->console) { 
+		if ($this->console) {
 			$console = implode("\n",$this->console);
 			$this->console = array();
 			return '<pre style="overflow: auto;">' . $console . '</pre>';
-		}
+		} else
+      return '';
 	}
 	
 	// Returns a cleaned string escaping the HTML and special MODx characters
@@ -405,7 +407,7 @@ class PHxParser {
 	// Returns the specified field from the user record
 	// positive userid = manager, negative integer = webuser
 	function ModUser($userid,$field) {
-		global $modx;
+	 global $modx;
 		if (!array_key_exists($userid, $this->cache["ui"])) {
 			if (intval($userid) < 0) {
 				$user = $modx->getWebUserInfo(-($userid));
@@ -419,16 +421,13 @@ class PHxParser {
 		return $user[$field];
 	}	
 	 
-	 // Returns true if the user id is in one the specified webgroups
-	 function isMemberOfWebGroupByUserId($userid=0,$groupNames=array()) {
-		global $modx;
-		
+	// Returns true if the user id is in one the specified webgroups
+	function isMemberOfWebGroupByUserId($userid=0,$groupNames=array()) {
+	 global $modx;
 		// if $groupNames is not an array return false
 		if(!is_array($groupNames)) return false;
-		
 		// if the user id is a negative number make it positive
 		if (intval($userid) < 0) { $userid = -($userid); }
-		
 		// Creates an array with all webgroups the user id is in
 		if (!array_key_exists($userid, $this->cache["mo"])) {
 			$tbl = $modx->getFullTableName("webgroup_names");
@@ -441,14 +440,13 @@ class PHxParser {
 		// Check if a supplied group matches a webgroup from the array we just created
 		foreach($groupNames as $k=>$v)
 			if(in_array(trim($v),$grpNames)) return true;
-		
 		// If we get here the above logic did not find a match, so return false
 		return false;
-	 }
+	}
 	 
 	// Returns the value of a PHx/MODx placeholder.
-    function getPHxVariable($name) {
-        global $modx;
+	function getPHxVariable($name) {
+	 global $modx;
 		// Check if this variable is created by PHx 
 		if (array_key_exists($name, $this->placeholders)) {
 			// Return the value from PHx
@@ -457,12 +455,63 @@ class PHxParser {
 			// Return the value from MODx
 			return $modx->getPlaceholder($name);
 		}  
-    }
+  }
 	
 	// Sets a placeholder variable which can only be access by PHx
-    function setPHxVariable($name, $value) {
-        if ($name != "phx") $this->placeholders[$name] = $value;
+	function setPHxVariable($name, $value) {
+		if ($name != "phx") $this->placeholders[$name] = $value;
+	}
+	
+	//mbstring
+	function substr($str, $s, $l = null) {
+   global $modx;
+		if (function_exists('mb_substr')) return mb_substr($str, $s, $l, $modx->config['modx_charset']);
+		return substr($str, $s, $l);
+	}
+	function strlen($str) {
+		if (function_exists('mb_strlen')) return mb_strlen($str);
+		return strlen($str);
+	}
+	function strtolower($str) {
+		if (function_exists('mb_strtolower')) return mb_strtolower($str);
+		return strtolower($str);
+	}
+	function strtoupper($str) {
+		if (function_exists('mb_strtoupper')) return mb_strtoupper($str);
+		return strtoupper($str);
+	}
+	function ucfirst($str) {
+		if (function_exists('mb_strtoupper') && function_exists('mb_substr') && function_exists('mb_strlen')) 
+			return mb_strtoupper(mb_substr($str, 0, 1)).mb_substr($str, 1, mb_strlen($str));
+		return ucfirst($str);
+	}
+	function lcfirst($str) {
+		if (function_exists('mb_strtolower') && function_exists('mb_substr') && function_exists('mb_strlen')) 
+			return mb_strtolower(mb_substr($str, 0, 1)).mb_substr($str, 1, mb_strlen($str));
+		return lcfirst($str);
+	}
+	function ucwords($str) {
+		if (function_exists('mb_convert_case'))
+			return mb_convert_case($str, MB_CASE_TITLE);
+		return ucwords($str);
+	}
+	function strrev($str) {
+		preg_match_all('/./us', $str, $ar);
+		return implode(array_reverse($ar[0]));
+	}
+	function str_shuffle($str) {
+		preg_match_all('/./us', $str, $ar);
+		shuffle($ar[0]);
+		return implode($ar[0]);
+	}
+	function str_word_count($str) {
+		return count(preg_split('~[^\p{L}\p{N}\']+~u',$str));
+	}
+	
+	// Merges placeholder variables with
+    function mergePHxVars($arPhs) {
+      foreach ($arPhs as $phkey=>$phval) {
+        $this->setPHxVariable($phkey, $phval);
+      }
     }
-
 }
-?>
