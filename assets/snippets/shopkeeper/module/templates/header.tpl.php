@@ -28,7 +28,7 @@
   <script src="<?php echo SHOPKEEPER_PATH; ?>module/js/datepicker/jquery.ui.datepicker-ru.js" type="text/javascript"></script>
   <script src="<?php echo SHOPKEEPER_PATH; ?>module/js/datepicker/jquery.ui.datepicker.min.js" type="text/javascript"></script>
 
-  <link rel='stylesheet'  href='<?php echo SHOPKEEPER_PATH; ?>module/css/style.css?<?=rand();?>'>
+  <link rel='stylesheet'  href='<?php echo SHOPKEEPER_PATH; ?>module/css/style.css?123'>
   <link rel="stylesheet" href="media/style/common/font-awesome/css/font-awesome.min.css" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script type="text/javascript">
