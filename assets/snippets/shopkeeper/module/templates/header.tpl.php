@@ -27,6 +27,10 @@
   <script src="<?php echo SHOPKEEPER_PATH; ?>module/js/datepicker/jquery.ui.core.min.js" type="text/javascript"></script>
   <script src="<?php echo SHOPKEEPER_PATH; ?>module/js/datepicker/jquery.ui.datepicker-ru.js" type="text/javascript"></script>
   <script src="<?php echo SHOPKEEPER_PATH; ?>module/js/datepicker/jquery.ui.datepicker.min.js" type="text/javascript"></script>
+
+  <link rel='stylesheet'  href='<?php echo SHOPKEEPER_PATH; ?>module/css/style.css?<?=rand();?>'>
+  <link rel="stylesheet" href="media/style/common/font-awesome/css/font-awesome.min.css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script type="text/javascript">
   var colorBoxOpt = {iframe:true, innerWidth:700, innerHeight:400, opacity:0.5};
   $.fn.tabs = function(){
@@ -85,7 +89,7 @@
 <body>
 
 <br />
-<div class="sectionHeader">Shopkeeper - <?php if($action=='catalog'){echo $langTxt['catalog_mod'];}else{echo $langTxt['modTitle'];} ?></div>
+<div class="sectionHeader"><i class="fa fa-shopping-cart"></i>Shopkeeper - <?php if($action=='catalog'){echo $langTxt['catalog_mod'];}else{echo $langTxt['modTitle'];} ?></div>
 
 <div class="sectionBody" style="min-height:250px;">
 

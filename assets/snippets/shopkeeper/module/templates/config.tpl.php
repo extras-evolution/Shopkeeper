@@ -47,16 +47,16 @@
       <div><input type="checkbox" name="informing1" id="informing1" value="1"<?php if(!empty($conf_informing1) && $conf_informing1): ?> checked="checked"<?php endif; ?> /> <label for="informing1"><?php echo $langTxt['infg_status']; ?></label><br />
     </td>
     <td>&nbsp;</td>
-    <td valign="top">
+    <td valign="top"  class="color-listing">
       <div id="picker" style="float: right;"></div>
       <b><?php echo $langTxt['phaseColors']; ?></b>:<br />
-      <div><input class="colorwell" type="text" name="color[]" value="<?php echo $phaseColor[0]; ?>" /> - <?php echo $langTxt['phase1']; ?></div>
-      <div><input class="colorwell" type="text" name="color[]" value="<?php echo $phaseColor[1]; ?>" /> - <?php echo $langTxt['phase2']; ?></div>
-      <div><input class="colorwell" type="text" name="color[]" value="<?php echo $phaseColor[2]; ?>" /> - <?php echo $langTxt['phase3']; ?></div>
-      <div><input class="colorwell" type="text" name="color[]" value="<?php echo $phaseColor[3]; ?>" /> - <?php echo $langTxt['phase4']; ?></div>
-      <div><input class="colorwell" type="text" name="color[]" value="<?php echo $phaseColor[4]; ?>" /> - <?php echo $langTxt['phase5']; ?></div>
-      <div><input class="colorwell" type="text" name="color[]" value="<?php echo $phaseColor[5]; ?>" /> - <?php echo $langTxt['phase6']; ?></div>
-      <div><input type="checkbox" name="colorDefault" id="colorDefault" value="1" /> <label for="colorDefault"><?php echo $langTxt['colorDefault']; ?></label>
+      <div class="color-listing__item"><input class="colorwell" type="text" name="color[]" value="<?php echo $phaseColor[0]; ?>" /> - <?php echo $langTxt['phase1']; ?></div>
+      <div class="color-listing__item"><input class="colorwell" type="text" name="color[]" value="<?php echo $phaseColor[1]; ?>" /> - <?php echo $langTxt['phase2']; ?></div>
+      <div class="color-listing__item"><input class="colorwell" type="text" name="color[]" value="<?php echo $phaseColor[2]; ?>" /> - <?php echo $langTxt['phase3']; ?></div>
+      <div class="color-listing__item"><input class="colorwell" type="text" name="color[]" value="<?php echo $phaseColor[3]; ?>" /> - <?php echo $langTxt['phase4']; ?></div>
+      <div class="color-listing__item"><input class="colorwell" type="text" name="color[]" value="<?php echo $phaseColor[4]; ?>" /> - <?php echo $langTxt['phase5']; ?></div>
+      <div class="color-listing__item"><input class="colorwell" type="text" name="color[]" value="<?php echo $phaseColor[5]; ?>" /> - <?php echo $langTxt['phase6']; ?></div>
+      <div class="color-listing__item"><input type="checkbox" name="colorDefault" id="colorDefault" value="1" /> <label for="colorDefault"><?php echo $langTxt['colorDefault']; ?></label>
     </td>
   </tr>
   </table>
@@ -68,7 +68,7 @@
 <div class="tab-page" style="display:none;">
 
 
-  <table>
+  <table class="editable-wrapper">
   <col width="320" />
   <col width="10" />
   <col width="440" />
@@ -113,12 +113,12 @@
 <br /><br />
 
 <ul class="actionButtons" style="width:200px; float:right; text-align:right;">
-    <li><a href="#" onclick="if(confirm('<?php echo $langTxt['confirm']; ?>')){postForm('uninstall',null,null)};return false;"><img src="<?php echo SHOPKEEPER_PATH; ?>/style/default/img/m_delete.gif" alt="">&nbsp; <?php echo $langTxt['uninstallMod']; ?></a></li>
+    <li><a href="#" onclick="if(confirm('<?php echo $langTxt['confirm']; ?>')){postForm('uninstall',null,null)};return false;"><i class="fa fa-trash-o"></i>&nbsp; <?php echo $langTxt['uninstallMod']; ?></a></li>
 </ul>
 
 <ul class="actionButtons">
-    <li><a href="#" onclick="postForm('save_config',null,null);return false;"><img src="<?php echo SHOPKEEPER_PATH; ?>/style/default/img/ed_save.gif" alt="">&nbsp; <?php echo $langTxt['save']; ?></a></li>
-    <li><a href="<?php echo $mod_page; ?>"><img src="<?php echo SHOPKEEPER_PATH; ?>/style/default/img/cancel.gif" alt="">&nbsp; <?php echo $langTxt['back']; ?></a></li>
+    <li><a href="#" onclick="postForm('save_config',null,null);return false;" class="primary"><i class="fa fa-check-square-o"></i>&nbsp; <?php echo $langTxt['save']; ?></a></li>
+    <li><a href="<?php echo $mod_page; ?>"><i class="fa fa-arrow-left"></i>&nbsp; <?php echo $langTxt['back']; ?></a></li>
 </ul>
 
 <br /><br />

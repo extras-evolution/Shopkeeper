@@ -61,8 +61,8 @@ $notify = array();
 
 //Верхние кнопки
 $mod_links = array();
-if(isset($conf_catalog) && $conf_catalog) $mod_links[] = array($langTxt['catalog_mod'], SHOPKEEPER_PATH.'style/default/img/catalog.png','catalog');
-$mod_links[] = array($langTxt['configTitle'], SHOPKEEPER_PATH.'style/default/img/menu_settings.gif','config');
+if(isset($conf_catalog) && $conf_catalog) $mod_links[] = array($langTxt['catalog_mod'], '<i class="fa fa-th-large"></i>' ,'catalog');
+$mod_links[] = array($langTxt['configTitle'], '<i class="fa fa-cog"></i>', 'config');
 
 //Проверка версии и обновление
 if((isset($conf_shk_version) && $conf_shk_version != $cur_shk_version) || !isset($conf_shk_version)){
@@ -276,7 +276,7 @@ case 'show_descr':
 break;
 
 
-//Сохранение дфнных заказа
+//Сохранение данных заказа
 case 'save_purchases':
     if(!$modx->hasPermission('save_document')){
   		global $e;
@@ -359,9 +359,9 @@ default:
     //верхние кнопки
     echo '
       <div style="width:100%; height:30px;">
-        <div style="width:200px;float:left;">
+        <div style="margin-bottom:15px;float:left;">
             <ul class="actionButtons">
-                <li><a href="'.$mod_page.'"><img src="'.SHOPKEEPER_PATH.'style/default/img/refresh.png" alt="">&nbsp; '.$langTxt['refresh'].'</a></li>
+                <li><a href="'.$mod_page.'"  class="primary"><i class="fa fa-spinner"></i>&nbsp; '.$langTxt['refresh'].'</a></li>
             </ul>
         </div>
         <div align="right">
