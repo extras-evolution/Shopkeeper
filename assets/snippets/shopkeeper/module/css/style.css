@@ -1,0 +1,544 @@
+.sectionBody {
+    padding: 0 15px;
+}
+.header-form-search
+td:nth-child(1) {
+    padding-left: 0px;
+}
+
+.sectionBody {
+    padding-top: 10px;
+}
+
+.header-form-search
+input[name="search_orderid"], .header-form-search
+input[name="search_date"], .header-form-search
+input[name="search_username"] {
+   border-style: solid;
+   border-width: 1px;
+   padding: 4px 2px 4px 4px;
+   margin: 0 5px 0 0;
+   min-height: 17px;
+   vertical-align: middle;
+   min-width: 150px;
+   background-color: #ffffff;
+   transition: all .2s;
+   border-color: #dbdbdb;
+   -webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05) inset;
+   box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.05) inset;
+}
+
+.header-form-search b {
+    font-weight: 500;
+    font-size: 13px;
+}
+
+.header-form-search input, .header-form-search select, .header-form-search button {
+    margin-top: 5px!important;
+}
+.header-form-search button  i{
+    margin-right: 5px;
+}
+.header-form-search button {
+font-size: 14px;
+    height: 30px;
+    color: #4e4e4e;
+    background: #ffffff;
+    border-radius: 3px;
+    border: 0px;
+    border: 1px #e4e4e4 solid;
+    padding: 0px 15px;
+    width: auto;
+    min-width: 100px;
+}
+
+.header-form-search button:hover {
+    background: none;
+    filter: none;
+    background-color: #1377c5;
+    box-shadow: none;
+    border-color: #1377c5;
+    color: #FFF !important;
+    transition: none;
+}
+
+.pagination a {
+    font-size: 13px;
+    color: #1377c5;
+    padding: 5px 12px;
+    background: white;
+    border: 1px #e4e4e4 solid;
+    display: inline-block;
+    margin-right: 6px;
+    border-radius: 2px;
+}
+
+.pagination b {
+    font-size: 12px;
+    padding: 6px 10px;
+}
+
+.pagination {
+    margin-bottom: 15px;
+    font-size: 0px;
+}
+
+.pages {
+    padding-top: 0px;
+}
+
+#ordersTable {
+    margin-bottom: 20px;
+}
+
+.sectionBody .actionButtons a {}
+
+.sectionBody > div > div:nth-of-type(2) .actionButtons {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+}
+.order-table th {background: whitesmoke;}
+
+.order-table th, .order-table td {
+    border: 1px dotted #dedede;
+    padding: 5px 9px;
+}
+
+.order-table th {
+    color: #657587;
+}
+
+.header-form-search select {display: block;border-radius: 0px;background: white;}
+.sectionHeader {
+    font-size: 1.8em;
+    line-height: 35px;
+    padding: 15px;
+    margin: 0;
+    color: #525252;
+}
+#ordersTable .fa-trash {
+   color: #3d5764 !important;
+   border-radius: 3px;
+   display: block;
+   margin: 1px;
+   min-width: 22px;
+   font-size: 15px;
+}
+.pagination a:hover {
+    color: #fff;
+    background: #1377c5;
+    border-color: #1377c5;
+    text-decoration: none;
+}
+.actionButtons img{
+    display: inline-block;
+    vertical-align: middle;
+}
+.color-listing__item {
+    margin-top: 10px;
+}
+
+.color-listing__item input.colorwell {
+    border-radius: 0px;
+    border: 1px  #e6e6e6 solid;
+}
+
+.wrapper-contacts-info__description .config-caption-name {
+    min-width: 130px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.wrapper-contacts-row {
+    margin-bottom: 10px;
+}
+
+.wrapper-contacts-info__description {
+    font-size: 0px;
+    margin-top: 15px;
+}
+
+.wrapper-contacts-row span, .wrapper-contacts-row input {
+    font-size: 13px;
+}
+
+.total-order-info-row {
+    margin-bottom: 0px;
+    margin-top: 15px;
+    font-size: 15px;
+}
+.order-tab-1-wrapper {
+    min-height: 150px;
+    padding: 15px 0px;
+}
+
+.order-tab-2-wrapper {
+    min-height: 200px;
+    padding: 15px 0px;
+}
+
+.order-prododucts-listing {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    margin: 0px;
+    padding: 0px 10px;
+}
+
+.order-prododucts-listing li {
+    width: 100%;
+    margin: 0px;
+    padding: 10px 0px;
+    border-top: 1px #cacaca solid;
+}
+
+.order-prododucts-listing li:nth-child(1) {
+    border: 0px;
+}
+
+.order-prododucts-listing li a {margin-right: 5px;}
+
+.order-tab-2-wrapper h3 {
+    margin-bottom: 10px;
+}
+.add-to-order-splitter {
+    margin-top: 25px;
+}
+
+.listing-edit-order-products td {
+    vertical-align: middle;
+}
+
+.listing-edit-order-products label {
+    margin: 0px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.listing-edit-order-products .splitter {
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: #ececec;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.listing-edit-order-products tr:last-child {
+    display: none;
+}
+.base--contact-info-wrapper__row__caption {
+    margin-bottom: 5px;
+}
+
+.base--contact-info-wrapper__row {
+    margin-bottom: 15px;
+}
+
+.base--contact-info-wrapper__row > input, .base--contact-info-wrapper__row > textarea {
+    min-width: 390px;
+    padding: 5px 10px!important;
+    height: auto;
+}
+.base--contact-info-wrapper__row__caption-title {
+    font-size: 18px;
+    font-weight: 500;
+}
+#ordersTable  .remove-btn {
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.order-table [align="center"] {
+    text-align: center!important;
+}
+
+#ordersTable  .remove-btn:hover,
+#ordersTable  .remove-btn:hover i {
+    background: #E63A51;
+    border-color: #E63A51;
+    color: #fff!important;
+}
+#ordersTable{
+    background: #fff;
+}
+@-webkit-keyframes rotating {
+    from{
+        -webkit-transform: rotate(0deg);
+    }
+    to{
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+a:hover .fa-spinner,
+a:not(:hover) .fa-cog {
+    -webkit-animation: rotating 2s linear infinite;
+}
+
+.wrapper-foot-pages {
+    display: flex;
+    padding-right: 15px;
+}
+
+.wrapper-foot-pages .pages {
+    flex-grow: 1;
+}
+
+.sectionBody {
+    padding-bottom: 40px;
+}
+.sectionHeader .fa {
+    margin-right: 5px;
+}
+form >  h2 {
+    font-size: 1.46em;
+    position: relative;
+    margin-bottom: 15px;
+}
+
+
+@media (max-width: 1250px) {
+    #ordersTable  td:nth-child(6), #ordersTable  th:nth-child(6) {
+        display: none;
+    }
+}
+
+@media (max-width: 1100px) {
+    .wrapper-foot-pages {
+    display: block;
+}
+
+
+}
+
+@media (max-width: 900px) {
+    
+#ordersTable thead {
+    display: none;
+}
+
+#ordersTable tfoot {
+    display: none;
+}
+
+#ordersTable tbody tr {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border: 1px #dbdbdb solid;
+    border-bottom: 0px;
+}
+
+.order-table td {
+    border: 0px;
+}
+
+#ordersTable tbody tr td:nth-child(1) {
+    order: 4;
+    flex-grow: 1;
+    text-align: right!important;
+    padding-top: 8px;
+}
+
+#ordersTable tbody tr td:nth-child(2) {
+    order: 2;
+    display: none;
+}
+
+#ordersTable tbody tr td:nth-child(3) {
+    order: 1;
+}
+#ordersTable tbody tr td:nth-child(4) {
+    width: calc(100%);
+    order: 5;
+}
+
+#ordersTable tbody tr td:nth-child(5) {
+    order: 12;
+    text-align: left;
+    font-size: 20px;
+}
+
+#ordersTable tbody tr td:nth-child(6) {}
+#ordersTable tbody tr td:nth-child(7) {
+    order: 2;
+    flex-grow: 1;
+}
+
+#ordersTable tbody tr td:nth-child(8) {
+    order: 20;
+    flex-grow: 0;
+    justify-content: flex-end;
+    text-align: right!important;
+}
+
+#ordersTable tbody tr td:nth-child(9) {
+    display: none;
+}
+
+#ordersTable tbody tr td:nth-child(10) {
+    order: 4;
+    flex-grow: 0;
+    text-align: right!important;
+    padding-top: 7px;
+}
+
+#ordersTable tbody tr td:nth-child(11) {}
+
+#ordersTable tbody tr td:nth-child(3) b:before {
+    content: '#';
+}
+.header-form-search {}
+
+.header-form-search table
+ tbody {
+    display: flex!important;
+    flex-wrap: wrap;
+    width: 100%;
+    flex-direction: row;
+}
+
+.header-form-search table {
+    display: block;
+    width: 100%;
+}
+
+.header-form-search table
+ tbody tr {
+    display: flex!important;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.header-form-search table
+ tbody td {
+    display: block;
+}
+
+.header-form-search table
+ tbody tr td {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.header-form-search table
+ tbody tr td input {
+    min-width: 100%!important;
+}
+
+.header-form-search table
+ tbody tr td:last-child {
+    width: 100%;
+}
+#ordersTable tbody tr {
+    padding: 5px 5px;
+    border: 1px #eaeaea solid;
+    border-bottom: 1px #e4e4e4 solid;
+    border-top: 0px;
+}
+
+#ordersTable tbody tr td:nth-child(1) {
+    display: none;
+}
+
+#ordersTable tbody tr td:nth-child(8) {
+    flex-grow: 1;
+}
+
+#ordersTable tbody tr {
+    justify-content: center;
+    align-items: center;
+}
+
+#ordersTable tbody tr td:nth-child(3) {
+    padding-top: 10px;
+}
+
+#ordersTable tbody tr td:nth-child(7) {
+    padding-top: 10px;
+}
+
+#ordersTable tbody tr td:nth-child(4) {
+    padding: 11px 10px;
+}
+.pagination a {
+    margin-bottom: 5px;
+}
+form input[type="text"], form input[type="password"], form input[type="number"], form textarea,
+.base--contact-info-wrapper__row > textarea {
+    max-width: 100%!important;
+    min-width: 0px;
+    width: 100%;
+}
+.header-form-search
+td:nth-child(1){
+    padding-left: 3px;
+}
+}
+
+
+@media (max-width: 600px) {
+    #ordersTable tbody tr {
+    margin-bottom: 15px;
+    box-shadow: 0px 0px 17px -3px #cccccc;
+}
+
+#ordersTable {
+    background: transparent;
+    border: 0px;
+}
+    .header-form-search {
+    background: #fff;
+    margin: 0px -15px;
+    padding: 30px 15px;
+    box-shadow: 0px 0px 14px -5px #9c9c9c;
+}
+
+#ordersTable {
+    margin-left: -15px;
+    margin-right: -15px;
+    width: calc(100% + 30px);
+}
+/*td {
+    width: 100%;
+}*/
+
+ul.actionButtons {
+    display: inline-block;
+    width: auto!important;
+    float: none!important;
+}
+.editable-wrapper td {
+    width: 100%;
+}
+}
+
+.order-table .header {
+    text-indent: 10px;
+    position: relative;
+}
+
+.order-table .header:before {
+    position: absolute;
+    top: 7px;
+    left: -4px;
+    content: "\f0dc";
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.order-table .header.headerSortUp:before {
+    content: "\f0de";
+}
+
+.order-table .header.headerSortDown:before {
+    content: "\f0dd";
+    word-wrap: nowrap;
+}

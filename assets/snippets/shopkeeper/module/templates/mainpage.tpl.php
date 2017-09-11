@@ -2,7 +2,7 @@
 <?php if(!$action): ?>
 <div style="clear:both;"></div>
 <div>
-<form action="<?php echo $mod_page; ?>" method="get">
+<form action="<?php echo $mod_page; ?>" method="get" class="header-form-search">
     <input type="hidden" name="a" value="112" />
     <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>" />
     
@@ -32,7 +32,7 @@
           <b><?php echo $langTxt['user']; ?></b><br />
           <input style="width:120px;" name="search_username" value="<?php echo $search_username; ?>" />
         </td>
-        <td><br /><button type="submit"><?php echo $langTxt['search']; ?></button></td>
+        <td><br /><button type="submit"><i class="fa fa-search"></i><?php echo $langTxt['search']; ?></button></td>
       </tr>
     </table>
     
@@ -78,9 +78,14 @@
   </thead>
   <tfoot>
   <tr>
-    <th><input type="checkbox" name="check_all" value="" onclick="checkAll(this)" /></th>
-    <th colspan="6"></th>
-    <th>
+    <th  align="center"><input type="checkbox" name="check_all" value="" onclick="checkAll(this)" /></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th align="center">
     <select onchange="if(confirm('<?php echo $langTxt['confirm'] ?>')){postForm('status_all',null,this.value)}else{this.value='0'};">
       <option value="0"></option>
       <option value="1"><?php echo $langTxt['phase1']; ?></option>
@@ -92,7 +97,7 @@
    </select>
    </th>
     <th></th>
-    <th><a href="#" title="<?php echo $langTxt['deleteChecked']; ?>" onclick="if(confirm('<?php echo $langTxt['confirm']; ?>')){postForm('delgroup',null,null)};return false"><img src="<?php echo SHOPKEEPER_PATH; ?>style/default/img/m_delete.gif" align="absmiddle" /></a></th>
+    <th  align="center"> <a href="#" title="<?php echo $langTxt['deleteChecked']; ?>" onclick="if(confirm('<?php echo $langTxt['confirm']; ?>')){postForm('delgroup',null,null)};return false" class="btn btn-xs btn-default remove-btn"><i class="fa fa-trash fa-fw"></i></a></th>
   </tr>
   </tfoot>
   <tbody>
@@ -167,7 +172,7 @@
     <?php endif; ?>
     
     </td>
-    <td align="center"><a href="#" title="<?php echo $langTxt['delete']; ?>" onclick="if(confirm('<?php echo $langTxt['confirm']; ?>')){postForm('delete',<?php echo $data["id"]; ?>,null)};return false"><img src="<?php echo SHOPKEEPER_PATH; ?>style/default/img/m_delete.gif" align="absmiddle" /></a></td>
+    <td align="center"><a href="#" title="<?php echo $langTxt['delete']; ?>" onclick="if(confirm('<?php echo $langTxt['confirm']; ?>')){postForm('delete',<?php echo $data["id"]; ?>,null)};return false" class="btn btn-xs btn-default remove-btn"><i class="fa fa-trash fa-fw"></i></a></td>
   </tr>
   
 
@@ -176,22 +181,18 @@
 
 </tbody>
 </table>
+<div class="wrapper-foot-pages">
+  <div class="pages"><?php echo $pager; ?></div>
+   <div class="export-wrp actionButtons"><a href="#" onclick="postForm('csv_export',null,null);return false;"><i class="fa fa-file-text-o"></i>&nbsp; <?php echo $langTxt['csv_export']; ?></a></div>
+</div>
 
-<div class="pages"><?php echo $pager; ?></div>
 
 <?php else: ?>
 
 <div style="clear:both; text-align:center; line-height:70px;"><i><?php echo $langTxt['noOrders']; ?></i></div>
+ <div class="export-wrp"><a href="#" onclick="postForm('csv_export',null,null);return false;"><i class="fa fa-file-text-o"></i>&nbsp; <?php echo $langTxt['csv_export']; ?></a></div>
 
 <?php endif;?>
-
-<br />
-
-<div align="right">
-    <ul class="actionButtons">
-        <li><a href="#" onclick="postForm('csv_export',null,null);return false;"><img src="<?php echo SHOPKEEPER_PATH; ?>style/default/img/layout_go.png" alt="">&nbsp; <?php echo $langTxt['csv_export']; ?></a></li>
-    </ul>
-</div>
 
 <br />
 

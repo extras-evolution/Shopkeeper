@@ -133,20 +133,20 @@ function getNextAutoIncrement($table_name){
 
 if(!function_exists('fetchTpl')){
   function fetchTpl($tpl){
-    global $modx;
-    $template = "";
-    if(substr($tpl, 0, 6) == "@FILE:"){
-      $tpl_file = MODX_BASE_PATH . substr($tpl, 6);
-      $template = file_get_contents($tpl_file);
-    }else if(substr($tpl, 0, 6) == "@CODE:"){
-      $template = substr($tpl, 6);
-    }else if($modx->getChunk($tpl) != ""){
-      $template = $modx->getChunk($tpl);
-    }else{
-      $template = false;
-    }
-    return $template;
-  }
+		global $modx;
+		$template = "";
+		if(substr($tpl, 0, 6) == "@FILE:"){
+		  $tpl_file = MODX_BASE_PATH . substr($tpl, 6);
+			$template = file_get_contents($tpl_file);
+		}else if(substr($tpl, 0, 6) == "@CODE:"){
+			$template = substr($tpl, 6);
+		}else if($modx->getChunk($tpl) != ""){
+			$template = $modx->getChunk($tpl);
+		}else{
+			$template = false;
+		}
+		return $template;
+	}
 }
 
 
@@ -396,7 +396,7 @@ switch($action){
       break;
       default:
 
-      break;
+    	break;
     }
 
     if($debug) echo "$payment_method - $crc<br />";

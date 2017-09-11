@@ -22,8 +22,8 @@
 <!-- \\\tab content 1\\\ -->
 <div class="tab-page">
 
-  <div style="padding:20px;">
-    <ul>
+  <div class="order-tab-1-wrapper">
+    <ul class="order-prododucts-listing">
       <?php echo $orderDataList; ?>
     </ul>
   </div>
@@ -35,9 +35,9 @@
 <div class="tab-page" style="display:none;">
   
 
-  <div style="padding:20px;">
-  
-  <table>
+  <div class="order-tab-2-wrapper">
+  <h3><?php echo $langTxt['includes']; ?></h3>
+  <table class="listing-edit-order-products">
   
     <?php foreach($data['purchases'] as $i => $dataArray): ?>
     
@@ -89,13 +89,13 @@
         </tr>
       <?php endif; ?>
       
-      <tr><td colspan="6"><hr /></td></tr>
+      <tr><td colspan="6"><span class="splitter"></span></td></tr>
     
     <?php endforeach; ?>
     
   </table>
   
-  <br />
+  <div class="add-to-order-splitter"></div>
   <h3><?php echo $langTxt['add_to_order']; ?></h3>
   
   <table>
@@ -136,33 +136,40 @@
 
 <!-- \\\tab content 3\\\ -->
 <div class="tab-page" style="display:none;">
-  
-  <b><?php echo $langTxt['email']; ?></b>:<br />
-  <input type="text" name="email" value="<?php echo $data['email']; ?>" /><br />
-  
-  <br />
-  <b><?php echo $langTxt['phone']; ?></b>:<br />
-  <input type="text" name="phone" value="<?php echo $data['phone']; ?>" /><br />
-  
-  <br />
-  <b><?php echo $langTxt['payment']; ?></b>:<br />
-  <input type="text" name="payment" value="<?php echo $data['payment']; ?>" /><br />
-  
-  <br />
-  <b><?php echo $langTxt['tracking_num']; ?></b>:<br />
-  <input type="text" name="tracking_num" value="<?php echo $data['tracking_num']; ?>" /><br />
-  
-  <br />
-  <b><?php echo $langTxt['note']; ?></b>:<br />
-  <textarea name="note" cols="40" rows="5"  style="height:60px"><?php echo $data['note']; ?></textarea><br />
-  
-  <br />
-  <b><?php echo $langTxt['contact']; ?></b>:<br />
-  <!--textarea name="short_txt" cols="40" rows="5"  style="height:60px"><?php echo $data['short_txt']; ?></textarea-->
-  <div>
-      <?php echo $contactsInfo; ?>
-  </div>
+            <div class="base--contact-info-wrapper">
 
+                        <div class="base--contact-info-wrapper__row">
+                               <p class="base--contact-info-wrapper__row__caption"><?php echo $langTxt['email']; ?>:</p>
+                                <input type="text" name="email" value="<?php echo $data['email']; ?>" />
+                        </div>
+
+                         <div class="base--contact-info-wrapper__row">
+                           <p class="base--contact-info-wrapper__row__caption"><?php echo $langTxt['phone']; ?>:</p>
+                            <input type="text" name="phone" value="<?php echo $data['phone']; ?>" />
+                        </div>
+
+                        <div class="base--contact-info-wrapper__row">
+                               <p class="base--contact-info-wrapper__row__caption"><?php echo $langTxt['payment']; ?>:</p>
+                                <input type="text" name="payment" value="<?php echo $data['payment']; ?>" />
+                       </div>
+
+                        <div class="base--contact-info-wrapper__row">
+                               <p class="base--contact-info-wrapper__row__caption"><?php echo $langTxt['tracking_num']; ?>:</p>
+                                <input type="text" name="tracking_num" value="<?php echo $data['tracking_num']; ?>" />
+                       </div>
+
+                        <div class="base--contact-info-wrapper__row">
+                               <p class="base--contact-info-wrapper__row__caption"><?php echo $langTxt['note']; ?>:</p>
+                                <textarea name="note" cols="40" rows="5"  style="he:ight60px"><?php echo $data['note']; ?></textarea>
+                        </div>
+
+                        <div class="base--contact-info-wrapper__row">
+                               <p class="base--contact-info-wrapper__row__caption-title"><?php echo $langTxt['contact']; ?>:</p>
+                                <div class="wrapper-contacts-info__description">
+                                <?php echo $contactsInfo; ?>
+                                </div>
+                          </div>
+            </div>
 </div>
 <!-- ///tab content 3/// -->
 
@@ -170,16 +177,15 @@
 
 </div>
 
-
+<p class="total-order-info-row">
 <?php echo $langTxt['sumTotal'].": <b>".$shkm->numberFormat($data['price'])."</b> ".$data['currency']; ?>
-
-
-<br /><br clear="all" />
+</p>
+<br clear="all" />
 
 <ul class="actionButtons">
-    <li><a href="#" onclick="postForm('save_purchases',<?php echo $data['id']; ?>,1);return false;"><img src="<?php echo SHOPKEEPER_PATH; ?>/style/default/img/save.gif" alt="">&nbsp; <?php echo $langTxt['accept_to_pay']; ?></a></li>
-    <li><a href="#" onclick="postForm('save_purchases',<?php echo $data['id']; ?>,null);return false;"><img src="<?php echo SHOPKEEPER_PATH; ?>/style/default/img/ed_save.gif" alt="">&nbsp; <?php echo $langTxt['save']; ?></a></li>
-    <li><a href="<?php echo $mod_page; ?>"><img src="<?php echo SHOPKEEPER_PATH; ?>/style/default/img/cancel.gif" alt="">&nbsp; <?php echo $langTxt['back']; ?></a></li>
+    <li><a href="#" onclick="postForm('save_purchases',<?php echo $data['id']; ?>,1);return false;" class="primary"><i class="fa fa-check-square-o"></i>&nbsp; <?php echo $langTxt['accept_to_pay']; ?></a></li>
+    <li><a href="#" onclick="postForm('save_purchases',<?php echo $data['id']; ?>,null);return false;"><i class="fa fa-floppy-o"></i>&nbsp; <?php echo $langTxt['save']; ?></a></li>
+    <li><a href="<?php echo $mod_page; ?>"><i class="fa fa-arrow-left"></i>&nbsp; <?php echo $langTxt['back']; ?></a></li>
 
     <?php if(isset($plugin['OnSHKOrderDescRender'])) echo $plugin['OnSHKOrderDescRender']; ?>
 
