@@ -133,20 +133,20 @@ function getNextAutoIncrement($table_name){
 
 if(!function_exists('fetchTpl')){
   function fetchTpl($tpl){
-		global $modx;
-		$template = "";
-		if(substr($tpl, 0, 6) == "@FILE:"){
-		  $tpl_file = MODX_BASE_PATH . substr($tpl, 6);
-			$template = file_get_contents($tpl_file);
-		}else if(substr($tpl, 0, 6) == "@CODE:"){
-			$template = substr($tpl, 6);
-		}else if($modx->getChunk($tpl) != ""){
-			$template = $modx->getChunk($tpl);
-		}else{
-			$template = false;
-		}
-		return $template;
-	}
+    global $modx;
+    $template = "";
+    if(substr($tpl, 0, 6) == "@FILE:"){
+      $tpl_file = MODX_BASE_PATH . substr($tpl, 6);
+      $template = file_get_contents($tpl_file);
+    }else if(substr($tpl, 0, 6) == "@CODE:"){
+      $template = substr($tpl, 6);
+    }else if($modx->getChunk($tpl) != ""){
+      $template = $modx->getChunk($tpl);
+    }else{
+      $template = false;
+    }
+    return $template;
+  }
 }
 
 
@@ -171,9 +171,9 @@ if(!get_magic_quotes_gpc() && isset($_POST)){
 
 //payment for unregistered user
 if(isset($_GET['pay'])){
-  
+
   $pay_signature = $modx->db->escape($_GET['pay']);
-  
+
   $pay_res = $modx->db->select(
     "pitem.id, pitem.price, pitem.unit, pitem.description, pitem.reserved, ppay.orderid, ppay.id AS payid, ppay.date, ppay.userid, ppay.email",
     "$mod_tab_items pitem, $mod_tab_payments ppay",
@@ -181,11 +181,11 @@ if(isset($_GET['pay'])){
     "","1"
   );
   if($modx->db->getRecordCount($pay_res) == 1){
-    
+
     $pay_row = $modx->db->getRow($pay_res);
-    
+
     //if((strtotime($pay_row['date'])+(3600*24*$reservingDays))>strtotime(date('Y-m-d H:i:s'))){
-        
+
     $payment_no = $pay_row['payid'];
     $payment_orderid = $pay_row['orderid'];
     $payment_userid = $pay_row['userid'];
@@ -193,13 +193,13 @@ if(isset($_GET['pay'])){
     $payment_value = $pay_row['price'];
     $payment_currency = strlen($pay_row['unit'])==1 ? "WM".$pay_row['unit'] : $pay_row['unit'];
     $payment_method = $payment_currency=='RKR' ? 'robokassa' : 'webmoney';
-    
+
     $modx->setPlaceholder('SHKorderid',$payment_orderid);
-    
+
   }else{
     $error = $langTxt['error_1'];
   }
-  
+
   unset($pay_res);
 
 
@@ -242,61 +242,61 @@ switch($action){
 # Reserve
 ####################################################
   case "reserve":
-    
+
     $config_file = PAYKEEPER_PATH.$payment_method."/config.php";
     if(file_exists($config_file))
       require($config_file);
     else
       return;
-    
+
     checkTablesDB($dbname);
-    
+
     if($payment_method=='robokassa'){//robokassa
       $crc = getSignature($mrh_login,$mrh_pass1,$payment_value,$payment_orderid);
     }else{//webmoney
       $crc = getSignature($site_url,$wm_secret_key,$payment_value.":".$pay_purse_type,$payment_orderid);
     }
-    
+
     if($debug) echo "$crc<br />";
-    
+
     //if NOT registered user
     if($payment_userid==0){
-      
+
       $query_select = $modx->db->select('pitem.id AS pitem_id,ppay.id ppay_id', "$mod_tab_items pitem, $mod_tab_payments ppay", "pitem.payid = ppay.id AND ppay.orderid='$payment_orderid' AND pitem.paid='N'","","1");
       if($modx->db->getRecordCount($query_select)==0){
         $query_result = $modx->db->query("INSERT INTO $mod_tab_payments SET orderid='$payment_orderid', state='I', date=NOW(), userid='$payment_userid', email='$payment_useremail', signature='$crc'");
         $payment_no = $modx->db->getInsertId();
         $query_result = $modx->db->query("INSERT INTO $mod_tab_items SET payid='$payment_no', description='$paymentDesc', content='$payment_orderid', price='$payment_value', unit='$pay_purse_type', state='Y', paid='N'");
       }
-      
+
     }
-    
+
     $output .= $langTxt['reserved'];
-    
+
     //remove old unpaid orders
     $modx->db->query("DELETE $mod_tab_items pitem, $mod_tab_payments ppay FROM $mod_tab_items pitem, $mod_tab_payments ppay WHERE pitem.payid = ppay.id AND ppay.state='I' AND pitem.paid='N' AND ppay.date + INTERVAL 7 DAY < NOW()");
-    
-      
+
+
   break;
 ####################################################
 # Start payment
 ####################################################
   case "pay_start":
-      
+
       //check order phase (status)
       if(isset($_GET['pay']) && $modx->db->getValue($modx->db->select("status",$SHK_mod_table,"id='$payment_orderid'"))!=2){
         $error = $langTxt['error_3'];
       }
-      
+
       if(isset($error)){
         $output = "<p>$error</p>";
         return;
       }
-      
+
       $pay_email = !empty($payment_useremail) ? $payment_useremail : (isset($modx_webuser) ? $modx_webuser['email'] : '');
       $paySelect = '';
       $chunk = fetchTpl($template[$payment_method]['startpay']);
-      
+
       $chunkArr = array(
         "pay_select" => $paySelect,
         "action" => $thisURL,
@@ -309,30 +309,30 @@ switch($action){
         $chunk = str_replace('[+'.$key.'+]', $value, $chunk);
       }
       unset($key,$value);
-      
+
       $output .= $chunk;
-    
-    
+
+
   break;
 ####################################################
 # Payment
 ####################################################
   case "payment":
-    
+
     checkTablesDB($dbname);
-    
+
     $config_file = PAYKEEPER_PATH.$payment_method."/config.php";
     if(file_exists($config_file))
       require($config_file);
     else
       return;
-    
+
     $pay_to_purse = $purse[$pay_curr];
-    
+
     $email = isset($_POST['email']) && !empty($_POST['email']) ? $modx->db->escape($_POST['email']) : $payment_useremail;
     $regexp = '/^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$/';
     $email_string = preg_match($regexp, $email) ? 'E-mail: <b>'.$email.'</b>' : $langTxt['verify_email'].': <b>'.$email.'</b>';
-    
+
     //get $payment_no
     if(!isset($payment_no)){
       $query_select = $modx->db->select('pitem.id AS pitem_id,ppay.id ppay_id', "$mod_tab_items pitem, $mod_tab_payments ppay", "pitem.payid = ppay.id AND ppay.orderid='$payment_orderid' AND pitem.paid='N'","","1");
@@ -340,25 +340,25 @@ switch($action){
         $ppay = $modx->db->getRow($query_select);
         $payment_no = $ppay['ppay_id'];
       }else{
-        
+
         $last_id = $modx->db->getValue($modx->db->select("MAX(id)", $mod_tab_payments));
         $payment_no = $last_id+1;
 
         $needInsert = 1;
-        
+
         if($debug) echo "$payment_no - $needInsert<br />";
-        
+
       }
       unset($ppay);
     }
-    
+
     $chunkArr = array();
     $chunk = fetchTpl($template[$payment_method]['pay']);
-    
+
     switch($payment_method){
       ##########################################
       case "webmoney":
-        
+
         $browser_ie = strpos($_SERVER['HTTP_USER_AGENT'], "MSIE")===false ? false : true;
         $pay_action = $browser_ie && $charset=="UTF-8" ? $site_url."assets/snippets/paykeeper/webmoney/utf8_to_cp1251.php" : "https://merchant.webmoney.ru/lmi/payment.asp";
         $crc = getSignature($site_url,$wm_secret_key,$payment_value.":".$pay_purse_type,$payment_orderid,$payment_no);
@@ -374,12 +374,12 @@ switch($action){
           $h_inputs .= '
           <input type="hidden" name="LMI_RESULT_URL" value="'.$resultURL.'" />';
         }
-        
+
       break;
       ##########################################
       case "robokassa":
-        
-        $pay_action = $payTest!='true' ? 'https://merchant.roboxchange.com/Index.aspx' : 'http://test.robokassa.ru/Index.aspx';
+
+        $pay_action = 'https://merchant.roboxchange.com/Index.aspx';
         $crc = getSignature($mrh_login,$mrh_pass1,$payment_value,$payment_orderid,$payment_no);
         $h_inputs = '
           <input type="hidden" name="MrchLogin" value="'.$mrh_login.'" />
@@ -392,27 +392,27 @@ switch($action){
           <input type="hidden" name="IncCurrLabel" value="'.$in_curr.'" />
           <input type="hidden" name="Culture" value="'.$culture.'" />
         ';
-        
+        $payTest='true' ? $h_inputs.= '<input type="hidden" name="IsTest" value="1" />' : '';
       break;
       default:
-    	
-    	break;
+
+      break;
     }
-    
+
     if($debug) echo "$payment_method - $crc<br />";
-    
+
     //save to database
     if(isset($needInsert)){
 
       $query_result = $modx->db->query("INSERT INTO $mod_tab_payments SET id='$payment_no', orderid='$payment_orderid', state='I', date=NOW(), userid='$payment_userid', email='$email', signature='$crc'");
       $query_result = $modx->db->query("INSERT INTO $mod_tab_items SET payid='$payment_no', description='$paymentDesc', content='$payment_orderid', price='$payment_value', unit='$pay_purse_type', state='Y', paid='N'");
-      
+
     }else{
-      
+
       $modx->db->query("UPDATE $mod_tab_payments SET date=NOW() WHERE id='$payment_no'");
-      
+
     }
-    
+
     //parse chunk
     $chunkArr = array(
       "email_string" => $email_string,
@@ -427,15 +427,15 @@ switch($action){
       $chunk = str_replace('[+'.$key.'+]', $value, $chunk);
     }
     unset($key,$value);
-    
+
     $output = $chunk;
-    
+
   break;
 ####################################################
 # null
 ####################################################
   default:
-    
+
   break;
 }
 
