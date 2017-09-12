@@ -1,11 +1,11 @@
 <?php
 if(!defined('MODX_BASE_PATH')){die('What are you doing? Get out of here!');}
 /***********************************
-* 
+*
 * http://modx-shopkeeper.ru/
 * SHKUserProfile 1.4.4
 * snippet for MODx + Shopkeeper
-* 
+*
 ***********************************/
 
 defined('IN_PARSER_MODE') or die();
@@ -40,7 +40,7 @@ $upconf['additFieldsTpl'] = isset($additFieldsTpl) ? $additFieldsTpl : '@FILE:as
 $upconf['menuTpl'] = isset($menuTpl) ? $menuTpl : '@FILE:assets/snippets/shk_userprofile/tpl/menu.tpl';
 $upconf['subMenuTpl'] = isset($subMenuTpl) ? $subMenuTpl : '@FILE:assets/snippets/shk_userprofile/tpl/subMenu.tpl';
 $upconf['excepDigitGroup'] = isset($excepDigitGroup) ? $excepDigitGroup : true;
-$upconf['oneLevelMenu'] = isset($oneLevelMenu) ? $oneLevelMenu : 'false'; 
+$upconf['oneLevelMenu'] = isset($oneLevelMenu) ? $oneLevelMenu : 'false';
 $upconf['thisPage'] = $modx->makeUrl($modx->documentIdentifier, '', '', 'full');
 $upconf['qs'] = strpos($upconf['thisPage'], "?")===false ? '?' : '&amp;';
 $upconf['display'] = isset($display) && is_numeric($display) ? $display : 10;
@@ -118,12 +118,12 @@ switch($upconf['action']){
 //page - profile
 ///////////////////////////////////////////////////////////
   case "profile":
-    
+
     $error = 0;
     $ph['message'] = '';
-    
+
     if(isset($_POST['email'])){
-      
+
       if(isset($_POST['fullname'])) $fields['fullname'] = $modx->db->escape($_POST['fullname']);
       if(isset($_POST['email'])) $fields['email'] = $modx->db->escape($_POST['email']);
       if(isset($_POST['phone'])) $fields['phone'] = $modx->db->escape($_POST['phone']);
@@ -132,11 +132,14 @@ switch($upconf['action']){
       if(isset($_POST['state'])) $fields['state'] = $modx->db->escape($_POST['state']);
       if(isset($_POST['zip'])) $fields['zip'] = $modx->db->escape($_POST['zip']);
       if(isset($_POST['country'])) $fields['country'] = $modx->db->escape($_POST['country']);
+      if(isset($_POST['state'])) $fields['state'] = $modx->db->escape($_POST['state']);
+      if(isset($_POST['city'])) $fields['city'] = $modx->db->escape($_POST['city']);
+      if(isset($_POST['street'])) $fields['street'] = $modx->db->escape($_POST['street']);
       if(isset($_POST['comment'])) $fields['comment'] = $modx->db->escape($_POST['comment']);
       if(isset($_POST['oldpassword'])) $fields['oldpassword'] = $modx->db->escape($_POST['oldpassword']);
       if(isset($_POST['password'])) $fields['password'] = $modx->db->escape($_POST['password']);
       if(isset($_POST['repassword'])) $fields['repassword'] = $modx->db->escape($_POST['repassword']);
-      
+
       //check for duplicate email address
       if($modx_webuser['email'] != $fields['email']){
         $sql = $modx->db->query("SELECT internalKey FROM ".$dbprefix."web_user_attributes WHERE email='".$fields['email']."'");
@@ -148,10 +151,10 @@ switch($upconf['action']){
           }
         }
       }
-      
+
       //change password
       if(isset($_POST['chpwd']) && !empty($fields['oldpassword']) && !empty($fields['password'])){
-      
+
         if(strlen($fields['password'])<6){
           $ph['message'] .= "<span class=\"errors\">".$langTxt['error_pass_len']."</span><br />\n";
           $error++;
@@ -173,19 +176,19 @@ switch($upconf['action']){
         unset($fields['password']);
         unset($fields['oldpassword']);
         unset($fields['repassword']);
-      
+
       }else{
-        
+
         $ph['success_mess'] .= "<span class=\"success\">".$langTxt['success_chprofile']."</span><br />\n";
-        
+
       }
-      
+
       if(isset($fields['password'])) unset($fields['password']);
       if(isset($fields['oldpassword'])) unset($fields['oldpassword']);
       if(isset($fields['repassword'])) unset($fields['repassword']);
       if(isset($fields['id'])) unset($fields['id']);
       if(isset($fields['internalKey'])) unset($fields['internalKey']);
-      
+
       if($error==0){
         $modx->db->update($fields, $dbprefix."web_user_attributes", "internalKey = '$userId'");
         $modx->invokeEvent("OnWebSaveUser",array("mode" => "upd", "userid" => $userId));
@@ -195,11 +198,11 @@ switch($upconf['action']){
             $modx->sendRedirect($_SERVER['REQUEST_URI'],0,"REDIRECT_HEADER");
         }
       }
-      
+
     }
-    
+
     $chunk = $shk_uprofile->fetchTpl($upconf['profileTpl']);
-    
+
     //run plugin
     $plugin = '';
     $evtOut = $modx->invokeEvent('OnWUsrFormRender',array('id'=>$userId,'tpl'=>$shk_uprofile->fetchTpl($upconf['additFieldsTpl']),'hide_fields'=>$upconf['additFieldsHide']));
@@ -211,15 +214,15 @@ switch($upconf['action']){
       $chunk = str_replace("[+".$key."+]", $value, $chunk);
     }
     unset($key,$value);
-    
+
     $output .= $chunk;
-    
+
   break;
 ///////////////////////////////////////////////////////////
 //logout
 ///////////////////////////////////////////////////////////
   case "logout":
-    
+
     if(isset($_SESSION['mgrValidated'])) {
       unset($_SESSION['webShortname']);
       unset($_SESSION['webFullname']);
@@ -241,47 +244,47 @@ switch($upconf['action']){
       session_destroy();
     }
     $modx->sendRedirect($site_url,0,'REDIRECT_REFRESH');
-    
+
   break;
 ///////////////////////////////////////////////////////////
 //discounts
 ///////////////////////////////////////////////////////////
   case "discounts":
-     
+
      $output .= "[+up_menu+]";
-     
+
   break;
 ///////////////////////////////////////////////////////////
 //page - orders
 ///////////////////////////////////////////////////////////
   default:
-    
+
     $title = empty($upconf['action']) || $upconf['action']=='curorders' ? $langTxt['curorders'] : $langTxt[$upconf['action']];
-    
+
     //order description
     if(isset($_GET[$upconf['id_prefix'].'pid'])){
-      
+
       //cancel order
       if(isset($_POST['shk_del'])){
         $modx->db->update(array('status'=>5), $mod_table, "id = ".$modx->db->escape($_POST['pid'])." AND userid = '$userId'");
       }
-      
+
       //refresh order
       if(isset($_POST['shk_refresh'])){
           $orderId = $modx->db->escape($_POST['pid']);
           $new_orderid = $shk_uprofile->refreshOrder($orderId,$userId);
           if($new_orderid!==false) $modx->sendRedirect($upconf['thisPage'].$upconf['qs'].$upconf['id_prefix']."act=purchase&".$upconf['id_prefix']."pid=".$new_orderid,0,"REDIRECT_HEADER");
       }
-      
+
       $output .= $shk_uprofile->showOrderDesc((int)$_GET[$upconf['id_prefix'].'pid'],$userId);
-    
+
     //order list
     }else{
-      
+
       $chunk = preg_split('/(\[\+loop\+\]|\[\+end_loop\+\])/s',$shk_uprofile->fetchTpl($upconf['ordersListTpl']));
       $list_chunk = $chunk[1];
       $output_list = '';
-      
+
       $status_list = $upconf['action']=='archorders' ? '4,5' : '1,2,3,6';
       $total = $modx->db->getValue($modx->db->select("COUNT(*)",$mod_table,"userid = '$userId' AND status in($status_list)"));
 
@@ -316,9 +319,9 @@ switch($upconf['action']){
       ));
       $output .= $shk_uprofile->phx->Parse($chunk[0].'[+list+]'.$chunk[2]);
       $output = $shk_uprofile->cleanPHx($output);
-      
+
     }
-    
+
   break;
 }
 
