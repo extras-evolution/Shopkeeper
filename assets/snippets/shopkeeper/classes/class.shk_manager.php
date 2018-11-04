@@ -527,16 +527,8 @@ class SHKmanager extends Shopkeeper {
      * @param string $body
      */
     function sendMail($subject,$email,$body){
-        $charset = $this->modx->config['modx_charset'];
-        $site_name = $this->modx->config['site_name'];
-        $adminEmail = $this->modx->config['emailsender'];
-        require_once(MODX_MANAGER_PATH . "includes/controls/class.phpmailer.php");
-        $mail = new PHPMailer();
-        $mail->IsMail();
-        $mail->IsHTML(true);
-        $mail->CharSet = $charset;
-        $mail->From	= $adminEmail;
-        $mail->FromName	= $site_name;
+        $this->modx->loadExtension('MODxMailer');
+        $mail = $this->modx->mail;
         $mail->Subject	= $subject;
         $mail->Body	= $body;
         $mail->AddAddress($email);
