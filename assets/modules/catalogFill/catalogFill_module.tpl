@@ -4,7 +4,7 @@
  * Import/export products to catalog from CSV/XLS/XLSX
  *  
  * @category	   module
- * @version 	   1.3.5
+ * @version 	   1.3.9
  * @license 	   
  * @internal	   @properties	 
  * @internal	   @guid 	
