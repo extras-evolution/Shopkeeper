@@ -342,7 +342,7 @@ function groupInsertToDB($insertArr){
                 if($this->config['imp_upd_parent']==false) unset($val['content']['parent']);
                 $contentArr = array_merge($this->config['imp_content_default']['content'],$val['content']);
                 foreach($contentArr as $k => $v){
-                    // KANBY обновлять alias у существующих товаров?
+                    // обновлять alias у существующих товаров?
                     if ($k == 'alias' && $this->config['imp_upd_alias']==false) continue;
                     $updateContentStr .= " `$k` = '$v',";
                 }
