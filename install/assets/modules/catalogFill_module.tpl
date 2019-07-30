@@ -16,4 +16,3 @@
 
 
 require MODX_BASE_PATH."assets/modules/catalogFill/catalog_fill.inc.php";
-

@@ -26,7 +26,7 @@ $output = "";
 
 if ($e->name == 'OnSHKmodRenderTopLinks') {
   
-  $output .= '<li><a href="'.$mod_page.'&amp;action=plugin&amp;pname=orderstat"><img src="../assets/plugins/shk_orderstat/img/chart-pie-separate.png"> '.$mod_name.'</a></li>';
+  $output .= '<li><a href="'.$mod_page.'&amp;action=plugin&amp;pname=orderstat"><i class="fa fa-pie-chart"></i> '.$mod_name.'</a></li>';
 
 }
 

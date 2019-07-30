@@ -1,4 +1,3 @@
-
 Модуль "Импорт/экспорт товаров" для MODx Evolution
 
 Сделано для Shopkeeper (http://modx-shopkeeper.ru)
@@ -118,4 +117,3 @@ php_value upload_max_filesize 15M
 php_value post_max_size 15M
 php_value max_input_time 1200
 php_value max_execution_time 1200
-

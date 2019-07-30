@@ -16,7 +16,6 @@
 
 defined('IN_MANAGER_MODE') or die();
 
-$print_icon = SHOPKEEPER_PATH.'/style/default/img/print.png'; //Иконка
 if(!isset($print_text)) $print_text = 'Печать'; //Текст кнопки 
 if(!isset($tpl_path)) $tpl_path = 'assets/plugins/SHKprintOrder/chunks/'; //Папка с шаблонами
 if(!isset($print_tpl)) $print_tpl = '@FILE:printOrder.tpl'; //Шаблон (чанк)
@@ -44,7 +43,7 @@ if ($e->name == 'OnSHKOrderDescRender'){
   $shkm->config['tplPath'] = $tpl_path;
   
   //Кнопка печати
-  $output .= '<li><a href="#print" onclick="window.location.href=window.location.pathname+\'?a=112&id='.$_GET['id'].'&action=show_descr&item_id='.$_GET['item_id'].'&print=1\';return false;"><img src="'.$print_icon.'" alt="">&nbsp; '.$print_text.'</a></li>';
+  $output .= '<li><a href="#print" onclick="window.location.href=window.location.pathname+\'?a=112&id='.$_GET['id'].'&action=show_descr&item_id='.$_GET['item_id'].'&print=1\';return false;"><i class="fa fa-print" ></i>&nbsp; '.$print_text.'</a></li>';
   
   //Выводим страницу для печати в новом окне
   if(isset($_GET['item_id']) && isset($_GET['print']) && $_GET['print']==1){

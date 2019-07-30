@@ -41,7 +41,7 @@ class SHKmanager extends Shopkeeper {
         $sql[] = "CREATE TABLE IF NOT EXISTS `$this->mod_user_table` (`id` int(11) NOT NULL AUTO_INCREMENT, `webuser` INT(11) NOT NULL, `setting_name` VARCHAR(50) NOT NULL default '', `setting_value` TEXT, PRIMARY KEY (`id`));";
         $sql[] = "CREATE TABLE IF NOT EXISTS `$this->mod_catalog_table` (`id` int(10) NOT NULL AUTO_INCREMENT, `pagetitle` varchar(255) NOT NULL DEFAULT '', `alias` varchar(255) DEFAULT '', `published` int(1) NOT NULL DEFAULT '0', `parent` int(10) NOT NULL DEFAULT '0', `isfolder` int(1) NOT NULL DEFAULT '0', `introtext` text, `content` text, `template` int(10) NOT NULL DEFAULT '1', `menuindex` int(10) NOT NULL DEFAULT '0', `createdon` int(20) NOT NULL DEFAULT '0', `hidemenu` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`), KEY `id` (`id`), KEY `parent` (`parent`));";
         $sql[] = "CREATE TABLE IF NOT EXISTS `$this->mod_catalog_tv_table` (`id` int(11) NOT NULL AUTO_INCREMENT, `tmplvarid` int(10) NOT NULL DEFAULT '0' COMMENT 'Template Variable id', `contentid` int(10) NOT NULL DEFAULT '0' COMMENT 'Site Content Id', `value` text, PRIMARY KEY (`id`), KEY `idx_tmplvarid` (`tmplvarid`), KEY `idx_id` (`contentid`));";
-        $sql[] = "INSERT INTO `$this->mod_config_table` VALUES (NULL, 'conf_template', 'Ф.И.О.: [+name+]<br />\r\nадрес: [+address+]<br />\r\nадрес эл. почты: [+email+]<br />\r\nтелефон: [+phone+]<br />\r\nспособ доставки [+delivery+]<br />\r\nспособ оплаты: [+payment+]');";
+        $sql[] = "INSERT INTO `$this->mod_config_table` VALUES (NULL, 'conf_template', '<div class=\"wrapper-contacts-row\"><span class=\"config-caption-name\">Ф.И.О.: </span>[+name+]<br /></div><div class=\"wrapper-contacts-row\"><span class=\"config-caption-name\">Адрес:</span> [+address+]<br /></div><div class=\"wrapper-contacts-row\"><span class=\"config-caption-name\">Адрес эл. почты:</span> [+email+]<br /></div><div class=\"wrapper-contacts-row\"><span class=\"config-caption-name\">Телефон:</span> [+phone+]<br /></div><div class=\"wrapper-contacts-row\"><span class=\"config-caption-name\">Способ доставки</span> [+delivery+]<br /></div><div class=\"wrapper-contacts-row\"><span class=\"config-caption-name\">Способ оплаты:</span> [+payment+]</div>');";
         $sql[] = "INSERT INTO `$this->mod_config_table` VALUES (NULL, 'conf_small_template', '[+name+], [+address+], [+email+], [+phone+], [+delivery+], [+payment+]');";
         $sql[] = "INSERT INTO `$this->mod_config_table` VALUES (NULL, 'conf_currency', 'руб.');";
         $sql[] = "INSERT INTO `$this->mod_config_table` VALUES (NULL, 'conf_perpage', '20');";
@@ -527,16 +527,8 @@ class SHKmanager extends Shopkeeper {
      * @param string $body
      */
     function sendMail($subject,$email,$body){
-        $charset = $this->modx->config['modx_charset'];
-        $site_name = $this->modx->config['site_name'];
-        $adminEmail = $this->modx->config['emailsender'];
-        require_once(MODX_MANAGER_PATH . "includes/controls/class.phpmailer.php");
-        $mail = new PHPMailer();
-        $mail->IsMail();
-        $mail->IsHTML(true);
-        $mail->CharSet = $charset;
-        $mail->From	= $adminEmail;
-        $mail->FromName	= $site_name;
+        $this->modx->loadExtension('MODxMailer');
+        $mail = $this->modx->mail;
         $mail->Subject	= $subject;
         $mail->Body	= $body;
         $mail->AddAddress($email);
@@ -665,7 +657,7 @@ class SHKmanager extends Shopkeeper {
     function renderButtons($array,$plugin=''){
         $output = '<ul class="actionButtons">'."\n".$plugin;
         foreach($array as $val){
-            $output .= '<li><a href="'.$this->mod_page.'&action='.$val[2].'">'.($val[1] ? '<img src="'.$val[1].'">&nbsp; ' : '').$val[0].'</a></li>';
+            $output .= '<li><a href="'.$this->mod_page.'&action='.$val[2].'">'.($val[1] ? $val[1].'&nbsp; ' : '').$val[0].'</a></li>';
         }
         return $output."\n</ul>";
     }
