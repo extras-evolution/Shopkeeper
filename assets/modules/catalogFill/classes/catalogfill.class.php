@@ -326,8 +326,7 @@ function groupInsertToDB($insertArr){
                 $select_q = "
                     SELECT sc.id FROM ".$this->config['content_table']." sc
                     LEFT JOIN ".$this->config['tmplvar_content_table']." tvc ON sc.id = tvc.contentid
-                    WHERE sc.parent = '".$val['content']['parent']."'
-                    AND tvc.tmplvarid = '".$this->config['imp_chk_tvid_val']."'
+                    WHERE tvc.tmplvarid = '".$this->config['imp_chk_tvid_val']."'
                     AND tvc.value = '".$tvArr[$this->config['imp_chk_tvid_val']]."'
                 ";
                 $upd_id = $this->modx->db->getValue($this->modx->db->query($select_q));
@@ -339,8 +338,12 @@ function groupInsertToDB($insertArr){
                 
                 $updateContentStr = "UPDATE ".$this->config['content_table']." SET";
                 if($this->config['imp_chk_field']=='id') unset($val['content']['id']);
+                // оставлять товар в текущей категории?
+                if($this->config['imp_upd_parent']==false) unset($val['content']['parent']);
                 $contentArr = array_merge($this->config['imp_content_default']['content'],$val['content']);
                 foreach($contentArr as $k => $v){
+                    // KANBY обновлять alias у существующих товаров?
+                    if ($k == 'alias' && $this->config['imp_upd_alias']==false) continue;
                     $updateContentStr .= " `$k` = '$v',";
                 }
                 unset($k,$v);
