@@ -61,6 +61,12 @@ $cf_config['exp_csv_charset'] = 'UTF-8'; //'windows-1251'
 //тестирование конфигурации (без записи в БД)
 $cf_config['imp_testmode'] = false;
 
+// обновлять (alias) у существующих товаров
+$cf_config['imp_upd_alias'] = false;
+
+// обновлять категории (parent) у существующих товаров
+$cf_config['imp_upd_parent'] = true;
+
 
 //функция для фильтрации значений при ИМПОРТЕ
 function filter_import($value_arr){
