@@ -4,7 +4,7 @@
  * Order management
  *  
  * @category	   module
- * @version 	   1.3.6RC
+ * @version 	   1.3.7RC
  * @license 	   http://www.gnu.org/copyleft/gpl.html GNU Public License (GPL)
  * @internal	   @properties	 
  * @internal	   @guid fdererf452456refrewfg
