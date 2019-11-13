@@ -300,7 +300,7 @@ class Shopkeeper {
     * @return int
     */
     function checkIntersect($newArrayP,$newArrayA){
-        $curSavedP = unserialize($_SESSION['purchases']);
+        $curSavedP  = !empty($_SESSION['purchases']) ? unserialize($_SESSION['purchases']) : array();
         $curSavedA = !empty($_SESSION['addit_params']) ? unserialize($_SESSION['addit_params']) : false;
         $output = false;
         for($i=0;$i<count($curSavedP);$i++){
